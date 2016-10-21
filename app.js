@@ -6,8 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('dotenv').config();
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+//REQUIRE ROUTES HERE//
+var index  = require('./routes/index');
+var search = require('./routes/search');
+var place  = require('./routes/place');
+var headout= require('./routes/headout');
 
 var app = express();
 
@@ -27,8 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('less-middleware')(path.join(__dirname, 'bower_components')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-app.use('/', routes);
-app.use('/users', users);
+//ADD ROUTE HANDLER HERE//
+app.use('/', index);
+app.use('/search', search);
+app.use('/place', place);
+app.use('/headout', headout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
