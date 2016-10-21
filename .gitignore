@@ -1,0 +1,14 @@
+#node modules
+node_modules/
+
+.env
+
+#Other random directories
+.idea/
+.tmp/
+
+lib-cov
+*.seed
+*.pid
+npm-debug.log
+.DS_STORE
