@@ -7,6 +7,9 @@ node_modules/
 .idea/
 .tmp/
 
+#We dont need .css to be transfered
+/public/stylesheets/*.css
+
 lib-cov
 *.seed
 *.pid
