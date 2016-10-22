@@ -4,8 +4,12 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/',function(req,res,next){
+//Search is made
+router.post('/',function(req,res,next){
+    var String = encodeURIComponent(req.body.query);
     res.render('resultlist',{title:'now I am here'});
 });
+
+
 
 module.exports = router;
