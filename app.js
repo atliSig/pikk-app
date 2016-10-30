@@ -26,9 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-//added for bower component reference from pug
-app.use(require('less-middleware')(path.join(__dirname, 'bower_components')));
-app.use(express.static(path.join(__dirname, 'bower_components')));
+//added for npm component reference from pug
+app.use(require('less-middleware')(path.join(__dirname, 'node_modules')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);

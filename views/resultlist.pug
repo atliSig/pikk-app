@@ -2,4 +2,5 @@ extends layout
 
 block content
     h1=title
-    a(href="../place") Texti
+    each res in results
+        h1= res.address
