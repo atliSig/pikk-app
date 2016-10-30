@@ -1,21 +1,26 @@
-//
-   Created by peturhelgi on 10/21/16.
+extends layout
 
-.container-fluid#wrapper
-    .row.pikk-wrapper
-        .col-md-6
-            H1.pikk-title= "Pikk:" + jaObject.first_name
-            H3= jaObject.occupation
-            H3= jaObject.postal_station
-            a(href= jaObject.url)= jaObject.url
-        .col-md-6.pikk-banner
-            img.img-banner(src= jaObject.brand_banner_path, alt="banner for company")
-    .row.content-wrapper
-         .col-md-3.friend-list
-             .container-fluid
-                 .row
-                     .friend-wrapper.col-md-12
-                         .col-md-2
-                             .img.user-icon(src="images/user-icon.svg", alt="icon")
-                         .col-md-10
-                             p Matthias Karl Karlsson
+block links
+    link(href="/stylesheets/headoutstyles.css", rel='stylesheet')
+
+block content
+    .container-fluid#wrapper
+        .row.pikk-wrapper
+            .col-md-6
+                H1.pikk-title= "Pikk:" + jaObject.first_name
+                H3= jaObject.occupation
+                H3= jaObject.postal_station
+                a(href= jaObject.url)= jaObject.url
+            .col-md-6.pikk-banner
+                img.img-banner(src= jaObject.brand_banner_path, alt="banner for company")
+        .row.content-wrapper
+             .col-md-3.friend-list
+                 .container-fluid
+                     .row
+                         .friend-wrapper.col-md-12
+                             .col-md-2
+                                 .img.user-icon(src="images/user-icon.svg", alt="icon")
+                             .col-md-10
+                                 p Matthias Karl Karlsson
+
+block scripts
