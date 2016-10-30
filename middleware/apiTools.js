@@ -5,7 +5,7 @@ var https = require('https');
 var url = require('url');
 
 urlPrepper = function(theUrl){
-    var query = url.parse(theUrl,true).query.query; //wtf tho
+    var query = encodeURI(url.parse(theUrl,true).query.query); //wtf tho
     return "https://api.ja.is/search?q="+query+"&access_code="+process.env.SEARCH_KEY;
 };
 
