@@ -14,13 +14,39 @@ block content
             .col-md-6.pikk-banner
                 img.img-banner(src= jaObject.brand_banner_path, alt="banner for company")
         .row.content-wrapper
-             .col-md-3.friend-list
+            - var n = 20
+            while n > 0
+                - n--
+                .friend-wrapper.col-md-2
+                    p Matthias Karl Karlsson
+
+            //.col-md-9.map-wrapper
+              //  #map
+            //.col-md-3.friend-list
                  .container-fluid
-                     .row
-                         .friend-wrapper.col-md-12
-                             .col-md-2
-                                 .img.user-icon(src="images/user-icon.svg", alt="icon")
-                             .col-md-10
-                                 p Matthias Karl Karlsson
+                     - var n = 20
+                     while n > 0
+                         a= n --
+                         .row
+                             .friend-wrapper.col-md-12
+                                 .col-md-2
+                                     .img.user-icon(src="images/user-icon.svg", alt="icon")
+                                 .col-md-10
+                                     p Matthias Karl Karlsson
 
 block scripts
+    //script(src="javascript/maps.js")
+    script.
+        function initMap() {
+            var name = "#{jaObject.first_name}";
+            var lat = parseFloat("#{jaObject.coordinates.lat}");
+            var lon = parseFloat("#{jaObject.coordinates.lon}");
+            var position = {
+                lat: lat,
+                lng: lon
+            };
+            var map = new google.maps.Map(document.getElementById('map'), { center: position, zoom: 15 });
+            //map.setOptions({draggable: true, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
+            var marker = new google.maps.Marker({position: position, map:map, title: name});
+        }
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Iw7mFjgBj_uHySWkAhMLNcQisIuRmBc&callback=initMap", async, defer)
