@@ -9,5 +9,13 @@ block content
                 .card-block
                     h4.card-title= res.name
                     p.card-text= res.address_nominative
-                    a(href="../place/"+res.first_name).btn.btn-secondary Velja
+                ul.list-group.list-group-flush
+                    if res.is_open == false
+                        li.list-group-item.is_closed Lokað
+                    else
+                        li.list-group-item.is_open Opið
+                    li.list-group-item.choose_item
+                        a(href="../place/" + res.first_name).choose_button Velja
+
+
 
