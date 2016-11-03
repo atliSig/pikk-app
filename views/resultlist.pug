@@ -1,13 +1,13 @@
 extends layout
 
 block content
-    div.card-columns
+    .card-columns
         each res in results
-            div.card
+            .card
                 if res.coordinates
                     img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
-                div.card-block
+                .card-block
                     h4.card-title= res.name
-                    p.card-text= address_nominative
-                    a(href="#").btn.btn-secondary Velja
+                    p.card-text= res.address_nominative
+                    a(href="../place/"+res.first_name).btn.btn-secondary Velja
 
