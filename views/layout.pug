@@ -8,6 +8,8 @@ html(lang="en")
         link(rel='icon', type='image/png', href='images/pikk-avatar.png')
         link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
         link(href="/stylesheets/style.css", rel='stylesheet')
+        link(rel='stylesheet', type='text/css', href='slick/slick.css')
+        link(rel='stylesheet', type='text/css', href='slick/slick-theme.css')
         block links
     body
         nav.navbar.navbar-light.bg-faded
@@ -36,6 +38,8 @@ html(lang="en")
                 .col-lg-8
                     block content
                 .col-lg-2
+        script(src="/tether/dist/js/tether.min.js")
         script(src="/jquery/dist/jquery.min.js")
         script(src="/bootstrap/dist/js/bootstrap.min.js")
+        script(type='text/javascript', src='slick/slick.min.js')
         block scripts
