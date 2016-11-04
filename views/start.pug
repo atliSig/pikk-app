@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    .row
+        .col-md-12
+            i.fa.fa-star.fa-5x
+    .row
+        .btn-group.btn-group-lg(role='group', aria-label='First group')
+            button.btn.btn-secondary(type='button') 1
+            button.btn.btn-secondary(type='button') 2
+            button.btn.btn-secondary(type='button') 3
+            button.btn.btn-secondary(type='button') 4
+            button.btn.btn-secondary(type='button') 5
+            .btn-group.btn-group-lg(role='group')
+                button.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                    | Annað
+                .dropdown-menu(aria-labelledby='')
+                    a.dropdown-item(href='#') Mér er sama
+                    a.dropdown-item(href='#') Þetta skiptir mig máli
+    .row
+        progress.progress(value='100', max='100', aria-describedby='example-caption-5')
+
+        .card.card-block
+            .card-header Stjörnur
+            h3.card-title
+                i.card-title.fa.fa-star.fa-5x
+            p.card-text Hvad viltu margar stjornur?
+            .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group')
+                button.btn.btn-secondary(type='button') 1
+                button.btn.btn-secondary(type='button') 2
+                button.btn.btn-secondary(type='button') 3
+                button.btn.btn-secondary(type='button') 4
+                button.btn.btn-secondary(type='button') 5
+                .btn-group.btn-group-lg(role='group')
+                    button.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | Annað
+                    .dropdown-menu(aria-labelledby='')
+                        a.dropdown-item(href='#') Mér er sama
+                        a.dropdown-item(href='#') Þetta skiptir mig máli
