@@ -7,7 +7,7 @@ var url = require('url');
 urlPrepper = function(theUrl,type){
     var query;
     if(type){
-        query = encodeURI(theUrl.substr(7));
+        query = encodeURI(theUrl.substr(7)); // 'search/'.length == 7
         console.log(query);
     }else{
         query = encodeURI(url.parse(theUrl,true).query.query);
@@ -36,6 +36,6 @@ exports.callAPI = function(req,res,next){
         response.on('end', function () {
             req.search_result = JSON.parse(str).yellow.items;
             next();
-        })
+        });
     });
 };

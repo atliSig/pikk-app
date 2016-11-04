@@ -1,0 +1,22 @@
+extends layout2
+
+
+block content
+    .full-map
+        #map
+
+
+block scripts
+    script.
+        function initMap() {
+            var name = "#{query.name}";
+            var lat = parseFloat("#{query.lat}");
+            var lon = parseFloat("#{query.lon}");
+            var position = {
+                lat: lat,
+                lng: lon
+            };
+            var map = new google.maps.Map(document.getElementById('map'), { center: position, zoom: 15 });
+            var marker = new google.maps.Marker({position: position, map:map, title: name});
+        }
+    script(src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Iw7mFjgBj_uHySWkAhMLNcQisIuRmBc&callback=initMap", async, defer)

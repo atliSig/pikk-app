@@ -9,12 +9,16 @@ block content
             .container-fluid
                 .row
                     .col-lg-12
-                        H1.pikk-title= "Pikk:" + jaObject.first_name
+                        H1.pikk-title= "Pikk: " + jaObject.first_name
                 .row
                     .col-lg-6
                         H3= jaObject.occupation
                         H3= jaObject.postal_station
                         a(href= jaObject.url)= jaObject.url
+                        if jaObject.is_open == true
+                            p.is_open Opið
+                        else
+                            p.is_closed Lokað
                     .col-lg-6
                         img.img-banner(src= jaObject.coordinates.ja360_image_url, alt="banner for company")
         //.row
@@ -24,7 +28,8 @@ block content
             .card
                 .card-block
                     .map-wrapper
-                        #map
+                        #map(lat=jaObject.coordinates.lat, lon=jaObject.coordinates.lon, name = jaObject.first_name)
+
         .card-columns
             each person in [{name: 'Matthías Karl Karlsson', phone: '8480160'},{name: 'Atli Thor Sigurgeirsson', phone:'8218722'}, {name: 'James White', phone:'?'},{name: 'Ágúst Pálsson', phone: '8696020'}, {name:'Pétur Helgi Einarsson', phone:'8666315'}]
                     .card
