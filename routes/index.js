@@ -3,6 +3,7 @@ var router = express.Router();
 var pikkJson = require('../config/pikk.json');
 var apiTools = require('../middleware/apiTools');
 var validateTools = require('../middleware/validateTools');
+var pikkTools= require('../middleware/pikkTools');
 var querystring = require('querystring');
 
 //------------ROUTING FOR INDEX------------//
@@ -27,10 +28,10 @@ router.get('/place/*', apiTools.showPlace, getPlace);
 
 
 //------------ROUTING FOR HEADOUT------------//
-router.use('/headout', validateTools.pikkForm, getHeadout);
+router.use('/headout', validateTools.pikkForm, pikkTools.findPlaces, apiTools.pikkCall ,getHeadout);
 
 function getHeadout(req,res,next){
-    var pikk = pikkJson.yellow.items[0];
+    var pikk = req.pikk_result[0];
     var key = process.env.AUTHKEY || '';
     res.render('headout', {title: 'Le Pikk', jaObject: pikk});
 }
