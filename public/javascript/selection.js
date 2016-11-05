@@ -12,5 +12,13 @@ $(document).ready(function() {
     $(".dropdown-menu>button.dropdown-item").on("click",function(){
         var key=this.parentNode.id;
         selection[key]=this.value;
-    })
+    });
+
+    $("#start-pikk-button").on('click',function() {
+        var input = $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "pikkParam").val(JSON.stringify(selection));
+        $("#start-pikk-form").append($(input));
+        console.log(JSON.stringify(selection));
+    });
 });

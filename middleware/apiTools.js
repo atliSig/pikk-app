@@ -26,7 +26,8 @@ exports.showPlace = function(req,res,next){
             next();
         })
     });
-}
+};
+
 exports.callAPI = function(req,res,next){
     var str='';
     https.get(urlPrepper(req.url,0),function(response) {
