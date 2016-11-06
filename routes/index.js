@@ -22,10 +22,9 @@ function getSearch(req,res,next){
 }
 
 //------------ROUTING FOR PLACE------------//
-router.get('/place/', apiTools.showPlace, getPlace);
+router.get('/place/:placeId', apiTools.showPlace, getPlace);
 
 function getPlace(req,res,next) {
-    console.log(req.search_result[0]);
     res.render('place',{place: req.search_result[0]});
 }
 

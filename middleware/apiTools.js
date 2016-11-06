@@ -23,8 +23,7 @@ exports.doSearch = function(req,res,next){
 };
 
 exports.showPlace = function(req,res,next){
-    console.log(req.query.id);
-    apiConnector('nameid:'+req.query.id,req,res,next);
+    apiConnector('nameid:'+req.params.placeId,req,res,next);
 };
 
 //FIIX LATER
