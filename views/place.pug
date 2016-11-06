@@ -7,3 +7,22 @@ block content
         if(place.slogan)
             h2=place.slogan
 
+    div.place-info
+        div.info-item
+            i.fa.fa-camera-retro.fa-2x.info-icon
+            h2.info-header=place.address
+        div.info-item
+            h2=place.postal_station_nominative
+        div.info-item
+            if(!place.phone.banned)
+                h2=place.phone.pretty
+        div.info-item
+            h2=place.facebook_link
+        div.info-item
+            h2=place.twitter_link
+        div.info-item
+            h2=place.email
+        div.info-item
+            a(href=place.url)=place.url_pretty
+        div.info-item
+            h2=place.hours

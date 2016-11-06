@@ -18,6 +18,7 @@ router.get('/', function(req, res, next) {
 router.get('/search', apiTools.doSearch, getSearch);
 
 function getSearch(req,res,next){
+    console.log(req.search_result)
     res.render('resultlist',{results: req.search_result});
 }
 
