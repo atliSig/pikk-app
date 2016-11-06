@@ -15,19 +15,19 @@ router.get('/', function(req, res, next) {
 });
 
 //------------ROUTING FOR SEARCH------------//
-router.get('/search', apiTools.callAPI, getSearch);
+router.get('/search', apiTools.doSearch, getSearch);
 
 function getSearch(req,res,next){
     res.render('resultlist',{results: req.search_result});
 }
 
 //------------ROUTING FOR PLACE------------//
-router.get('/place/*', apiTools.showPlace, getPlace);
+router.get('/place/', apiTools.showPlace, getPlace);
 
 function getPlace(req,res,next) {
-  res.render('place',{place: req.place_result});
+    console.log(req.search_result[0]);
+    res.render('place',{place: req.search_result[0]});
 }
-
 
 //------------ROUTING FOR HEADOUT------------//
 router.use('/headout', validateTools.pikkForm, pikkTools.findPlaces, apiTools.pikkCall ,getHeadout);
@@ -37,7 +37,6 @@ function getHeadout(req,res,next){
     var key = process.env.AUTHKEY || '';
     res.render('headout', {title: 'Le Pikk', jaObject: pikk});
 }
-
 
 //------------ROUTING FOR START------------//
 router.get('/start',pikkTools.createForm,getStart);
@@ -53,7 +52,5 @@ router.get('/map/*', function (req, res, next){
   var query = (querystring.parse(q));
   res.render('map', {query: query});
 });
-
-
 
 module.exports = router;
