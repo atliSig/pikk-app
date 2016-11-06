@@ -19,7 +19,7 @@ apiConnector = function(query,req,res,next){
 };
 
 exports.doSearch = function(req,res,next){
-   apiConnector(req.query.query,req,res,next);
+   apiConnector(encodeURIComponent(req.query.query),req,res,next);
 };
 
 exports.showPlace = function(req,res,next){
@@ -27,7 +27,7 @@ exports.showPlace = function(req,res,next){
     apiConnector('nameid:'+req.query.id,req,res,next);
 };
 
-//FIX LATER
+//FIIX LATER
 exports.pikkCall = function(req,res,next){
     var str='';
     https.get(urlPrepper(req.bestFit,2),function(response) {
