@@ -14,11 +14,6 @@ body{
 
 }
 
-.btn-index:hover, .btn-signup:hover{
-  color: white !important;
-  background-color: #f44336 !important;
-}
-
 main {
   height:100%;
 }
@@ -73,6 +68,13 @@ main {
   color: #f44336 !important;
 }
 
+.img-logo{
+    border: 0;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
 /*Styling the main banner on the front page*/
 .main-banner{
   text-align: center;
@@ -123,4 +125,27 @@ footer{
 
 .slick-dots{
   position: static !important;
+}
+
+/* Signup Styles */
+.signup{
+  margin-top: 5%;
+}
+
+.btn-signup{
+  background-color: #f44336;
+  color: white;
+  transition: color ease 0.2s;
+  transition: background-color ease 0.2s;
+  width: 25%;
+}
+
+.btn-signup:hover{
+  background-color: white;
+  color: #f44336;
+  border: 2px solid #f44336;
+}
+
+.form-control{
+  width: 50%;
 }
