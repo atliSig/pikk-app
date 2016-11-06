@@ -30,7 +30,7 @@ function getPlace(req,res,next) {
 }
 
 //------------ROUTING FOR HEADOUT------------//
-router.use('/headout', validateTools.pikkForm, pikkTools.findPlaces, apiTools.pikkCall ,getHeadout);
+router.use('/headout', validateTools.pikkForm, pikkTools.findPlaces, apiTools.pikkCall, getHeadout);
 
 function getHeadout(req,res,next){
     var pikk = req.pikk_result[0];

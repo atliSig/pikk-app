@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var compression = require('compression');
 require('dotenv').config();
 
 //REQUIRE ROUTES HERE//
@@ -11,7 +12,7 @@ var index  = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
+app.use(compression());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -33,7 +34,8 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);
-app.use('/signup', users);
+// app.use('/signup', users);
+app.use('/u', users);
 
 
 // catch 404 and forward to error handler

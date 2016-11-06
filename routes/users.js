@@ -3,28 +3,39 @@
 var express = require('express');
 var router = express.Router();
 var session = require('session');
-
 var users = require('../lib/users');
+var auth = require('../lib/auth');
 
-function redirect_if_logged_in(req, res, next){
-    if(session.user){
-        //res.redirect('index');
-    }
-    next();
-}
-router.get('/', redirect_if_logged_in, function(req, res, next) {
+
+router.get('/signup', redirect_if_logged_in, function(req, res, next) {
     res.render('signup', {title: 'Sign up on Pikk'});
 });
 
-router.post('/', handle_signup, function(req, res, next) {
+router.post('/signup', handle_signup, function(req, res, next) {
     users.finduser(function(err, all) {
         res.render('signup', {
             users: all
         });
     });
-
 });
 
+router.get('/:username', auth.ensure_logged_in, get_user_profile);
+
+
+//------HANDLERS-------//
+function get_user_profile(req, res, next){
+    var page_owner = req.params.username;
+    users.finduser(page_owner, function(err, all){
+        if(!err || all.length != 0) {
+            var owner = all[0]
+            res.render('userprofile', {
+                title: page_owner + "'s profile",
+                owner: owner
+            });
+        }
+        else res.error("There was an error. User \""+page_owner+"\" was not found" );
+    })
+}
 
 function handle_signup(req, res, next){
     var username = req.body.username;
@@ -41,10 +52,13 @@ function handle_signup(req, res, next){
             });
         }
     });
-    console.log(username);
-    // users.finduser(function(err, all){
-    //     console.log(all);
-    // })
+    next();
+}
+
+function redirect_if_logged_in(req, res, next){
+    if(session.user){
+        res.redirect('/');
+    }
     next();
 }
 

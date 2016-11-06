@@ -13,14 +13,14 @@ mixin questionCard(title,icon,groupId,subGroupId,mainVals,valIcons,text)
             i.card-title.fa(class!=icon)
         .card-block
             p.card-text=text
-            .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group' id!=groupId)
+            .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group', id!=groupId)
                 each val, index in mainVals
                     button.btn.btn-secondary(type='button' value=index+1)=val
                         i.fa(class!=valIcons[index])
                 .btn-group.btn-group-lg(role='group')
                     a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                         | Annað
-                    .dropdown-menu(aria-labelledby='' id!=subGroupId)
+                    .dropdown-menu(aria-labelledby='', id!=subGroupId)
                         button.dropdown-item(value=1) Mér er sama
                         button.dropdown-item(value=2) Þetta skiptir mig máli
 

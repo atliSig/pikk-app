@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    if owner
+        h1= 'Notandi ' + owner.username
+        h2= 'Nafn: ' + owner.first_name + ' '+owner.last_name
+        h3= 'Simi: ' + owner.phone
+        h3= 'Email: ' + owner.email
+        h3= 'Pikk Nikk: ' + owner.nikk
+    else
+        h1 Notandi fannst ekki
+        a(href="/") Smelltu her til ad fara heim
