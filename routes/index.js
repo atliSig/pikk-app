@@ -32,9 +32,8 @@ function getPlace(req,res,next) {
 router.use('/headout', validateTools.pikkForm, pikkTools.findPlaces, apiTools.pikkCall, getHeadout);
 
 function getHeadout(req,res,next){
-    var pikk = req.pikk_result[0];
     var key = process.env.AUTHKEY || '';
-    res.render('headout', {title: 'Le Pikk', jaObject: pikk});
+    res.render('headout', {title: 'Le Pikk', jaObject: req.search_result[0]});
 }
 
 //------------ROUTING FOR START------------//

@@ -28,15 +28,6 @@ exports.showPlace = function(req,res,next){
 
 //FIIX LATER
 exports.pikkCall = function(req,res,next){
-    var str='';
-    https.get(urlPrepper(req.bestFit,2),function(response) {
-        response.on('data', function (chunk) {
-            str += chunk;
-        });
-        response.on('end', function () {
-            req.pikk_result = JSON.parse(str).yellow.items;
-            console.log(req.pikk_result);
-            next();
-        });
-    });
-}
+    apiConnector(encodeURIComponent(req.placeId),req,res,next);
+
+};
