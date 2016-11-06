@@ -3,6 +3,7 @@
  */
 
 exports.pikkForm = function(req,res,next){
+    //data contains pikk params from a single user
     var data = JSON.parse(req.body.pikkParam);
     for(var key in data){
         if(data[key]<0||data[key]>6){
@@ -10,5 +11,6 @@ exports.pikkForm = function(req,res,next){
             console.log('stop hacking pikk!');
         }
     }
+    req.pikkParam = data;
     next();
 };

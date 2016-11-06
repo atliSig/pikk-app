@@ -18,7 +18,6 @@ router.get('/', function(req, res, next) {
 router.get('/search', apiTools.callAPI, getSearch);
 
 function getSearch(req,res,next){
-    console.log(req.search_result);
     res.render('resultlist',{results: req.search_result});
 }
 
@@ -44,7 +43,6 @@ function getHeadout(req,res,next){
 router.get('/start',pikkTools.createForm,getStart);
 
 function getStart(req,res,next){
-    console.log(req.form);
     res.render('start', {title: 'Le Start',form:req.form});
 }
 

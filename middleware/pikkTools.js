@@ -4,7 +4,9 @@
 
 
 exports.findPlaces = function(req,res,next){
-    req.bestFit = 'macland';
+    var data = req.pikkParam;
+    console.log(data);
+    req.bestFit ='macland';
     next();
 };
 

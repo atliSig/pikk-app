@@ -6,7 +6,6 @@ $(document).ready(function() {
     $(".btn-group > button.btn").on("click", function(){
         var theKey=this.parentNode.id;
         selection[theKey]=this.value;
-        console.log(selection);
     });
 
     $(".dropdown-menu>button.dropdown-item").on("click",function(){
@@ -19,6 +18,5 @@ $(document).ready(function() {
             .attr("type", "hidden")
             .attr("name", "pikkParam").val(JSON.stringify(selection));
         $("#start-pikk-form").append($(input));
-        console.log(JSON.stringify(selection));
     });
 });
