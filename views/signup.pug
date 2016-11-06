@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    form(method="POST", action="/signup")
+        .form-group
+            label(for="username") User Name
+            input.form-control(type=text, name="username")
+        .form-group
+            label(for="first_name") First Name
+            input.form-control(type=text, name="first_name")
+        .form-group
+            label(for="last_name") Last Name
+            input.form-control(type=text, name="last_name")
+        button.btn.btn-signup(type=submit) Sign Up
+    if users
+        ul
+            each user in users
+                li= user.username
+    else
+        p NO users

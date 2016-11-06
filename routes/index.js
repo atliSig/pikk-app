@@ -5,6 +5,9 @@ var apiTools = require('../middleware/apiTools');
 var validateTools = require('../middleware/validateTools');
 var pikkTools= require('../middleware/pikkTools');
 var querystring = require('querystring');
+var session = require('session');
+var users = require('../lib/users');
+
 
 //------------ROUTING FOR INDEX------------//
 router.get('/', function(req, res, next) {
@@ -52,5 +55,7 @@ router.get('/map/*', function (req, res, next){
   var query = (querystring.parse(q));
   res.render('map', {query: query});
 });
+
+
 
 module.exports = router;

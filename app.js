@@ -8,6 +8,7 @@ require('dotenv').config();
 
 //REQUIRE ROUTES HERE//
 var index  = require('./routes/index');
+var users = require('./routes/users');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);
+app.use('/signup', users);
 
 
 // catch 404 and forward to error handler
