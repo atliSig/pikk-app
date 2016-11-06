@@ -2,26 +2,6 @@
    Created by atli on 21.10.2016.
 doctype html
 
-mixin questionCard(title,icon,groupid,mainVals)
-    .card
-        .card-header
-            p=title
-            i.card-title.fa(class!=icon)
-        .card-block
-            p.card-text
-                | Her kemur texti um hvad thetta fjallar um og ad fjalla um skiptir miklu mali, spurdu bara
-                | kallinn sem er alltaf i straeto thvi hann veit svo margt um alls konar hluti, serstaklega
-                | thad sem honum finnst asnaleg.
-            .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group')(id!=groupid)
-                each val in mainVals
-                    button.btn.btn-secondary(type='button' value=val)=val
-                .btn-group.btn-group-lg(role='group')
-                    a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                        | Annað
-                    .dropdown-menu#sub-rating-star(aria-labelledby='')
-                        button.dropdown-item(value=1) Mér er sama
-                        button.dropdown-item(value=2) Þetta skiptir mig máli
-
 html(lang="en")
     head
         meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')

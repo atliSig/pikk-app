@@ -1,5 +1,29 @@
 extends layout
 
+mixin questionCard(title,icon,groupId,subGroupId,mainVals,valIcons,text)
+    //title='titill'
+    //icon='fa-[nafn a fa-icon]
+    //groupId=rating-[insert name here]
+    //subGroupId=sub-rating-[insert same name here]
+    //mainVals = ['hamborgari','pulsa','pizza']
+    //text = 'lysing a thessu vali'
+    .card
+        .card-header
+            p=title
+            i.card-title.fa(class!=icon)
+        .card-block
+            p.card-text=text
+            .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group')(id!=groupId)
+                each val, index in mainVals
+                    button.btn.btn-secondary(type='button' value=index+1)=val
+                        i.fa(class!=valIcons[index])
+                .btn-group.btn-group-lg(role='group')
+                    a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | Annað
+                    .dropdown-menu(aria-labelledby='')(id!=subGroupId)
+                        button.dropdown-item(value=1) Mér er sama
+                        button.dropdown-item(value=2) Þetta skiptir mig máli
+
 
 block content
         .row
@@ -101,8 +125,9 @@ block content
                                     button.dropdown-item(value=1) Mér er sama
                                     button.dropdown-item(value=2) Þetta skiptir mig máli
 
-                //+questionCard('hallo','fa-cutlery','iddrasl',[1,2,3,4])
-
+                //This is how we would use the questionCard 
+                each option in form
+                    +questionCard(option.title,option.icon, option.groupId,option.subGroupId,option.mainVals,option.valIcons,option.text)
                 form(method='post', action='/headout' id='start-pikk-form')
                     button.btn.btn-secondary(type='submit' id="start-pikk-button") Leita
                 .col-lg-3

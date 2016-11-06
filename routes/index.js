@@ -38,9 +38,12 @@ function getHeadout(req,res,next){
 
 
 //------------ROUTING FOR START------------//
-router.get('/start', function(req,res,next) {
-    res.render('start', {title: 'Le Start'});
-    });
+router.get('/start',pikkTools.createForm,getStart);
+
+function getStart(req,res,next){
+    console.log(req.form);
+    res.render('start', {title: 'Le Start',form:req.form});
+}
 
 //------------ROUTING FOR MAP------------//
 router.get('/map/*', function (req, res, next){
