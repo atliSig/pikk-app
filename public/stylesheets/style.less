@@ -77,11 +77,14 @@ main {
 .main-banner{
   text-align: center;
   padding: 5%;
-  font-size: 2em;
   background-color: #f44336;
   color: white;
   margin-top: 5%;
   margin-bottom: 5%;
+}
+
+.main-banner h2{
+  margin: 20px;
 }
 
 .btn-main-pikk{
@@ -89,12 +92,20 @@ main {
   width: 20%;
 }
 
-.footer{
+footer{
   text-align: center;
-  color: #f44336;
-  margin: 0;
-  position: relative;
-  bottom: 0;
+  color: white;
+  padding: 2%;
+  background-color: #f44336;
+}
+
+.footer-info{
+  display: inline;
+  width: 100%;
+}
+
+.footer-info .footer-href{
+  margin: 0 50px;
 }
 
 /* the slides */
@@ -104,4 +115,12 @@ main {
 /* the parent */
 .slick-list {
   margin: 0 -27px;
+}
+
+.slider{
+  margin: 5%;
+}
+
+.slick-dots{
+  position: static !important;
 }
