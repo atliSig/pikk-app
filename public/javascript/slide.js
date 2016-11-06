@@ -6,7 +6,6 @@ $(document).ready(function() {
         {
             dots: true,
             arrows: true,
-            centerPadding: '60px',
             speed: 500,
             slidesToShow: 3,
             infinite: true,
