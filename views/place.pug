@@ -1,4 +1,9 @@
 extends layout
 
 block content
-    h1= place.first_name
+    img(src=place.brand_banner_path, style="width:100%")
+    div.place-banner(style="border: 5px solid" + place.brand_background_color)
+        h1= place.first_name
+        if(place.slogan)
+            h2=place.slogan
+

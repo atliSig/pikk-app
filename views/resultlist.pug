@@ -6,6 +6,8 @@ block content
             .card
                 if res.coordinates
                     img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                if(res.coordinates && res.logo_url)
+                    img(src="http://media.ja.is/"+res.logo_url).img-logo
                 .card-block
                     h4.card-title= res.name
                     p.card-text= res.address_nominative
