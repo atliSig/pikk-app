@@ -10,6 +10,6 @@ $(document).ready(function() {
             slidesToShow: 3,
             infinite: true,
             slidesToScroll: 1
-        }
+        }f
     )
 });
