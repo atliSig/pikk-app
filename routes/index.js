@@ -22,11 +22,11 @@ function getSearch(req,res,next){
 }
 
 //------------ROUTING FOR PLACE------------//
+router.get('/place/*', apiTools.showPlace, getPlace);
+
 function getPlace(req,res,next) {
   res.render('place',{place: req.place_result});
 }
-
-router.get('/place/*', apiTools.showPlace, getPlace);
 
 
 //------------ROUTING FOR HEADOUT------------//

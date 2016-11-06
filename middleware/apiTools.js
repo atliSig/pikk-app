@@ -18,29 +18,37 @@ urlPrepper = function(theUrl,type){
     return "https://api.ja.is/search?q="+query+"&access_code="+process.env.SEARCH_KEY;
 };
 
-exports.showPlace = function(req,res,next){
-    var str='';
-    https.get(urlPrepper(req.url,1),function(response) {
-        response.on('data', function (chunk) {
-            str += chunk;
-        });
-        response.on('end', function () {
-            req.place_result = JSON.parse(str).yellow.items[0] // only one result;
-            next();
-        })
-    });
+urlMaker = function(query){
+    return "https://api.ja.is/search?q="+query+"&access_code="+process.env.SEARCH_KEY;
 };
 
 exports.callAPI = function(req,res,next){
     var str='';
-    https.get(urlPrepper(req.url,0),function(response) {
+    https.get(urlMaker(req.query.query),function(response) {
         response.on('data', function (chunk) {
             str += chunk;
         });
         response.on('end', function () {
             req.search_result = JSON.parse(str).yellow.items;
+            console.log(req.search_result);
             next();
         });
+    });
+};
+
+exports.showPlace = function(req,res,next){
+    var str='';
+    var query = 'nameid:'+req.query.id;
+    console.log(urlMaker(query));
+    https.get(urlMaker(query),function(response) {
+        response.on('data', function (chunk) {
+            str += chunk;
+        });
+        response.on('end', function () {
+            // only one result
+            req.place_result = JSON.parse(str).yellow.items[0];
+            next();
+        })
     });
 };
 
@@ -52,6 +60,7 @@ exports.pikkCall = function(req,res,next){
         });
         response.on('end', function () {
             req.pikk_result = JSON.parse(str).yellow.items;
+            console.log(req.pikk_result);
             next();
         });
     });

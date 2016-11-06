@@ -13,7 +13,7 @@ block content
                     li.list-group-item.choose_item
                         .row
                             .col-md-9
-                                a(href="../place/" + res.first_name).btn.btn-secondary Velja
+                                a(href='../place/?id='+res.phonebook_id_number).btn.btn-secondary Velja
                             .col-md-3
                                 if res.is_open == false
                                         i.open-icon.fa.fa-circle.text-danger
