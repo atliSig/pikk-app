@@ -7,12 +7,15 @@ var pikkTools= require('../middleware/pikkTools');
 var querystring = require('querystring');
 var session = require('session');
 var users = require('../lib/users');
+var dbTools = require('../middleware/dbTools');
 
 
 //------------ROUTING FOR INDEX------------//
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', dbTools.connectDB, getIndex);
+
+function getIndex(req,res,next){
+    res.render('index', { title: 'Express' });
+}
 
 //------------ROUTING FOR SEARCH------------//
 router.get('/search', apiTools.doSearch, getSearch);
