@@ -34,7 +34,7 @@ Við notum síðan **AngularJS 2.0** fyrir framendann okkar sem er undir ``` /as
 * Farið svo á Live Edit, hakið í after launch og veljið bara default, Express ræsist by default á ``` localhost:3000 ``` svo það þarf að skrifa það þar.
 
 ## PostgreSQL / Uppsetning ##
-# Linux # 
+### Linux
 * Ná í postgreSQL: 
 ```
 $ sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
@@ -48,11 +48,14 @@ $ sudo -u postgres createuser --superuser pikk
 * Nú er kominn notandi pikk í gagnagrunninn. Til að breyta lykilorðinu er hægt að gera 
 ```
 $ psql postgres
-$ \password pikk
+pikkdb=# \password pikk
 ```
 * Lykilorðið er svo slegið inn og staðfest.
 
-* Til að búa til gagnagrunninn er svo hægt að keyra skránna [INSERT SETUP FILE NAME HERE].
+* Til að búa til gagnagrunninn er svo hægt að keyra skránna ``script.sql```.
+```
+pikkdb=# \i PATH_TO_FILE
+```
 
 * Til að nota PGadmin í vafra þarf að ná í pakkann:
 ```$ sudo apt-get install phppgadmin```
