@@ -20,9 +20,19 @@ router.post('/signup', handle_signup, function(req, res, next) {
 });
 
 router.get('/:username', auth.ensure_logged_in, get_user_profile);
+router.get('/', auth.ensure_logged_in, get_own_page);
 
 
 //------HANDLERS-------//
+
+function get_own_page(req, res, next){
+    var user = session.user;
+    if(user)
+        user = user.username;
+    else user = 'poop';
+    res.redirect('u/'+user);
+}
+
 function get_user_profile(req, res, next){
     var page_owner = req.params.username;
     users.finduser(page_owner, function(err, all){
