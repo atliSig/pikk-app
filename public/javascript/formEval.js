@@ -2,6 +2,8 @@
  * Created by Matthías on 6.11.2016.
  */
 
+
+//-------------MOVE TO BACKEND---------------//
 module.exports = function(req, res, next) {
 
     var evalError =
@@ -10,7 +12,7 @@ module.exports = function(req, res, next) {
         type: ''
     };
 
-    function isNumeric(n) {
+    function isNumeric(n) {``
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
@@ -36,7 +38,6 @@ module.exports = function(req, res, next) {
     {
         evalError.value = 'Fylla þarf í alla reiti';
         evalError.type = 'all';
-        console.log(user.name);
         return res.view('signUp', {evalError:evalError}, {user:user});
     }
     if(name.length<=2)
@@ -73,9 +74,7 @@ module.exports = function(req, res, next) {
     }
 
     var split = email.split("@");
-    console.log(split);
     var split2 = split[1].split(".");
-    console.log(split2);
     if(split[0]<=1 || split[1]<=1 || split2[0]<2 || split2[1]<2)
     {
         evalError.type='email';

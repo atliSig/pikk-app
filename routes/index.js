@@ -11,7 +11,7 @@ var dbTools = require('../middleware/dbTools');
 
 
 //------------ROUTING FOR INDEX------------//
-router.get('/', dbTools.connectDB, getIndex);
+router.get('/', getIndex);
 
 function getIndex(req,res,next){
     res.render('index', { title: 'Express' });
@@ -21,7 +21,6 @@ function getIndex(req,res,next){
 router.get('/search', apiTools.doSearch, getSearch);
 
 function getSearch(req,res,next){
-    console.log(req.search_result)
     res.render('resultlist',{results: req.search_result});
 }
 

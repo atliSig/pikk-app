@@ -5,7 +5,6 @@
 
 exports.findPlaces = function(req,res,next){
     var data = req.pikkParam;
-    console.log(data);
     req.placeId ='macland';
     next();
 };
