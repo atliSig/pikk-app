@@ -3,8 +3,6 @@
 ## Uppsetning ##
 * Ná í Node
 * Node dependencies : ``` npm install ```
-* Installa bower : ``` npm install bower ```
-* Bower dependencies: farið í assets og ``` bower install ```
 * [OPT] Ná í WebStorm
 * [OPT] Ná í .ignore plugin fyrir WebStorm
 
@@ -14,15 +12,7 @@ Búið til .env í pikk directory-inu, látið eftirfarandi inn þar með lyklun
 ```
 SEARCH_KEY=[key goes here]
 STAR_KEY=[key goes here]
-```
-
-## Frontend Pakkar ##
-Við höfum bower_components í assets og þar af leiðandi er hægt að hafa t.d. aðgengi að jquery í ``` assets/bower_components/jquery/dist/jquery.min.js ```
-Við notum síðan **AngularJS 2.0** fyrir framendann okkar sem er undir ``` /assets/angular/ ```
-
-## Önnur atriði ##
-* ```pipeline.js``` er undir ```tasks```
-* Notum **Less** í stað **CSS**, en Sails sér um að compila það.
+``
 
 ## Browser / Live Edit ##
 * Run -> Edit Configurations
