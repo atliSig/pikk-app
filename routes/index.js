@@ -8,6 +8,7 @@ var querystring = require('querystring');
 var session = require('session');
 var users = require('../lib/users');
 var dbTools = require('../middleware/dbTools');
+var passport = require('passport');
 
 
 //------------ROUTING FOR INDEX------------//
@@ -15,6 +16,13 @@ router.get('/', getIndex);
 
 function getIndex(req,res,next){
     res.render('index', { title: 'Express' });
+}
+
+//------------ROUTING FOR LOGIN------------//
+router.get('/login', getLogin);
+
+function getLogin(req,res,next){
+    res.render('login', { title: 'Express' });
 }
 
 //------------ROUTING FOR SEARCH------------//
@@ -40,7 +48,7 @@ function getHeadout(req,res,next){
 }
 
 //------------ROUTING FOR START------------//
-router.get('/start',pikkTools.createForm,getStart);
+router.get('/start',passport.authenticate('local', { failureRedirect: '/login' }),pikkTools.createForm,getStart);
 
 function getStart(req,res,next){
     res.render('start', {title: 'Le Start',form:req.form});

@@ -1,1 +1,30 @@
 extends layout
+
+block content
+    .row
+        h1.big-heading Innskráning
+    .row
+        .col-md-3
+        .col-md-6
+            form(method='post', action='/login')
+                .input-group
+                    .col-md-12
+                        h3 Notandanafn eða netfang
+                        input.form-control(type='text', placeholder='PikkNikk', name='username')
+                br
+                .input-group
+                    .col-md-12
+                        h3 Lykilorð
+                        input.form-control(type='password', placeholder='Password', name='password')
+                br
+                .row
+                    .col-md-12
+                        span.input-group-btn.col-md-12
+                            button.btn.btn-default.btn-signup(type='submit') Innskrá
+                br
+                .row
+                    .col-md-12
+                        p
+                            | Don't have an account?
+                            a(href='/signup') Sign up here
+        .col-md-3
