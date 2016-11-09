@@ -7,17 +7,11 @@ var users = require('../lib/users');
 var auth = require('../lib/auth');
 
 
-router.get('/signup', redirect_if_logged_in, function(req, res, next) {
+router.get('/signup', auth.redirect_if_logged_in, function(req, res, next) {
     res.render('signup', {title: 'Sign up on Pikk'});
 });
 
-router.post('/signup', handle_signup, function(req, res, next) {
-    users.finduser(function(err, all) {
-        res.render('signup', {
-            users: all
-        });
-    });
-});
+router.post('/signup', handle_signup, auth.ensure_logged_in);
 
 router.get('/:username', auth.ensure_logged_in, get_user_profile);
 router.get('/', auth.ensure_logged_in, get_own_page);
@@ -26,11 +20,11 @@ router.get('/', auth.ensure_logged_in, get_own_page);
 //------HANDLERS-------//
 
 function get_own_page(req, res, next){
-    var user = session.user;
-    if(user)
-        user = user.username;
-    else user = 'poop';
-    res.redirect('u/'+user);
+    if(session.user)
+        var user = session.user;
+    else var user = JSON.parse(process.env.user);
+    console.log()
+    res.redirect('u/'+user.username);
 }
 
 function get_user_profile(req, res, next){
@@ -62,13 +56,6 @@ function handle_signup(req, res, next){
             });
         }
     });
-    next();
-}
-
-function redirect_if_logged_in(req, res, next){
-    if(session.user){
-        res.redirect('/');
-    }
     next();
 }
 

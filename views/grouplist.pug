@@ -1,1 +1,17 @@
 extends layout
+
+block addGroup
+    include includes/groupform.pug
+
+block content
+    if user
+        h1= 'Welcome to your groups, '+user.firstname
+    if groups
+        .card-columns
+            each group in groups
+                    .card
+                        .card-block
+                            p.card-text= group.name
+                            p.text-muted= group.headquarters
+    else
+        h2 No groups to display

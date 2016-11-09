@@ -38,6 +38,7 @@ passport.deserializeUser(function(id, cb) {
 //REQUIRE ROUTES HERE//
 var index  = require('./routes/index');
 var users = require('./routes/users');
+var groups = require('./routes/groups')
 
 var app = express();
 
@@ -71,6 +72,7 @@ app.use(passport.session());
 app.use('/', index);
 // app.use('/signup', users);
 app.use('/u', users);
+app.use('/g', groups);
 
 
 // catch 404 and forward to error handler

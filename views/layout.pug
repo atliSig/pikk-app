@@ -2,6 +2,7 @@ doctype html
 
 html(lang="en")
     head
+        title= title || 'Pikk me!'
         meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
         link(href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Montserrat" rel="stylesheet")
         link(rel='icon', type='image/png', href='/images/pikk-avatar.png')
@@ -31,10 +32,10 @@ body
             li.nav-item
                 a.nav-link(href='#') Link
             li.nav-item.dropdown
-                a#supportedContentDropdown.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
+                a#supportedContentDropdown.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Actions
                 .dropdown-menu(aria-labelledby='supportedContentDropdown')
-                    a.dropdown-item(href='#') Action
-                    a.dropdown-item(href='#') Another action
+                    a.dropdown-item(href='/u') My profile
+                    a.dropdown-item(href='/g') My groups
                     a.dropdown-item(href='#') Something else here
         form.form-inline.float-xs-right(method='get', action='/search')
             input.form-control(name='query', value='macland', type='text')
@@ -42,6 +43,7 @@ body
     .container-fluid.main-wrapper
         .row
             .col-lg-2
+                block addGroup
             .col-lg-8
                 block content
             .col-lg-2

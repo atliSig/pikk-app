@@ -1,0 +1,12 @@
+form(method="POST", action="/u/signup")
+    .form-group
+        label(for="username") Group Name
+        input.form-control(type=text, name="username", placeholder='PikkNikk', id="username")
+    .form-group
+        label(for="first_name") Members
+        input.form-control(type=text, name="first_name", placeholder="Gunnar Bjarni", id="first_name")
+    .form-group
+        label(for="last_name") Description
+        input.form-control(type=text, name="last_name", placeholder="Jónsson", id="last_name")
+    .form-group
+    button.btn.btn-secondary(type=submit) Create
