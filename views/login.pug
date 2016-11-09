@@ -6,25 +6,14 @@ block content
     .row
         .col-md-3
         .col-md-6
-            form(method='post', action='/login')
-                .input-group
-                    .col-md-12
-                        h3 Notandanafn eða netfang
-                        input.form-control(type='text', placeholder='PikkNikk', name='username')
-                br
-                .input-group
-                    .col-md-12
-                        h3 Lykilorð
-                        input.form-control(type='password', placeholder='Password', name='password')
-                br
-                .row
-                    .col-md-12
-                        span.input-group-btn.col-md-12
-                            button.btn.btn-default.btn-signup(type='submit') Innskrá
-                br
-                .row
-                    .col-md-12
-                        p
-                            | Don't have an account?
-                            a(href='/signup') Sign up here
+            form(action='/login', method='post')
+                div
+                    label Username:
+                    input(type='text', name='username')
+                    br
+                div
+                    label Password:
+                    input(type='password', name='password')
+                div
+                    input(type='submit', value='Submit')
         .col-md-3

@@ -10,12 +10,11 @@ var users = require('../lib/users');
 var dbTools = require('../middleware/dbTools');
 var passport = require('passport');
 
-
 //------------ROUTING FOR INDEX------------//
 router.get('/', getIndex);
 
 function getIndex(req,res,next){
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express'});
 }
 
 //------------ROUTING FOR LOGIN------------//
@@ -23,6 +22,15 @@ router.get('/login', getLogin);
 
 function getLogin(req,res,next){
     res.render('login', { title: 'Express' });
+}
+
+router.post('/login',postLogin);
+
+function postLogin(req,res,next){
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    })(req,res,next);
 }
 
 //------------ROUTING FOR SEARCH------------//
@@ -48,8 +56,9 @@ function getHeadout(req,res,next){
 }
 
 //------------ROUTING FOR START------------//
-router.get('/start',passport.authenticate('local', { failureRedirect: '/login' }),pikkTools.createForm,getStart);
-
+router.get('/start',pikkTools.createForm,getStart);
+//use this to work with passport
+//router.get('/start',passport.authenticate('local', { failureRedirect: '/login' }),pikkTools.createForm,getStart);
 function getStart(req,res,next){
     res.render('start', {title: 'Le Start',form:req.form});
 }
