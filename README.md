@@ -12,6 +12,7 @@ Búið til .env í pikk directory-inu, látið eftirfarandi inn þar með lyklun
 ```
 SEARCH_KEY=[key goes here]
 STAR_KEY=[key goes here]
+DATABASE_URL=[DB url goes here]
 ```
 
 ## Browser / Live Edit ##
