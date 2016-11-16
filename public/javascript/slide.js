@@ -6,10 +6,12 @@ $(document).ready(function() {
         {
             dots: true,
             arrows: true,
-            speed: 500,
+            speed: 900,
             slidesToShow: 3,
             infinite: true,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
         }
     )
 });

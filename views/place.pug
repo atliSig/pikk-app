@@ -2,27 +2,43 @@ extends layout
 
 block content
     img(src=place.brand_banner_path, style="width:100%")
-    div.place-banner(style="border: 5px solid" + place.brand_background_color)
+    div.place-banner(style="border: 5px solid" + place.brand_background_color +"; margin-top: 20px;")
         h1= place.first_name
         if(place.slogan)
             h2=place.slogan
 
-    div.place-info
-        div.info-item
-            i.fa.fa-camera-retro.fa-2x.info-icon
-            h2.info-header=place.address
-        div.info-item
-            h2=place.postal_station_nominative
-        div.info-item
-            if(!place.phone.banned)
+    div.place-info(style="border: 5px solid" + place.brand_background_color + "; margin-top: 20px;")
+        if(place.address_nominative)
+            i.fa.fa-home.fa-3x.info-icon
+            div.info-item
+                h2.info-header=place.address_nominative
+        if(place.postal_station_nominative)
+            div.info-item
+                h2=place.postal_station_nominative
+        if(place.phone.pretty && !place.phone.banned)
+            i.fa.fa-phone.fa-3x.info-icon
+            div.info-item
                 h2=place.phone.pretty
-        div.info-item
-            h2=place.facebook_link
-        div.info-item
-            h2=place.twitter_link
-        div.info-item
-            h2=place.email
-        div.info-item
-            a(href=place.url)=place.url_pretty
-        div.info-item
-            h2=place.hours
+        if(place.facebook_link)
+            i.fa.fa-camera-retro.fa-3x.info-icon
+            div.info-item
+                h2=place.facebook_link
+        if(place.twitter_link)
+            i.fa.fa-camera-retro.fa-3x.info-icon
+            div.info-item
+                h2=place.twitter_link
+        if(place.email)
+            i.fa.fa-laptop.fa-3x.info-icon
+            div.info-item
+                h2=place.email
+        if(place.url)
+            if(place.url && !place.email)
+                i.fa.fa-laptop.fa-3x.info-icon
+            div.info-item
+                h2
+                    a(href=place.url)=place.url_pretty
+        if(place.hours)
+            i.fa.fa-clock-o.fa-3x.info-icon
+            div.info-item
+                h2 Opið:
+                h2=place.hours
