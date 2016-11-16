@@ -1,12 +1,12 @@
-form(method="POST", action="/u/signup")
+form(method="POST", action="/g/creategroup")
     .form-group
-        label(for="username") Group Name
-        input.form-control(type=text, name="username", placeholder='PikkNikk', id="username")
+        label(for="groupname") Group Name
+        input.form-control(type=text, name="groupname", id="groupname", required="required")
     .form-group
-        label(for="first_name") Members
-        input.form-control(type=text, name="first_name", placeholder="Gunnar Bjarni", id="first_name")
+        label(for="members") Members
+        input.form-control(type=text, name="members", id="members", required="required")
     .form-group
-        label(for="last_name") Description
-        input.form-control(type=text, name="last_name", placeholder="Jónsson", id="last_name")
+        label(for="description") Description
+        textarea.form-control(name="description", placeholder="(Optional)", id="description")
     .form-group
     button.btn.btn-secondary(type=submit) Create
