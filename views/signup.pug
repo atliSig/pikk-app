@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form(method="POST", action="/u/signup")
+    form(method="post", action="/u/signup")
         .form-group
             label(for="username") Username
             input.form-control(type=text, name="username", placeholder='PikkNikk', id="username")

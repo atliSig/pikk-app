@@ -5,10 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
+
 var passport = require('passport');
 var session = require('express-session');
-require('dotenv').config();
 require('./config/passport')(passport);
+require('dotenv').config();
+
+var Sequelize = require('sequelize');
+var pool = {max: 30, min: 0, idle: 10000};
+
+var DATABASE = process.env.DATABASE_URL;
+var sequelize = new Sequelize(DATABASE, pool);
+
+
 
 //REQUIRE ROUTES HERE//
 var index  = require('./routes/index');

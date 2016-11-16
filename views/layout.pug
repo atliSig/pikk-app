@@ -29,14 +29,15 @@ body
                 a.nav-link(href='/auth/google')
                     | Login
                     span.sr-only (current)
-            li.nav-item
+            //li.nav-item
                 a.nav-link(href='#') Link
             li.nav-item.dropdown
                 a#supportedContentDropdown.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Actions
                 .dropdown-menu(aria-labelledby='supportedContentDropdown')
                     a.dropdown-item(href='/u') My profile
                     a.dropdown-item(href='/g') My groups
-                    a.dropdown-item(href='#') Something else here
+                    form(method="POST", action="/u/signout")
+                        button.dropdown-item(role="submit") Log out
         form.form-inline.float-xs-right(method='get', action='/search')
             input.form-control(name='query', value='macland', type='text')
             button.btn.btn-secondary(type='submit' id="search-button") Leita
