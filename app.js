@@ -22,7 +22,8 @@ var sequelize = new Sequelize(DATABASE, pool);
 //REQUIRE ROUTES HERE//
 var index  = require('./routes/index');
 var users = require('./routes/users');
-var groups = require('./routes/groups')
+var groups = require('./routes/groups');
+//var auth = require('./routes/auth');
 
 var app = express();
 

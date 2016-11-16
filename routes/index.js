@@ -63,9 +63,8 @@ router.get('/map/*', function (req, res, next){
   res.render('map', {query: query});
 });
 
-
 //--------ROUTING FOR GOOGLE AUTH--------//
-router.get('/auth/google',passport.authenticate('google',{scope: ['profile','email']}));
+router.get('/auth/google', passport.authenticate('google',{scope: ['profile','email']}));
 
 router.get('/auth/google/callback',
     passport.authenticate('google',{
@@ -74,5 +73,6 @@ router.get('/auth/google/callback',
         failureRedirect : '/'
     })
 );
+
 
 module.exports = router;

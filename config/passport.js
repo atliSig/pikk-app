@@ -35,7 +35,7 @@ module.exports = function(passport){
             //nextTick ensures we have all data from Google before
             //calling User.findOne
             process.nextTick(function(){
-                User.findOne({'googleid': profile.id},function(err,user){
+                User.findOne({'google.id': profile.id},function(err,user){
                     if(err){
                         return done(err);
                     }
