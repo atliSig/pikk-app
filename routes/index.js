@@ -4,11 +4,13 @@ var pikkJson = require('../config/pikk.json');
 var apiTools = require('../middleware/apiTools');
 var validateTools = require('../middleware/validateTools');
 var pikkTools= require('../middleware/pikkTools');
+var authTools= require('../middleware/authTools');
 var querystring = require('querystring');
 var session = require('session');
 var users = require('../lib/users');
 var dbTools = require('../middleware/dbTools');
 var passport = require('passport');
+
 
 //------------ROUTING FOR INDEX------------//
 router.get('/', getIndex);
@@ -22,15 +24,6 @@ router.get('/login', getLogin);
 
 function getLogin(req,res,next){
     res.render('login', { title: 'Express' });
-}
-
-router.post('/login',postLogin);
-
-function postLogin(req,res,next){
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login'
-    })(req,res,next);
 }
 
 //------------ROUTING FOR SEARCH------------//
@@ -56,9 +49,8 @@ function getHeadout(req,res,next){
 }
 
 //------------ROUTING FOR START------------//
-router.get('/start',pikkTools.createForm,getStart);
-//use this to work with passport
-//router.get('/start',passport.authenticate('local', { failureRedirect: '/login' }),pikkTools.createForm,getStart);
+router.get('/start', authTools.isLoggedIn, pikkTools.createForm,getStart);
+
 function getStart(req,res,next){
     res.render('start', {title: 'Le Start',form:req.form});
 }
@@ -70,5 +62,17 @@ router.get('/map/*', function (req, res, next){
   var query = (querystring.parse(q));
   res.render('map', {query: query});
 });
+
+
+//--------ROUTING FOR GOOGLE AUTH--------//
+router.get('/auth/google',passport.authenticate('google',{scope: ['profile','email']}));
+
+router.get('/auth/google/callback',
+    passport.authenticate('google',{
+        //just some route to see success
+        successRedirect : '/login',
+        failureRedirect : '/'
+    })
+);
 
 module.exports = router;

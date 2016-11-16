@@ -23,7 +23,6 @@ function get_own_page(req, res, next){
     if(session.user)
         var user = session.user;
     else var user = JSON.parse(process.env.user);
-    console.log()
     res.redirect('u/'+user.username);
 }
 

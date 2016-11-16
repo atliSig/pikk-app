@@ -5,35 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
-require('dotenv').config();
-
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var db = require('./db');
-
-passport.use(new LocalStrategy(
-    function(username, password, cb) {
-      db.users.findByUsername(username, function(err, user) {
-        if (err) { return cb(err); }
-        if (!user) { return cb(null, false); }
-        if (user.password != password) { return cb(null, false); }
-        return cb(null, user);
-      });
-    })
-);
-
-passport.serializeUser(function(user, cb) {
-  console.log('serialized');
-  cb(null, user.id);
-});
-
-passport.deserializeUser(function(id, cb) {
-  console.log('im here now');
-  db.users.findById(id, function (err, user) {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
-});
+var session = require('express-session');
+require('dotenv').config();
+require('./config/passport')(passport);
 
 //REQUIRE ROUTES HERE//
 var index  = require('./routes/index');
@@ -42,8 +17,14 @@ var groups = require('./routes/groups')
 
 var app = express();
 
+//session is required for passport
+app.use(session({
+  secret: 'pikk',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); // persistent login sessions
 
 app.use(compression());
 // view engine setup
@@ -64,9 +45,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //added for npm component reference from pug
 app.use(require('less-middleware')(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);
