@@ -42,32 +42,33 @@ module.exports = function(passport){
             clientSecret : configAuth.googleAuth.clientSecret,
             callbackURL  : configAuth.googleAuth.callbackURL
         },
-        function(token, refreshToken, profile, done){
+        function(token, refreshToken, profile, done) {
 
             //nextTick ensures we have all data from Google before
             //calling User.findOne
-            process.nextTick(function(){
-                User.findOne({where: {'google.id': profile.id}}).then(function( user){
-
-                    if(user){
-                        //If the user exists, log in
-                        return done(null, user);
-                    } else{
-                        return done(null, User.create({
-                            'google.id': profile.id,
-                            'google.token' : token,
-                            'google.name'  : profile.displayName,
-                            'google.email' : profile.emails[0].value
-                        }));
-                    }
-
-                },function(err){
-                    if( err){
-                        console.log('callback');
+            process.nextTick(function () {
+                User.find({'google.id': profile.id}).then(
+                    function (user) {
+                        if (user) {
+                            //If the user exists, log in
+                            console.log("user exists");
+                            return done(null, user);
+                        } else {
+                            //Else we create a new user
+                            var newUser = new User.create({
+                                'google.id': profile.id,
+                                'google.token': token,
+                                'google.name': profile.displayName,
+                                'google.email': profile.emails[0].value
+                            });
+                            return done(null, newUser);
+                        }
+                    },
+                    function (err) {
                         console.log(err);
                         return done(err);
                     }
-                    }
+
                 );
             });
         }));
