@@ -29,8 +29,8 @@ body
                 a.nav-link(href='/auth/google')
                     | Login
                     span.sr-only (current)
-            //li.nav-item
-                a.nav-link(href='#') Link
+            li.nav-item
+                a.nav-link(href='#') About
             li.nav-item.dropdown
                 a#supportedContentDropdown.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Actions
                 .dropdown-menu(aria-labelledby='supportedContentDropdown')
@@ -38,6 +38,7 @@ body
                     a.dropdown-item(href='/g') My groups
                     form(method="POST", action="/u/signout")
                         button.dropdown-item(role="submit") Log out
+                    a.dropdown-item(href='#') My settings
         form.form-inline.float-xs-right(method='get', action='/search')
             input.form-control(name='query', value='macland', type='text')
             button.btn.btn-secondary(type='submit' id="search-button") Leita

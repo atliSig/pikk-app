@@ -99,6 +99,22 @@ main {
   transition: color 0.3s ease;
 }
 
+.btn-pikk:active{
+  background-color: transparent !important;
+}
+
+/* Styling the search results */
+
+.results{
+  margin-top: 2%;
+}
+
+.no_search_results{
+  text-align: center;
+  margin: 10%;
+}
+
+
 .btn-pikk:hover{
   background: #bd332c;
 }
@@ -107,20 +123,46 @@ button.dropdown-item:hover {
 }
 
 footer{
-  text-align: center;
-  color: white;
-  padding: 2%;
-  background-color: #f44336;
-}
-
-.footer-info{
-  display: inline;
   width: 100%;
+  text-align: left;
+  color: white;
+  background-color: #f44336;
+  position: absolute;
+  left: 0;
+  height: 10%;
+  padding: 20px;
 }
 
-.footer-info .footer-href{
-  margin: 0 50px;
+footer .ja_2016:hover{
+    cursor: default;
 }
+
+.social{
+  float: right;
+  display: inline;
+}
+
+.social-icon{
+  margin-left: 25px;
+  margin-right: 25px;
+  transition: color 0.1s ease;
+}
+
+.social-icon:hover{
+  cursor: pointer;
+  color: #802421;
+}
+
+.social-link{
+  color: white;
+}
+
+
+.social-link:hover{
+  color: white;
+  cursor: default;
+}
+
 
 /* the slides */
 .slick-slide {
@@ -167,6 +209,21 @@ footer{
 }
 
 .pikk-special{
-  border: 2px solid rgba(255, 66, 55, 0.72);
+  border: 2px solid rgba(255, 66, 55, 0.72) !important;
   border-radius: 5px;
+}
+
+/*Styling the start page*/
+
+.pikk-form{
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+.pikk-card-icon{
+  float: right;
+  margin-left: 10px;
+}
+
+.choice-button{
+  margin: 5px;
 }

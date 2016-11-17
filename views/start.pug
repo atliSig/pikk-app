@@ -9,16 +9,16 @@ mixin questionCard(title,icon,groupId,subGroupId,mainVals,valIcons,text)
     //text = 'lysing a thessu vali'
     .card
         .card-header
-            p=title
-            i.card-title.fa(class!=icon)
+            h8=title
+            i.card-title.fa(class!=icon).pikk-card-icon
         .card-block
             p.card-text=text
             .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group', id!=groupId)
                 each val, index in mainVals
-                    button.btn.btn-secondary(type='button' value=index+1)=val
+                    button.btn.btn-secondary.choice-button(type='button' value=index+1)=val
                         i.fa(class!=valIcons[index])
                 .btn-group.btn-group-lg(role='group')
-                    a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                    a.btn.btn-secondary.dropdown-toggle.choice-button(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                         | Annað
                     .dropdown-menu(aria-labelledby='', id!=subGroupId)
                         button.dropdown-item(value=1) Mér er sama
@@ -29,108 +29,90 @@ block content
         .row
             .col-lg-3
             .col-lg-6
-                .card
-                    .card-header
-                        | Stjörnur
-                        i.card-title.fa.fa-star
-                    .card-block
-                        h3.card-title
-                        p.card-text
-                            | Her kemur texti um hvad thetta fjallar um og ad fjalla um skiptir miklu mali, spurdu bara
-                            | kallinn sem er alltaf i straeto thvi hann veit svo margt um alls konar hluti, serstaklega
-                            | thad sem honum finnst asnaleg.
-                        .btn-group.btn-group-lg.text-center.pagination-centered#rating-star(role='group', aria-label='First group')
-                            button.btn.btn-secondary(type='button' value=1) 1
-                            button.btn.btn-secondary(type='button' value=2) 2
-                            button.btn.btn-secondary(type='button' value=3) 3
-                            button.btn.btn-secondary(type='button' value=4) 4
-                            button.btn.btn-secondary(type='button' value=5) 5
-                            .btn-group.btn-group-lg(role='group')
-                                a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                    | Annað
-                                .dropdown-menu#sub-rating-star(aria-labelledby='')
-                                    button.dropdown-item(value=1) Mér er sama
-                                    button.dropdown-item(value=2) Þetta skiptir mig máli
-                .card
-                    .card-header
-                        | Fjarlaegd
-                        i.card-title.fa.fa-location-arrow
-                    .card-block
-                        h3.card-title
-                        p.card-text
-                            | Her kemur texti um hvad thetta fjallar um og ad fjalla um skiptir miklu mali, spurdu bara
-                            | kallinn sem er alltaf i straeto thvi hann veit svo margt um alls konar hluti, serstaklega
-                            | thad sem honum finnst asnaleg.
-                        .btn-group.btn-group-lg.text-center.pagination-centered#rating-distance(role='group', aria-label='First group')
-                            button.btn.btn-secondary(type='button' value=1) Langt
-                                i.fa.fa-car
-                            button.btn.btn-secondary(type='button' value=2) Stutt
-                                i.fa.fa-bicycle
-                            .btn-group.btn-group-lg(role='group')
-                                a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                    | Annað
-                                .dropdown-menu#sub-rating-distance(aria-labelledby='')
-                                    button.dropdown-item(value=1) Mér er sama
-                                    button.dropdown-item(value=2) Þetta skiptir mig máli
-                .card
-                    .card-header
-                        | Tegund
-                        i.card-title.fa.fa-cutlery
-                    .card-block
-                        h3.card-title
-                        p.card-text
-                            | Her kemur texti um hvad thetta fjallar um og ad fjalla um skiptir miklu mali, spurdu bara
-                            | kallinn sem er alltaf i straeto thvi hann veit svo margt um alls konar hluti, serstaklega
-                            | thad sem honum finnst asnaleg.
-                        .btn-group.btn-group-lg.text-center.pagination-centered#rating-type(role='group', aria-label='First group')
-                            button.btn.btn-secondary(type='button' value=1) Hollt
-                                i.fa.fa-car
-                            button.btn.btn-secondary(type='button' value=2) Skyndibiti
-                                i.fa.fa-bicycle
-                            button.btn.btn-secondary(type='button' value=3) Fínt
-                                i.fa.fa-bicycle
-                            .btn-group.btn-group-lg(role='group')
-                                a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                    | Annað
-                                .dropdown-menu#sub-rating-type(aria-labelledby='')
-                                    button.dropdown-item(value=1) Mér er sama
-                                    button.dropdown-item(value=2) Þetta skiptir mig máli
-                .card
-                    .card-header
-                        | Uppáhalds matur
-                        i.card-title.fa.fa-cutlery
-                    .card-block
-                        h3.card-title
-                        p.card-text
-                            | Her kemur texti um hvad thetta fjallar um og ad fjalla um skiptir miklu mali, spurdu bara
-                            | kallinn sem er alltaf i straeto thvi hann veit svo margt um alls konar hluti, serstaklega
-                            | thad sem honum finnst asnaleg.
-                        .btn-group.btn-group-lg.text-center.pagination-centered#rating-food(role='group', aria-label='First group')
-                            button.btn.btn-secondary(type='button' value=1) Pizza
-                                i.fa.fa-car
-                            button.btn.btn-secondary(type='button' value=2) Hamborgari
-                                i.fa.fa-bicycle 
-                            button.btn.btn-secondary(type='button' value=3) Sushi
-                                i.fa.fa-bicycle
-                            button.btn.btn-secondary(type='button' value=4) Asískur
-                                i.fa.fa-bicycle
-                            button.btn.btn-secondary(type='button' value=5) Mexíkóst
-                                i.fa.fa-bicycle
-                            button.btn.btn-secondary(type='button' value=6) Nautasteik
-                                i.fa.fa-bicycle
-                            .btn-group.btn-group-lg(role='group')
-                                a.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                    | Annað
-                                .dropdown-menu#sub-rating-food(aria-labelledby='')
-                                    button.dropdown-item(value=1) Mér er sama
-                                    button.dropdown-item(value=2) Þetta skiptir mig máli
+                div.pikk-form
+                    .card
+                        .card-header
+                            | Stjörnur
+                            i.card-title.fa.fa-star.pikk-card-icon
+                        .card-block
+                            h3.card-title
+                            p.card-text
+                                | Skiptir stjörnugjöfin þig máli? Veldu lágmarks stjörnuupphæð sem
+                                | staðurinn má hafa. Endilega orða þetta betur strákar
+                                | ég var bara ekki viss hvernig það ætti að orða þetta mememe
+                            .btn-group.btn-group-lg.text-center.pagination-centered#rating-star(role='group', aria-label='First group')
+                                button.btn.btn-secondary.choice-button(type='button' value=1) 1
+                                button.btn.btn-secondary.choice-button(type='button' value=2) 2
+                                button.btn.btn-secondary.choice-button(type='button' value=3) 3
+                                button.btn.btn-secondary.choice-button(type='button' value=4) 4
+                                button.btn.btn-secondary.choice-button(type='button' value=5) 5
+                                button.btn.btn-secondary.choice-button Mér er alveg sama
+                    .card
+                        .card-header
+                            | Fjarlægð
+                            i.card-title.fa.fa-location-arrow.pikk-card-icon
+                        .card-block
+                            h3.card-title
+                            p.card-text
+                                | Skiptir fjarlægð þig máli? Hversu langt nennir þú að fara?
+                            .btn-group.btn-group-lg.text-center.pagination-centered#rating-distance(role='group', aria-label='First group')
+                                button.btn.btn-secondary.choice-button(type='button' value=1) 5 km.
+                                    i.fa.fa-car.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=2) 10 km.
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=1) 15 km.
+                                    i.fa.fa-car.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=2) 20 km.
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=1) Mér er alveg sama
+                                    i.fa.fa-car.pikk-card-icon
+                    .card
+                        .card-header
+                            | Tegund
+                            i.card-title.fa.fa-cutlery.pikk-card-icon
+                        .card-block
+                            h3.card-title
+                            p.card-text
+                                | Er einhver sérstök matartegund sem þig langar sérstaklega í núna?
+                            .btn-group.btn-group-lg.text-center.pagination-centered#rating-type(role='group', aria-label='First group')
+                                button.btn.btn-secondary.choice-button(type='button' value=1) Hollt
+                                    i.fa.fa-car.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=2) Skyndibiti
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=3) Fínt
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=3) Mér er alveg sama
+                                    i.fa.fa-bicycle.pikk-card-icon
+                    .card
+                        .card-header
+                            | Uppáhalds matur
+                            i.card-title.fa.fa-cutlery.pikk-card-icon
+                        .card-block
+                            h3.card-title
+                            p.card-text
+                                | Her kemur texti um hvad thetta fjallar um og ad fjalla um skiptir miklu mali, spurdu bara
+                                | kallinn sem er alltaf i straeto thvi hann veit svo margt um alls konar hluti, serstaklega
+                                | thad sem honum finnst asnaleg.
+                            .btn-group.btn-group-lg.text-center.pagination-centered#rating-food(role='group', aria-label='First group')
+                                button.btn.btn-secondary.choice-button(type='button' value=1) Pizza
+                                    i.fa.fa-car.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=2) Hamborgari
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=3) Sushi
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=4) Asískur
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=5) Mexíkóst
+                                    i.fa.fa-bicycle.pikk-card-icon
+                                button.btn.btn-secondary.choice-button(type='button' value=6) Nautasteik
+                                    i.fa.fa-bicycle.pikk-card-icon
 
-                //This is how we would use the questionCard 
-                each option in form
-                    +questionCard(option.title,option.icon, option.groupId,option.subGroupId,option.mainVals,option.valIcons,option.text)
-                form(method='post', action='/headout' id='start-pikk-form')
-                    button.btn.btn-secondary(type='submit' id="start-pikk-button") Leita
+                    //This is how we would use the questionCard
+                    each option in form
+                        +questionCard(option.title,option.icon, option.groupId,option.subGroupId,option.mainVals,option.valIcons,option.text)
+                    form(method='post', action='/headout' id='start-pikk-form')
+                        button.btn.btn-secondary(type='submit' id="start-pikk-button") PIKK
+                    .col-lg-3
                 .col-lg-3
-            .col-lg-3
 block scripts
     script(src="javascript/selection.js")

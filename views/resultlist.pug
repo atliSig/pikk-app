@@ -1,28 +1,34 @@
 extends layout
 
 block content
-    .card-columns
+    if(results.length===0)
+        div.no_search_results
+            h2 Engar niðurstöður
+            br
+            i.fa.fa-frown-o.fa-3x
+    .card-columns.results
         each res in results
-            .card
-                if res.coordinates
-                    img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
-                if(res.coordinates && res.logo_url)
-                    img(src="http://media.ja.is/"+res.logo_url).img-logo
-                .card-block
-                    h4.card-title= res.name
-                    p.card-text= res.address_nominative
-                ul.list-group.list-group-flush
-                    li.list-group-item.choose_item
-                        .row
-                            .col-md-9
-                                a(href='../place/'+res.phonebook_id_number).btn.btn-secondary Velja
-                            .col-md-3
-                                if res.is_open == false
-                                        i.open-icon.fa.fa-circle.text-danger
-                                        | Lokað
-                                else
-                                        i.open-icon.fa.fa-circle.text-success
-                                        | Opið
+            .col-sm-12
+                .card
+                    if res.coordinates
+                        img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                    if(res.coordinates && res.logo_url)
+                        img(src="http://media.ja.is/"+res.logo_url).img-logo
+                    .card-block
+                        h4.card-title= res.name
+                        p.card-text= res.address_nominative
+                    ul.list-group.list-group-flush
+                        li.list-group-item.choose_item
+                            .row
+                                .col-md-9
+                                    a(href='../place/'+res.phonebook_id_number).btn.btn-secondary Velja
+                                .col-md-3
+                                    if res.is_open == false
+                                            i.open-icon.fa.fa-circle.text-danger
+                                            | Lokað
+                                    else
+                                            i.open-icon.fa.fa-circle.text-success
+                                            | Opið
 
 
 

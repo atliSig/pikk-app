@@ -50,7 +50,7 @@ function getHeadout(req,res,next){
 }
 
 //------------ROUTING FOR START------------//
-router.get('/start', authTools.isLoggedIn, pikkTools.createForm,getStart);
+router.get('/start', /*authTools.isLoggedIn,*/ pikkTools.createForm,getStart);
 
 function getStart(req,res,next){
     res.render('start', {title: 'Le Start',form:req.form});
