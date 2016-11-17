@@ -16,6 +16,7 @@ var passport = require('passport');
 router.get('/', getIndex);
 
 function getIndex(req,res,next){
+    console.log(process.env.DATABASE_URL)
     res.render('index', { title: 'Express'});
 }
 
@@ -63,16 +64,6 @@ router.get('/map/*', function (req, res, next){
   res.render('map', {query: query});
 });
 
-//--------ROUTING FOR GOOGLE AUTH--------//
-router.get('/auth/google', passport.authenticate('google',{scope: ['profile','email']}));
-
-router.get('/auth/google/callback',
-    passport.authenticate('google',{
-        //just some route to see success
-        successRedirect : '/login',
-        failureRedirect : '/'
-    })
-);
 
 
 module.exports = router;

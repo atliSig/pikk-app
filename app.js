@@ -23,7 +23,7 @@ var sequelize = new Sequelize(DATABASE, pool);
 var index  = require('./routes/index');
 var users = require('./routes/users');
 var groups = require('./routes/groups');
-//var auth = require('./routes/auth');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);
-// app.use('/signup', users);
+app.use('/auth', auth);
 app.use('/u', users);
 app.use('/g', groups);
 

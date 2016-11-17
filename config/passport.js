@@ -35,21 +35,25 @@ module.exports = function(passport){
             //nextTick ensures we have all data from Google before
             //calling User.findOne
             process.nextTick(function(){
-                User.findOne({'google.id': profile.id},function(err,user){
+                User.findOne({'google.id': profile.id}, function(err, user){
                     if(err){
+                        console.log('callback');
+                        console.log(err);
                         return done(err);
                     }
                     if(user){
                         //If the user exists, log in
-                        return done(null,user);
+                        console.log("user exists");
+                        return done(null, user);
                     } else{
                         //Else we create a new user
                         var newUser = new User();
+
                         newUser.google.id    = profile.id;
                         newUser.google.token = token;
                         newUser.google.name  = profile.displayName;
                         newUser.google.email = profile.emails[0].value;
-
+                        console.log("newUser");
                         newUser.save(function(err){
                             if(err){
                                 throw err;
