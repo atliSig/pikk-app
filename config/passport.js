@@ -47,12 +47,13 @@ module.exports = function(passport){
                         return done(null, user);
                     } else{
                         //Else we create a new user
-                        var newUser = new User();
-
-                        newUser.google.id    = profile.id;
-                        newUser.google.token = token;
-                        newUser.google.name  = profile.displayName;
-                        newUser.google.email = profile.emails[0].value;
+                        var userInfo = {
+                            'google.id': profile.id,
+                            'google.token': token,
+                            'google.name': profile.displayName,
+                            'google.email':profile.emails[0].value
+                        };
+                        var newUser = new User.create(userInfo);
                         console.log("newUser");
                         newUser.save(function(err){
                             if(err){

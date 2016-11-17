@@ -16,15 +16,23 @@ var passport = require('passport');
 //--------ROUTING FOR GOOGLE AUTH--------//
 router.get('/google', passport.authenticate('google',{scope: ['profile','email']}));
 
-router.get('/google/callback', passport.authenticate('google',{
-    //just some route to see success
-    successRedirect : '/login',
-    failureRedirect : '/'
-}));
+router.get('/google/callback',authenticate ,goHome);
 
-function authenticate(req, res, next){
+function goHome(req, res, next){
+    console.log();
+    res.redirect('/');
+}
+function authenticate(req,res,next){
+    console.log('begynde');
+    console.log(req);
+    passport.authenticate('google',{
+        //just some route to see success
+        successRedirect : '/login',
+        failureRedirect : '/u'
+    });
 
-
+    console.log('ende');
+    next();
 }
 
 module.exports = router;
