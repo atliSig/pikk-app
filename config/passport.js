@@ -17,7 +17,6 @@ var configAuth = require('./auth');
 module.exports = function(passport){
 
     //Serialize user for session
-
     passport.serializeUser(function(user,done){
         console.log(user);
         try{
@@ -36,6 +35,8 @@ module.exports = function(passport){
         },function(err){return done(err);});
     });
 
+
+    //Google Oauth2 strategy
     passport.use(new GoogleStrategy(
         {
             clientID     : configAuth.googleAuth.clientID,
