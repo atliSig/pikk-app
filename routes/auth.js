@@ -7,7 +7,7 @@ var passport = require('passport');
 
 
 //--------ROUTING FOR GOOGLE AUTH--------//
-router.get('/google', passport.authenticate('google',{scope: ['profile','email']}));
+router.get('/google', passport.authenticate('google',{scope: [' openid email profile']}));
 
 router.get('/google/callback',
     passport.authenticate('google',{

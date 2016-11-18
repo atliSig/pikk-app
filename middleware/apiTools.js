@@ -26,7 +26,7 @@ exports.showPlace = function(req,res,next){
     apiConnector('nameid:'+req.params.placeId,req,res,next);
 };
 
-//FIIX LATER
+//FIX LATER
 exports.pikkCall = function(req,res,next){
     apiConnector(encodeURIComponent(req.placeId),req,res,next);
 

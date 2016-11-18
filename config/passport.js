@@ -55,12 +55,12 @@ module.exports = function(passport){
                             return done(null, user);
                         } else {
                             //Else we create a new user
-                            var newUser = new User.create({
+                            var newUser = new User.findOrCreate({where: {
                                 'google.id': profile.id,
                                 'google.token': token,
                                 'google.name': profile.displayName,
                                 'google.email': profile.emails[0].value
-                            });
+                            }});
                             return done(null, newUser);
                         }
                     },
