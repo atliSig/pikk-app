@@ -16,19 +16,22 @@ var passport = require('passport');
 //--------ROUTING FOR GOOGLE AUTH--------//
 router.get('/google', passport.authenticate('google',{scope: ['profile','email']}));
 
-router.get('/google/callback',authenticate ,goHome);
 
-function goHome(req, res, next){
-    console.log();
+router.get('/google/callback', passport.authenticate('google',{
+    //just some route to see success
+    session:true,
+    failureRedirect : '/login'
+}), function(req,res){
+    console.log(req.user);
+    req.session.user = req.user;
     res.redirect('/');
-}
-function authenticate(req,res,next){
-    console.log('begynde');
-    console.log(req);
+});
+
+function authentiskate(req, res, next){
     passport.authenticate('google',{
         //just some route to see success
         successRedirect : '/login',
-        failureRedirect : '/u'
+        failureRedirect : '/'
     });
 
     console.log('ende');
@@ -36,3 +39,31 @@ function authenticate(req,res,next){
 }
 
 module.exports = router;
+function authenticate(req, res, next) {
+    // ask passport to authenticate
+    passport.authenticate('google', function(err, user, info) {
+        if (err) {
+            // if error happens
+            return next(err);
+        }
+
+        if (!user) {
+            // if authentication fail, get the error message that we set
+            // from previous (info.message) step, assign it into to
+            // req.session and redirect to the login page again to display
+            req.session.messages = info.message;
+            return res.redirect('/login');
+        }
+        // if everything's OK
+        req.logIn(user, function(err) {
+            if (err) {
+                req.session.messages = "Error";
+                return next(err);
+            }
+            // set the message
+            req.session.user = user;
+            return res.redirect('/');
+        });
+
+    })(req, res, next);
+}

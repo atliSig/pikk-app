@@ -31,7 +31,8 @@ var app = express();
 app.use(session({
   secret: 'pikk',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: 'secure'
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
