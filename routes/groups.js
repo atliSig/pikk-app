@@ -4,13 +4,12 @@ var express = require('express');
 var router = express.Router();
 var session = require('session');
 var users = require('../lib/users');
-var auth = require('../lib/auth');
 var groups = require('../lib/groups');
 
 module.exports = router;
 
-router.get('/', auth.ensure_logged_in, displayGroupPage);
-router.post('/creategroup', auth.ensure_logged_in, createGroup)
+router.get('/', displayGroupPage);
+router.post('/creategroup', createGroup)
 
 
 

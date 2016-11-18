@@ -4,17 +4,16 @@ var express = require('express');
 var router = express.Router();
 var session = require('session');
 var users = require('../lib/users');
-var auth = require('../lib/auth');
 
 
-router.get('/signup', auth.redirect_if_logged_in, function(req, res, next) {
+router.get('/signup', function(req, res, next) {
     res.render('signup', {title: 'Sign up on Pikk'});
 });
 
 router.post('/signup', handle_signup);
 
-router.get('/:username', auth.ensure_logged_in, get_user_profile);
-router.get('/', auth.ensure_logged_in, get_own_page);
+router.get('/:username', get_user_profile);
+router.get('/', get_own_page);
 
 
 //------HANDLERS-------//
