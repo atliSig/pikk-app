@@ -19,7 +19,7 @@ router.get('/google', passport.authenticate('google',{scope: ['profile','email']
 
 router.get('/google/callback', passport.authenticate('google',{
     //just some route to see success
-    session:true,
+    session:true,git 
     failureRedirect : '/login'
 }), function(req,res){
     console.log(req.user);
