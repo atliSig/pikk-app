@@ -7,12 +7,19 @@ form(method="POST", action="/g/creategroup")
         label(for="members") Members
         ul(id="members")
             li
-                input.form-control(type=text, name="member1", id="membersf", required="required")
+                input.form-control(type=text, name="member1")
             li
-                input.form-control(type=text, name="member2", required="required")
+                input.form-control(type=text, name="member2")
 
     .form-group
         label(for="description") Description
         textarea.form-control(name="description", placeholder="(Optional)", id="description")
     .form-group
     button.btn.btn-secondary(type=submit) Create
+
+
+if errors && errors.length > 0
+    .errors
+        p= errors.length + ' error occurred when creating your group:'
+        each error in errors
+            p= error

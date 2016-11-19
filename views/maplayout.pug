@@ -12,26 +12,7 @@ html(lang="en")
 
         block links
     body
-        nav.navbar.navbar-light.bg-faded
-            a.navbar-brand(href='/')
-                img.d-inline-block.align-top(src='/images/pikk-avatar.png', width='30', height='30', alt='')
-                | Pikk
-            ul.nav.navbar-nav
-                li.nav-item.active
-                    a.nav-link(href='#')
-                        | Link
-                        span.sr-only (current)
-                li.nav-item
-                    a.nav-link(href='#') Link
-                li.nav-item.dropdown
-                    a#supportedContentDropdown.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
-                    .dropdown-menu(aria-labelledby='supportedContentDropdown')
-                        a.dropdown-item(href='#') Action
-                        a.dropdown-item(href='#') Another action
-                        a.dropdown-item(href='#') Something else here
-            form.form-inline.float-xs-right(method='get', action='./search/')
-                input.form-control(name='query', value='macland', type='text')
-                button.btn.btn-secondary(type='submit' id="search-button") Leita
+        include includes/navbar.pug
         .container-fluid.main-wrapper
             .row
                 block content

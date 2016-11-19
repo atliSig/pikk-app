@@ -6,18 +6,17 @@ var sequelize = new Sequelize(process.env.DATABASE_URL);
 var user = require('../lib/users');
 var group = require('../lib/groups');
 
-var User = user(sequelize, Sequelize);
-var Group = group(sequelize, Sequelize);
+var User = user.User(sequelize, Sequelize);
+var Group = group.Group(sequelize, Sequelize);
 
 
-// Group.belongsToMany(User, {through: 'user_in_group'});
-// User.belongsToMany(Group, {through:'user_in_group'});
+Group.belongsToMany(User, {through: 'user_in_group'});
+User.belongsToMany(Group, {through:'user_in_group'});
 
+
+
+sequelize.sync();
 module.exports = {
     User: User,
     Group: Group
 };
-
-// UserProjects = sequelize.define('user_in_group', {
-//     admin: DataTypes.BOOLEAN
-// })

@@ -8,9 +8,9 @@ require('dotenv').config();
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(process.env.DATABASE_URL);
 
-//Load user model
-var user = require('../lib/users');
-var User = user(sequelize, Sequelize);
+//Load models
+var db = require('../middleware/dbTools');
+var User = db.User;
 //Load auth vars
 var configAuth = require('./auth');
 
@@ -46,17 +46,20 @@ module.exports = function(passport){
                     function (user) {
                         if (user) {
                             //If the user exists, log in
-                            console.log("user exists");
                             return done(null, user);
                         } else {
                             //Else we create a new user
-                            console.log();
-                            User.create({where: {
+                            var email = profile.emails[0].value;
+                            User.create({
                                 'google.id': profile.id,
                                 'google.token': token,
                                 'google.name': profile.displayName,
-                                'google.email': profile.emails[0].value
-                            }}).then(function(newUser){
+                                'first_name': profile.name.givenName,
+                                'last_name': profile.name.familyName,
+                                'username': email.replace("@",'.'),
+                                'google.email': email,
+                                'email': email
+                            }).then(function(newUser){
                                 done(null, newUser)
                             });
                         }
@@ -65,7 +68,6 @@ module.exports = function(passport){
                         console.log(err);
                         return done(err);
                     }
-
                 );
             });
     }));

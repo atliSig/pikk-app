@@ -5,7 +5,7 @@ block leftside
 
 block content
     if user
-        h1= 'Welcome to your groups, '+user.firstname
+        h1= 'Welcome to your groups, '+user.first_name
     else
         h1 Who the hell are you?
         h2 Authenticate, motherfucker!
@@ -15,6 +15,6 @@ block content
                     .card
                         .card-block
                             p.card-text= group.name
-                            p.text-muted= group.headquarters
+                            p.text-muted= group.description
     else
         h2 No groups to display

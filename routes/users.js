@@ -22,10 +22,8 @@ router.get('/', get_own_page);
 //------HANDLERS-------//
 
 function get_own_page(req, res, next){
-    if(session.user)
-        var user = session.user;
-    else var user = JSON.parse(process.env.user);
-    res.redirect('u/'+user.username);
+    var user = req.session.user;
+    res.redirect('/u/'+user.username);
 }
 
 function get_user_profile(req, res, next){

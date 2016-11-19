@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(session({
   secret: 'pikk',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
