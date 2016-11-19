@@ -51,13 +51,13 @@ module.exports = function(passport){
                         } else {
                             //Else we create a new user
                             console.log();
-                            User.findOrCreate({where: {
+                            User.create({where: {
                                 'google.id': profile.id,
                                 'google.token': token,
                                 'google.name': profile.displayName,
                                 'google.email': profile.emails[0].value
                             }}).then(function(newUser){
-                                done(null,JSON.parseN(newUser))
+                                done(null,newUser)
                             });
                         }
                     },
