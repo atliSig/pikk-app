@@ -27,7 +27,7 @@ module.exports = function(passport){
     passport.deserializeUser(function(id,done){
         User.findOne({where: {'google.id':id}}).then(function(user){
             done(null,user);
-        },function(err){return done(err);});
+        },function(err){done(err);});
     });
 
     //Google Oauth2 strategy
@@ -46,7 +46,7 @@ module.exports = function(passport){
                     function (user) {
                         if (user) {
                             //If the user exists, log in
-                            return done(null, user);
+                            done(null, user);
                         } else {
                             //Else we create a new user
                             var email = profile.emails[0].value;
@@ -66,7 +66,7 @@ module.exports = function(passport){
                     },
                     function (err) {
                         console.log(err);
-                        return done(err);
+                        done(err);
                     }
                 );
             });

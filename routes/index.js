@@ -46,8 +46,7 @@ function getPlace(req,res,next) {
 }
 
 //------------ROUTING FOR HEADOUT------------//
-//router.use('/headout', validateTools.pikkForm, pikkTools.findPlaces, apiTools.makePikk, getHeadout);
-router.use('/headout', apiTools.makePikk, getHeadout);
+router.use('/headout', apiTools.queryByTags, getHeadout);
 
 function getHeadout(req,res,next){
     var key = process.env.AUTHKEY || '';

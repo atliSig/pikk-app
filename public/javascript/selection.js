@@ -25,17 +25,6 @@ $(document).ready(function() {
         alert('Location could not be fetched');
     }
 
-
-    $(".btn-group > button.btn").on("click", function(){
-        var theKey=this.parentNode.id;
-        selection[theKey]=this.value;
-    });
-
-    $(".dropdown-menu>button.dropdown-item").on("click",function(){
-        var key=this.parentNode.id;
-        selection[key]=this.value;
-    });
-
     $("#start-pikk-button").on('click',function() {
         var input = $("<input>")
             .attr("type", "hidden")

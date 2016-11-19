@@ -19,7 +19,7 @@ apiConnector = function(query,req,res,next){
         response.on('end', function () {
             var keyword='laptop';
             req.search_result = JSON.parse(str).yellow.items;
-            //console.log(req.search_result);
+            console.log(req.search_result);
             next();
         });
     });
@@ -35,13 +35,16 @@ exports.showPlace = function(req,res,next){
     apiConnector('nameid:'+req.params.placeId,req,res,next);
 };
 
-//Takes data from user and returns places to go to
-exports.makePikk = function(req, res, next){
+//Takes keywords from user and builds a query for them
+exports.queryByTags = function(req, res, next){
     var userData = JSON.parse(req.body.pikkParam);
-
-    apiConnector(req.placeId,req,res,next);
+    var q = '';
+    userData.tags.forEach(function(tag){
+        query+='tag:'+tag+'+OR+';
+    });
+    q = q.substring(0,q.length-4);
+    apiConnector(q,req,res,next);
 };
-
 
 //Filter results by keywords
 function filterByKeywords(results,keyword){
@@ -85,3 +88,5 @@ function filterByDistance(results, selection, max){
         console.log('dist in meters: '+ dist);
     })
 }
+
+
