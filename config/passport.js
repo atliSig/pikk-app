@@ -57,7 +57,7 @@ module.exports = function(passport){
                                 'google.name': profile.displayName,
                                 'google.email': profile.emails[0].value
                             }}).then(function(newUser){
-                                done(null,newUser)
+                                done(null, newUser)
                             });
                         }
                     },

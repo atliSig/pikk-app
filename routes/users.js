@@ -5,7 +5,7 @@ var router = express.Router();
 var session = require('express-session');
 var db = require('../middleware/dbTools');
 //Load user model
-var user = require('../lib/users');
+// var user = require('../lib/users');
 var User = db.User;
 
 

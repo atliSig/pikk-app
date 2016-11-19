@@ -6,9 +6,12 @@ block leftside
 block content
     if user
         h1= 'Welcome to your groups, '+user.firstname
-    if groups
+    else
+        h1 Who the hell are you?
+        h2 Authenticate, motherfucker!
+    if groups.count > 0
         .card-columns
-            each group in groups
+            each group in groups.rows
                     .card
                         .card-block
                             p.card-text= group.name

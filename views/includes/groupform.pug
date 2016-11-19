@@ -5,7 +5,11 @@ form(method="POST", action="/g/creategroup")
 
     .form-group
         label(for="members") Members
-        input.form-control(type=text, name="members", id="members", required="required")
+        ul(id="members")
+            li
+                input.form-control(type=text, name="member1", id="membersf", required="required")
+            li
+                input.form-control(type=text, name="member2", required="required")
 
     .form-group
         label(for="description") Description
