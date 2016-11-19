@@ -3,6 +3,7 @@
  */
 var https = require('https');
 var url = require('url');
+var geolib = require('geolib');
 
 //The main function for a connection with the Ja API
 apiConnector = function(query,req,res,next){
@@ -34,10 +35,13 @@ exports.showPlace = function(req,res,next){
     apiConnector('nameid:'+req.params.placeId,req,res,next);
 };
 
-//FIX LATER
-exports.pikkCall = function(req,res,next){
+//Takes data from user and returns places to go to
+exports.makePikk = function(req, res, next){
+    var userData = JSON.parse(req.body.pikkParam);
+
     apiConnector(req.placeId,req,res,next);
 };
+
 
 //Filter results by keywords
 function filterByKeywords(results,keyword){
@@ -68,4 +72,16 @@ function filterByRating(results, rating){
             }
     });
     return hasRating;
+}
+
+function filterByDistance(results, selection, max){
+    var isClose = [];
+    results.forEach(function(item){
+        //dist is in meters
+        var dist = geolib.getDistance(
+            {latitude:item.coordinates.lat, longitude:item.coordinates.lon},
+            {latitude:selection.location.latitude, longitude: selection.location.latitude}
+        );
+        console.log('dist in meters: '+ dist);
+    })
 }

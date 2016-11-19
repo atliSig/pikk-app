@@ -3,6 +3,29 @@
  */
 $(document).ready(function() {
     var selection = {};
+
+    //Get location of user
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(success,error,options);
+    }
+
+    function success(pos){
+        selection['location']={
+            longitude: pos.coords.longitude,
+            latitude: pos.coords.latitude};
+    }
+
+    function error(){
+        alert('Location could not be fetched');
+    }
+
+
     $(".btn-group > button.btn").on("click", function(){
         var theKey=this.parentNode.id;
         selection[theKey]=this.value;

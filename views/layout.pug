@@ -39,7 +39,6 @@ body
                     form(method="POST", action="/u/signout")
                         button.dropdown-item(role="submit") Log out
                     a.dropdown-item(href='#') My settings
-        button#get-location() Get Location
         form.form-inline.float-xs-right(method='get', action='/search')
             input.form-control(name='query', value='macland', type='text')
             button.btn.btn-secondary(type='submit' id="search-button") Leita
@@ -58,6 +57,5 @@ body
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js", integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK", crossorigin="anonymous")
     //script(type='text/javascript', src='slick/slick.min.js')
     script(type='text/javascript', src='//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js')
-    script(src='/javascript/getLocation.js')
     script(src='/javascript/slide.js')
     block scripts

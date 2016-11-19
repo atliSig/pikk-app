@@ -4,8 +4,8 @@
 
 
 exports.findPlaces = function(req,res,next){
-    var data = req.pikkParam;
-    req.placeId ='macland';
+    //var data = req.pikkParam;
+    //req.placeId ='macland';
     next();
 };
 
@@ -36,3 +36,4 @@ exports.createForm = function(req,res,next){
     req.form = form;
     next();
 };
+
