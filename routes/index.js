@@ -75,4 +75,8 @@ router.get('/logout', function(req, res) {
     });
 });
 
+router.post('/start', function(req,res){
+    
+})
+
 module.exports = router;
