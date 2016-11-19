@@ -10,8 +10,8 @@ var User = user(sequelize, Sequelize);
 var Group = group(sequelize, Sequelize);
 
 
-// Group.hasMany(User, {through: 'user_in_group'});
-// User.hasMany(Group, {through:'user_in_group'});
+// Group.belongsToMany(User, {through: 'user_in_group'});
+// User.belongsToMany(Group, {through:'user_in_group'});
 
 module.exports = {
     User: User,

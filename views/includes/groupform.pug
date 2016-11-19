@@ -2,9 +2,11 @@ form(method="POST", action="/g/creategroup")
     .form-group
         label(for="groupname") Group Name
         input.form-control(type=text, name="groupname", id="groupname", required="required")
+
     .form-group
         label(for="members") Members
         input.form-control(type=text, name="members", id="members", required="required")
+
     .form-group
         label(for="description") Description
         textarea.form-control(name="description", placeholder="(Optional)", id="description")

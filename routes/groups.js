@@ -20,8 +20,8 @@ function displayGroupPage(req, res, next){
     if(req.session)
         var user = req.session.user;
     else var user = JSON.parse(process.env.user);
-
-    groups.getGroups(user.id, function(err, all){
+//user.google.id
+    groups.getGroups(5, function(err, all){
         if(!err){
             if(all.length == 0)
                 all = false
@@ -43,11 +43,9 @@ function createGroup(req, res, next){
         var user = req.session.user;
     else var user = JSON.parse(process.env.user);
     var members = [];
-    req.body.members.forEach(
-        function(username){
+    for(var key in req.body.members){
             members.append(username);
         }
-    );
     var groupName = req.body.groupname;
     var description = req.body.description;
     console.log(req.url);
