@@ -16,6 +16,11 @@ var passport = require('passport');
 router.get('/', getIndex);
 
 function getIndex(req,res,next){
+    var ip = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
+    console.log(ip);
     res.render('index', { title: 'Express'});
 }
 
@@ -49,9 +54,7 @@ function getHeadout(req,res,next){
 }
 
 //------------ROUTING FOR START------------//
-//use authTools.isLoggedIn to test drive isLoggedIn middleware
 router.get('/start',authTools.isLoggedIn, pikkTools.createForm,getStart);
-
 
 function getStart(req,res,next){
     res.render('start', {title: 'Le Start',form:req.form});
@@ -70,7 +73,5 @@ router.get('/logout', function(req, res) {
         res.redirect('/');
     });
 });
-
-
 
 module.exports = router;

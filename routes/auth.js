@@ -21,8 +21,6 @@ router.get('/google/callback',
         res.redirect('/');
 });
 
-
-
 function authenticate(req, res, next) {
     // ask passport to authenticate
     passport.authenticate('google', function(err, user, info) {

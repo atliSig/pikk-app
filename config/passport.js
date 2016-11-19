@@ -16,7 +16,8 @@ var configAuth = require('./auth');
 
 module.exports = function(passport){
 
-    //Serialize user for session
+    //Serialize user for session, we currently use
+    //session.destroy though
     passport.serializeUser(function(user,done){
         //console.log(user);
         done(null, user);
@@ -28,7 +29,6 @@ module.exports = function(passport){
             done(null,user);
         },function(err){return done(err);});
     });
-
 
     //Google Oauth2 strategy
     passport.use(new GoogleStrategy(
@@ -68,6 +68,6 @@ module.exports = function(passport){
 
                 );
             });
-        }));
+    }));
 };
 

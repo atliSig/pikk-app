@@ -4,7 +4,6 @@
 var https = require('https');
 var url = require('url');
 
-
 //The main function for a connection with the Ja API
 apiConnector = function(query,req,res,next){
     query=encodeURIComponent(query);
@@ -19,12 +18,11 @@ apiConnector = function(query,req,res,next){
         response.on('end', function () {
             var keyword='laptop';
             req.search_result = JSON.parse(str).yellow.items;
-            //req.search_result = filterByKeywords(,keyword);
+            //console.log(req.search_result);
             next();
         });
     });
 };
-
 
 //The API call function for the simple search
 exports.doSearch = function(req,res,next){
@@ -58,5 +56,16 @@ function filterByKeywords(results,keyword){
     return hasKeyword;
 }
 
-
-
+//Filter results by rating
+//Usage: req.search_result =  filterByRating(JSON.parse(str).yellow.items, 4);
+function filterByRating(results, rating){
+    var hasRating = [];
+    results.forEach(function(item){
+            if(item.rating_mean>rating) {
+                hasRating.push(item);
+            }else{
+                console.log('whoops');
+            }
+    });
+    return hasRating;
+}
