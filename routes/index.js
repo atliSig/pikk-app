@@ -16,11 +16,6 @@ var passport = require('passport');
 router.get('/', getIndex);
 
 function getIndex(req,res,next){
-    var ip = req.headers['x-forwarded-for'] ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress;
-    console.log(ip);
     res.render('index', { title: 'Express'});
 }
 
@@ -46,7 +41,8 @@ function getPlace(req,res,next) {
 }
 
 //------------ROUTING FOR HEADOUT------------//
-router.use('/headout', apiTools.queryByTags, getHeadout);
+//WIP
+router.use('/headout', getHeadout);
 
 function getHeadout(req,res,next){
     var key = process.env.AUTHKEY || '';
@@ -58,6 +54,12 @@ router.get('/start',authTools.isLoggedIn, pikkTools.createForm,getStart);
 
 function getStart(req,res,next){
     res.render('start', {title: 'Le Start',form:req.form});
+}
+
+//----------ROUTING FOR CHOOSE------------//
+router.get('/choose',apiTools.queryByTags,getChoose);
+function getChoose(req,res,next){
+    res.render('choose', {title:'usr choose one', results: req.search_result});
 }
 
 //------------ROUTING FOR MAP------------//
@@ -73,9 +75,5 @@ router.get('/logout', function(req, res) {
         res.redirect('/');
     });
 });
-
-router.post('/start', function(req,res){
-    
-})
 
 module.exports = router;

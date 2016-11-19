@@ -13,12 +13,13 @@ block content
                             h3.card-title Poo
                             p.card-text
                                 | Hvað er að fara að gerast hér?
-                            input(type='text', placeholder="Hamborgari", name="first", id="first").pikk-input
-                            br
-                            input(type='text', placeholder="Pizza", name="second", id="second").pikk-input
-                            br
-                            input(type='text', placeholder="Fiskur", name="third", id="third").pikk-input
-                    button.btn.btn-primary(type='submit' id="start-pikk-button") PIKK
+                            form(method='get', action='/choose')
+                                input(type='text', placeholder="Hamborgari", name="first", id="first").pikk-input
+                                br
+                                input(type='text', placeholder="Pizza", name="second", id="second").pikk-input
+                                br
+                                input(type='text', placeholder="Fiskur", name="third", id="third").pikk-input
+                                button.btn.btn-primary(type='submit' id="start-pikk-button") PIKK
             .col-lg-3
             .col-lg-3
 block scripts

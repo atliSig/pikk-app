@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DATABASE_URL);
+var sequelize = new Sequelize(process.env.DATABASE_URL, {logging: false});
 
 var user = require('../lib/users');
 var group = require('../lib/groups');

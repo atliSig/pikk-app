@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    if(results.length === 0)
+        div.no_search_results
+            h2 Engar niðurstöður
+            br
+            i.fa.fa-frown-o.fa-3x
+    each res in results
+        h1=res.name

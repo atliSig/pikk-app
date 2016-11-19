@@ -20,15 +20,14 @@ $(document).ready(function() {
             longitude: pos.coords.longitude,
             latitude: pos.coords.latitude};
     }
-
     function error(){
         alert('Location could not be fetched');
     }
-
+    /*
     $("#start-pikk-button").on('click',function() {
         var input = $("<input>")
             .attr("type", "hidden")
             .attr("name", "pikkParam").val(JSON.stringify(selection));
         $("#start-pikk-form").append($(input));
-    });
+    });*/
 });
