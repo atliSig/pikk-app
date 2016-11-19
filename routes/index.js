@@ -50,7 +50,7 @@ function getHeadout(req,res,next){
 
 //------------ROUTING FOR START------------//
 //use authTools.isLoggedIn to test drive isLoggedIn middleware
-router.get('/start', pikkTools.createForm,getStart);
+router.get('/start',authTools.isLoggedIn, pikkTools.createForm,getStart);
 
 
 function getStart(req,res,next){

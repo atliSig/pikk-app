@@ -27,12 +27,12 @@ var auth = require('./routes/auth');
 
 var app = express();
 
+app.use(cookieParser());
 //session is required for passport
 app.use(session({
   secret: 'pikk',
   resave: true,
-  saveUninitialized: true,
-  cookie: 'secure'
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 //added for npm component reference from pug

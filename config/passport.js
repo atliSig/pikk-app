@@ -18,14 +18,8 @@ module.exports = function(passport){
 
     //Serialize user for session
     passport.serializeUser(function(user,done){
-        console.log(user);
-        try{
-            user.then(done(null, user._boundto.dataValues.google.id))
-        }
-        catch(excepton){
-            done(null, user)
-        }
-        //done(null, user[0].google.id);
+        //console.log(user);
+        done(null, user);
     });
 
     //Deserialize user for session
@@ -48,7 +42,7 @@ module.exports = function(passport){
             //nextTick ensures we have all data from Google before
             //calling User.findOne
             process.nextTick(function () {
-                User.find({'google.id': profile.id}).then(
+                User.find({where: {'google.id': profile.id}}).then(
                     function (user) {
                         if (user) {
                             //If the user exists, log in
@@ -56,13 +50,15 @@ module.exports = function(passport){
                             return done(null, user);
                         } else {
                             //Else we create a new user
-                            var newUser = new User.findOrCreate({where: {
+                            console.log();
+                            User.findOrCreate({where: {
                                 'google.id': profile.id,
                                 'google.token': token,
                                 'google.name': profile.displayName,
                                 'google.email': profile.emails[0].value
-                            }});
-                            return done(null, newUser);
+                            }}).then(function(newUser){
+                                done(null,JSON.parseN(newUser))
+                            });
                         }
                     },
                     function (err) {

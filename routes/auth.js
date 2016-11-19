@@ -16,7 +16,7 @@ router.get('/google/callback',
         failureRedirect : '/login'
     }),
     function(req,res){
-        console.log(req.user);
+        //console.log(req.user);
         req.session.user = req.user;
         res.redirect('/');
 });
