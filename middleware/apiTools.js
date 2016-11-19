@@ -41,6 +41,7 @@ exports.queryByTags = function(req, res, next){
     var userData = [req.query['first'],req.query['second'],req.query['third']];
     console.log(userData);
     var q = '';
+    //MAKE BETTER LATER
     userData.forEach(function(tag){
         if(tag.length!==0){
             console.log('yo');
@@ -49,50 +50,8 @@ exports.queryByTags = function(req, res, next){
     });
     //Used to cut off last "+OR+"
     q = q.substring(0,q.length-4);
+    q+='+AND+tag:'+encodeURIComponent('veitingastaður');
     apiConnector(q,req,res,next);
 };
-
-//Filter results by keywords
-function filterByKeywords(results,keyword){
-    var hasKeyword = [];
-    results.forEach(function(item){
-        var hasTheWord=false;
-        item.keywords.forEach(function(word){
-            if(word==keyword){
-                hasTheWord = true;
-            }
-        });
-        if(hasTheWord){
-            hasKeyword.push(item);
-        }
-    });
-    return hasKeyword;
-}
-
-//Filter results by rating
-//Usage: req.search_result =  filterByRating(JSON.parse(str).yellow.items, 4);
-function filterByRating(results, rating){
-    var hasRating = [];
-    results.forEach(function(item){
-            if(item.rating_mean>rating) {
-                hasRating.push(item);
-            }else{
-                console.log('whoops');
-            }
-    });
-    return hasRating;
-}
-
-function filterByDistance(results, selection, max){
-    var isClose = [];
-    results.forEach(function(item){
-        //dist is in meters
-        var dist = geolib.getDistance(
-            {latitude:item.coordinates.lat, longitude:item.coordinates.lon},
-            {latitude:selection.location.latitude, longitude: selection.location.latitude}
-        );
-        console.log('dist in meters: '+ dist);
-    })
-}
 
 
