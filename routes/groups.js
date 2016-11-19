@@ -42,7 +42,12 @@ function createGroup(req, res, next){
     if(req.session)
         var user = req.session.user;
     else var user = JSON.parse(process.env.user);
-    var members = req.body.members;
+    var members = [];
+    req.body.members.forEach(
+        function(username){
+            members.append(username);
+        }
+    );
     var groupName = req.body.groupname;
     var description = req.body.description;
     console.log(req.url);

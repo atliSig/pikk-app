@@ -2,8 +2,11 @@
 
 var express = require('express');
 var router = express.Router();
-var session = require('session');
-var users = require('../lib/users');
+var session = require('express-session');
+var db = require('../middleware/dbTools');
+//Load user model
+var user = require('../lib/users');
+var User = db.User;
 
 
 router.get('/signup', function(req, res, next) {
@@ -27,46 +30,21 @@ function get_own_page(req, res, next){
 
 function get_user_profile(req, res, next){
     var page_owner = req.params.username;
-    // users.finduser(page_owner, function(err, all){
-    //     if(!err || all.length != 0) {
-    //         var owner = all[0]
-    //         res.render('userprofile', {
-    //             title: page_owner + "'s profile",
-    //             owner: owner
-    //         });
-    //     }
-    //     else res.error("There was an error. User \""+page_owner+"\" was not found" );
-    // });
-    users.finduser(page_owner, function(err, all){
-        if(!err || all.length != 0) {
-            var owner = all[0]
-            res.render('userprofile', {
-                title: page_owner + "'s profile",
-                owner: owner
-            });
+    User.findOne({where:{username:page_owner}}).then(function(user){
+        if(user){
+            console.log(user);
+            res.render('userprofile', {title: user.first_name, user:req.user, owner:user});
         }
-        else res.error("There was an error. User \""+page_owner+"\" was not found" );
+        else next();
+    }, function(err){
+        if(err){
+            next(err);
+        }
     });
 }
 
 function handle_signup(req, res, next){
-    var username = req.body.username;
-    var first_name = req.body.first_name;
-    var last_name = req.body.last_name;
-    users.createuser(username, first_name, last_name, function(err, status){
-        var success = true;
-        if(err || !status){
-            success = false;
-        }
-        if(!success){
-            res.render('signup',{
-                error: err
-            });
-        }
-        else{
-            res.redirect('/login');
-        }
-    });
+    res.send('Deprecated. If you REALLY want to sign up, then STFU');
 }
 
 module.exports = router;
