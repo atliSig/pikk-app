@@ -43,7 +43,7 @@ pikkdb=# \password pikk
 ```
 * Lykilorðið er svo slegið inn og staðfest.
 
-* Til að búa til gagnagrunninn er svo hægt að keyra skránna ``script.sql```.
+* Til að búa til gagnagrunninn er svo hægt að keyra skránna ```script.sql```.
 ```
 pikkdb=# \i PATH_TO_FILE
 ```
@@ -52,3 +52,7 @@ pikkdb=# \i PATH_TO_FILE
 ```$ sudo apt-get install phppgadmin```
 
 * Hægt er að keyra upp clientinn á ```http://localhost/phppgadmin```
+
+
+* Ef layout gagnagruns breytist þá er hægt að fá SQL skipanirnar fyrir nýja grunnninn. Þetta fæst með því að keyra
+```$ pg_dump [DATABASE_NAME] > [DESTINATION_FILE]```
