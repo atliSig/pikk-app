@@ -65,6 +65,12 @@ router.get('/map/*', function (req, res, next){
   res.render('map', {query: query});
 });
 
+router.get('/logout', function(req, res) {
+    req.session.destroy(function (err) {
+        res.redirect('/');
+    });
+});
+
 
 
 module.exports = router;
