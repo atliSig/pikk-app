@@ -40,8 +40,8 @@ exports.queryByTags = function(req, res, next){
     //var userData = JSON.parse(req.body.pikkParam);
     var userData = [req.query['first'],req.query['second'],req.query['third']];
     console.log(userData);
-    var q = '';
-    //MAKE BETTER LATER
+    var q = '('+encodeURIComponent(userData[0])+'+OR+';
+    //The query is (tag:param1+OR+tag:param2+OR+tag:param3)+AND+(tag:veitingastadur)
     userData.forEach(function(tag){
         if(tag.length!==0){
             console.log('yo');
@@ -50,7 +50,7 @@ exports.queryByTags = function(req, res, next){
     });
     //Used to cut off last "+OR+"
     q = q.substring(0,q.length-4);
-    q+='+AND+tag:'+encodeURIComponent('veitingastaður');
+    q+=')+AND+(tag:'+encodeURIComponent('veitingastaður')+')';
     apiConnector(q,req,res,next);
 };
 
