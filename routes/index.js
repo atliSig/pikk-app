@@ -57,7 +57,7 @@ function getStart(req,res,next){
 }
 
 //----------ROUTING FOR CHOOSE------------//
-router.get('/choose',apiTools.queryByTags,pikkTools.filterByNotWanted,getChoose);
+router.post('/choose',apiTools.queryByTags,pikkTools.filterByNotWanted,getChoose);
 function getChoose(req,res,next){
     res.render('choose', {title:'usr choose one', results: req.search_result});
 }

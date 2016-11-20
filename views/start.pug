@@ -4,110 +4,105 @@ block content
         .row
             .col-lg-3
             .col-lg-6
-                div.pikk-form
-                    .card
-                        .card-header
-                            | Matartegund
-                            i.fa.fa-filter.pikk-card-icon
-                        .card-block
-                            button.btn.btn-secondary.first-check.check
-                                i.fa.fa-check.first-icon
-                            br
-                            p.card-text
-                                | Er einhver sérstök matartegund sem þig langar í af þessum flokkum?
-                            form(method="post", action="/headout")
-                                .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
-                                    label.btn.btn-secondary.choice-button.first-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Vegan
-                                    label.btn.btn-secondary.choice-button.first-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Grænmeti
-                                    label.btn.btn-secondary.choice-button.first-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Kjöt
-                                    label.btn.btn-secondary.choice-button.first-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Tegund
-                                    label.btn.btn-secondary.choice-button.first-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Önnur tegund?
-                                    label.btn.btn-secondary.choice-button.first-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Dettur ekkert í
-                                    label.btn.btn-secondary.choice-button.first-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Hug
-                    .card
-                        .card-header
-                            | Skyndibiti
-                            i.fa.fa-bolt.pikk-card-icon
-                        .card-block
-                            button.btn.btn-secondary.second-check.check
-                                i.fa.fa-check.second-icon
-                            br
-                            p.card-text
-                                | Myndi þig langa í eitthvað hér? Veldu það sem þér líst á.
-                            form(method="post", action="/headout")
-                                .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
-                                    label.btn.btn-secondary.choice-button.second-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Pizza
-                                    label.btn.btn-secondary.choice-button.second-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Hamborgari
-                                    label.btn.btn-secondary.choice-button.second-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Indverskt
-                                    label.btn.btn-secondary.choice-button.second-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Mexikóskt
-                                    label.btn.btn-secondary.choice-button.second-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Pizza
-                                    label.btn.btn-secondary.choice-button.second-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Hamborgari
-                                    label.btn.btn-secondary.choice-button.second-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Bjór
-                    .card
-                        .card-header
-                            | Aðeins fínna
-                            i.fa.fa-glass.pikk-card-icon
-                        .card-block
-                            button.btn.btn-secondary.third-check.check
-                                i.fa.fa-check.third-icon
-                            br
-                            p.card-text
-                                | Myndi þig langa í eitthvað hér? Veldu það sem þér líst á.
-                            form(method="post", action="/headout")
-                                .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Steik
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Pasta
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Sushi
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Kjúklingur
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Súpa
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Fleiri möguleikar
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Annar möguleiki
-                                    label.btn.btn-secondary.choice-button.third-checkpoint
-                                        input(type="checkbox", autocomplete="off")
-                                        | Vín
-                    button.btn.btn-primary(type='submit' id="start-pikk-button") PIKK
+                form#start-pikk-form(method="post", action="/choose")
+                    div.pikk-form
+                        .card
+                            .card-header
+                                | Tegund af mat
+                                i.fa.fa-filter.pikk-card-icon
+                            .card-block
+                                button.btn.btn-secondary.first-check.check
+                                    i.fa.fa-check.first-icon
+                                br
+                                p.card-text
+                                    | Tegund af mat
+                                    .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons")
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=0)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Kjúklingur
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=1)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Steik
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=2)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Sjávarréttir
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=3)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Pítsa
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=4)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Hamborgari
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=5)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Sushi
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=6)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Salat
+                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=7)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Kebab
+                        .card
+                            .card-header
+                                | Matur eftir uppruna
+                                i.fa.fa-bolt.pikk-card-icon
+                            .card-block
+                                button.btn.btn-secondary.second-check.check
+                                    i.fa.fa-check.second-icon
+                                br
+                                p.card-text
+                                    | Matur eftir uppruna
+                                    .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
+                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=8)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Tælenskt
+                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=9)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Asískt
+                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=10)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Inverskt
+                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=11)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Mexíkóskt
+                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=12)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Ítalskt
+                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=13)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Íslenskt
+                        .card
+                            .card-header
+                                | Aðrir möguleikar
+                                i.fa.fa-glass.pikk-card-icon
+                            .card-block
+                                button.btn.btn-secondary.third-check.check
+                                    i.fa.fa-check.third-icon
+                                br
+                                p.card-text
+                                    | Aðrir möguleikar
+                                    .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
+                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=14)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Hádegismatur
+                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=15)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Vegan
+                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=16)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Hollt
+                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=17)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Bakarí
+                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=18)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Bístró
+                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=19)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Kaffi
+                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=20)
+                                            input(type="checkbox", autocomplete="off")
+                                            | Áfengi
+                        button.btn.btn-primary(type='submit' id="start-pikk-button") Pikk
             .col-lg-3
             .col-lg-3
 block scripts

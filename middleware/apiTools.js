@@ -19,7 +19,7 @@ apiConnector = function(query,req,res,next){
         response.on('end', function () {
             var keyword='laptop';
             req.search_result = JSON.parse(str).yellow.items;
-            console.log(req.search_result);
+            //console.log(req.search_result);
             next();
         });
     });
@@ -35,23 +35,86 @@ exports.showPlace = function(req,res,next){
     apiConnector('nameid:'+encodeURIComponent(req.params.placeId),req,res,next);
 };
 
+//This is used for the main pikk.
 //Takes keywords from user and builds a query for them
 exports.queryByTags = function(req, res, next){
-    //var userData = JSON.parse(req.body.pikkParam);
-    var userData = [req.query['first'],req.query['second'],req.query['third']];
+    /*var types = [
+        //Category 1
+        ['kjúklingur','chicken'],
+        ['steik','fillet','nautakjöt','kjöt','lambakjöt','beef','lamb'],
+        ['sjávarréttir','fiskur','sea food','fish', 'seafood'],
+        ['pítsa','flatbaka','pizza'],
+        ['hamborgari','burger','fries'],
+        ['sushi','healthy'],
+        ['salat','healthy'],
+        ['kebab','arabískt','arabian'],
+        //Category 2
+        ['tælenskt','thai'],
+        ['asískt','núðlur','asian','noodles'],
+        ['indverskt','indian','asian'],
+        ['mexíkóskt','burrito','tortilla','nachos','mexican'],
+        ['ítalskt','pasta','italian'],
+        ['íslenskt','icelandic'],
+        //Category 3
+        ['hádegismatur','breakfast','brunch'],
+        ['vegan', 'vegeterian','healthy'],
+        ['hollt','salat','healthy'],
+        ['bakarí','safi','bakery'],
+        ['bístró','bistro'],
+        ['kaffi', 'te','safi','coffee','tee','tea','juice'],
+        ['áfengi','bjór','vín','kokteill','alcohol','beer','wine','coctail']
+    ];*/
+    var types = [
+        //Category 1
+        ['kjúklingur','chicken'],
+        ['steik','beef'],
+        ['sjávarréttir','seafood'],
+        ['pítsa','pizza'],
+        ['hamborgari','burger'],
+        ['sushi','healthy'],
+        ['salat','healthy'],
+        ['kebab','arabískt'],
+        //Category 2
+        ['tælenskt','thai'],
+        ['asískt','asian'],
+        ['indverskt','indian'],
+        ['mexíkóskt','mexican'],
+        ['ítalskt','italian'],
+        ['íslenskt','icelandic'],
+        //Category 3
+        ['hádegismatur','brunch'],
+        ['vegan','healthy'],
+        ['hollt','healthy'],
+        ['bakarí','bakery'],
+        ['bístró','bistro'],
+        ['kaffi','juice'],
+        ['áfengi','alcohol']
+    ];
+
+
+    //userData contains index into the array types
+    var userData = JSON.parse(req.body.userinput);
     console.log(userData);
-    var q = '('+encodeURIComponent(userData[0])+'+OR+';
+    //We build a query on the form
+    //((tag1 or tag2) or (tag3 or tag4) or...)AND(tag: veitingastadur)
+    var q = '('
     //The query is (tag:param1+OR+tag:param2+OR+tag:param3)+AND+(tag:veitingastadur)
-    userData.forEach(function(tag){
-        if(tag.length!==0){
-            console.log('yo');
-            q+='tag:'+encodeURIComponent(tag)+'+OR+';
-        }
+    userData.forEach(function(index){
+        q+=buildQueryByTagArray(types[index]);
     });
-    //Used to cut off last "+OR+"
-    q = q.substring(0,q.length-4);
+    q.substring(0,q.length-4);
     q+=')+AND+(tag:'+encodeURIComponent('veitingastaður')+')';
     apiConnector(q,req,res,next);
 };
+
+//Returns a query part on the form:
+//tag_1+OR+tag_2+...+tag_n+OR+
+function buildQueryByTagArray(arr){
+    var q ='';
+    arr.forEach(function(tag){
+        q+=encodeURIComponent(tag)+'+OR+';
+    });
+    return q;
+}
 
 
