@@ -1,1 +1,18 @@
 extends layout
+
+block content
+    h1= group.name
+    h2= group.description
+
+        each member in members
+            p= member.first_name
+            p= member.email
+
+block leftside
+    form(method="POST", action="/g/"+group.id+"/addMember")
+        .form-group
+            label(for="username") Username
+            input.form-control(type=text, name="username", id="username", required="required")
+
+        .form-group
+            button.btn.btn-secondary(type="submit") Add Member

@@ -9,9 +9,10 @@ block content
     else
         h1 Who the hell are you?
         h2 Authenticate, motherfucker!
-    if groups.count > 0
+    if groups
+        //h2= groups.length +' groups'
         .card-columns
-            each group in groups.rows
+            each group in groups
                     .card
                         .card-block
                             p.card-text= group.name

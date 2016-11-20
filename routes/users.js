@@ -26,6 +26,7 @@ function get_user_profile(req, res, next){
         if(owner){
             console.log(owner);
             res.render('userprofile', {title: user.first_name, user:user, owner:owner});
+
         }
         else next();
     }, function(err){

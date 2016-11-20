@@ -5,92 +5,144 @@ var router = express.Router();
 var session = require('express-session');
 var groups = require('../lib/groups');
 var db = require('../middleware/dbTools');
-var Group = db.Group;
 var authTools = require('../middleware/authTools');
+
+var Group = db.Group;
+var User = db.User;
 
 module.exports = router;
 
 router.get('/', authTools.isLoggedIn, displayGroupPage);
-router.post('/creategroup', authTools.isLoggedIn, createGroup)
+router.get('/:groupid', authTools.isLoggedIn, showGroupPage);
+router.post('/creategroup', authTools.isLoggedIn, createGroup);
+router.post('/:groupid/addMember', authTools.isLoggedIn, addMember);
 
 
 //\\\\\\\\\\functions//////////\\
-
-function displayGroupPage(req, res, next){
+function addMember(req, res, next){
     var user = req.session.user;
-    console.log(user);
-//user.google.id
-    console.log(groups);
-    Group.findAndCountAll().then(
-        function(groups){
-            console.log(groups);
-            res.render('grouplist',{
-                title: 'My groups',
-                user: user,
-                groups: groups
-            });
-        }
-    );
-    // groups.getGroups(5, function(err, all){
-    //     if(!err){
-    //         if(all.length == 0)
-    //             all = false
-    //         res.render('grouplist', {
-    //             title: 'My groups',
-    //             user: user,
-    //             groups: all
-    //         });
-    //     }
-    //     else {
-    //         console.log(err);
-    //         res.redirect('/');
-    //     }
-    // });
+    var groupid = req.params.groupid;
+    var username = req.body.username;
+
+    Group.findOne({where:{id:groupid}})
+        .then(function(group){
+            User.find({where:{
+                username: username
+            }})
+                .then(function(member){
+                    if(member && group)
+                        group.addMember(member).then(function(){
+                            res.redirect('/g/'+groupid);
+                        });
+                });
+        });
 }
 
+//Shows the profile of a specific group
+function showGroupPage(req, res, next) {
+    var user = req.session.user;
+    var groupid = req.params.groupid;
+
+    // Get all group members in the specified group
+    User.findAll({
+        include:[{
+            model: Group,
+            as: 'group',
+            where: {id: groupid}
+            }]
+    }).then(function(users){
+        Group.findOne({where: {id:groupid}})
+            .then(function(group){
+                if(group && users) {
+                    var in_group = false;
+                    for(var i in users){
+
+                        if(users[i].dataValues.username == user.username)
+                        {
+                            in_group = true;
+                            break;
+                        }
+                    }
+                    if(in_group) {
+                        //grant access to members
+                        res.render('groupprofile', {
+                            group: group,
+                            user: user,
+                            members: users
+                        });
+                    }
+                    //Restrict access to outsiders
+                    else{
+                        res.redirect('/');
+                    }
+                }
+                else{
+                    next();
+                }
+        });
+    });
+}
+
+//Displays groups which the user is a member of.
+function displayGroupPage(req, res, next){
+    var user = req.session.user;
+    Group.findAll()
+         .then(function(groups) {
+             res.render('grouplist',{
+                 title: 'My groups',
+                 user: user,
+                 groups: groups
+             });
+         });
+}
+
+//Create group handler
 function createGroup(req, res, next){
-    if(req.session)
-        var user = req.session.user;
-    else
-        var user = JSON.parse(process.env.user);
+    var user = req.session.user;
     var body = req.body;
     var errors = [];
     var members = [];
 
+    ///----Check for members in the form----////
     for(var key in body){
         if(key !== 'groupname' && key !== 'description'){
             var member = body[key];
-            console.log(member.length)
-            if (member.length > 0){
+            if (member.length > 0 && member !== user.username){
                 members.push(member);
             }
         }
     }
+
     if(!body.groupname || body.groupname.trim().length === 0){
         errors.push('Group must have non-empty name.');
     }
     var groupname = body.groupname;
     var description = body.description;
-    ///
-    // members.remove('');
+
     if(members.length === 0) {
         errors.push('Group must have at least one other member');
     }
 
-    if(errors.length === 0){
+    //Create group if no errors
+    if(errors.length === 0) {
         Group.create({
             name: groupname,
             description: description
-        }).then(function (groups) {
-            console.log('Groups\n'+groups);
-            res.render('grouplist',{groups:groups});
-        });
-
+        })
+            .then(function (group) {
+                User.findOne({
+                    where: {username: user.username}
+                })
+                    .then(function (user) {
+                        group.addMember(user, {is_admin: true})
+                            .then(function (newGroup) {
+                                res.redirect('/g/' + group.id);
+                            });
+                    });
+            });
     }
+    //else display errors
     else{
-        res.render('grouplist',{errors: errors, groups:{ count: 1, rows: [{name: 'fartname', members: members}] }});
+        res.render('grouplist', {errors:errors, groups:[], user:user});
     }
-    //groups.createGroup(user, members, groupName, description, function(err, all){
-    //     res.render('grouplist',{groups:{ count: 1, rows: [{groupname: groupname, members: members}] }});
-    //});
 }

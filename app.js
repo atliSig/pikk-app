@@ -8,6 +8,7 @@ var compression = require('compression');
 
 var passport = require('passport');
 var session = require('express-session');
+var db = require('./middleware/dbTools');
 require('./config/passport')(passport);
 require('dotenv').config();
 
@@ -46,9 +47,6 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
@@ -56,6 +54,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //added for npm component reference from pug
 app.use(require('less-middleware')(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
+
+
+
+//Initialize db
+db.init();
+
 
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);

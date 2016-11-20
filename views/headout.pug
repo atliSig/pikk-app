@@ -31,7 +31,9 @@ block content
                         #map(lat=jaObject.coordinates.lat, lon=jaObject.coordinates.lon, name = jaObject.first_name)
 
         .card-columns
-            each person in [{name: 'Matthías Karl Karlsson', phone: '8480160'},{name: 'Atli Thor Sigurgeirsson', phone:'8218722'}, {name: 'James White', phone:'?'},{name: 'Ágúst Pálsson', phone: '8696020'}, {name:'Pétur Helgi Einarsson', phone:'8666315'}]
+            - persons = [{name: 'Matthías Karl Karlsson', phone: '8480160'},{name: 'Atli Thor Sigurgeirsson', phone:'8218722'}, {name: 'James White', phone:'?'},{name: 'Ágúst Pálsson', phone: '8696020'}, {name:'Pétur Helgi Einarsson', phone:'8666315'}]
+            if persons.length > 1
+                each person in persons
                     .card
                         .card-block
                             p.card-text= person.name

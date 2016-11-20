@@ -5,8 +5,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy= require('passport-google-oauth').OAuth2Strategy;
 require('dotenv').config();
 
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DATABASE_URL);
 
 //Load models
 var db = require('../middleware/dbTools');
