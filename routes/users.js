@@ -8,13 +8,6 @@ var db = require('../middleware/dbTools');
 // var user = require('../lib/users');
 var User = db.User;
 
-
-router.get('/signup', function(req, res, next) {
-    res.render('signup', {title: 'Sign up on Pikk'});
-});
-
-router.post('/signup', handle_signup);
-
 router.get('/:username', get_user_profile);
 router.get('/', get_own_page);
 
@@ -28,10 +21,11 @@ function get_own_page(req, res, next){
 
 function get_user_profile(req, res, next){
     var page_owner = req.params.username;
-    User.findOne({where:{username:page_owner}}).then(function(user){
-        if(user){
-            console.log(user);
-            res.render('userprofile', {title: user.first_name, user:req.user, owner:user});
+    var user = req.session.user;
+    User.findOne({where:{username:page_owner}}).then(function(owner){
+        if(owner){
+            console.log(owner);
+            res.render('userprofile', {title: user.first_name, user:user, owner:owner});
         }
         else next();
     }, function(err){
@@ -39,10 +33,6 @@ function get_user_profile(req, res, next){
             next(err);
         }
     });
-}
-
-function handle_signup(req, res, next){
-    res.send('Deprecated. If you REALLY want to sign up, then STFU');
 }
 
 module.exports = router;

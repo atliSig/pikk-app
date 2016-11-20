@@ -3,7 +3,12 @@ extends layout
 block content
     div.main-banner
         h2 Welcome to Pikk!
-        a.btn.btn-primary.btn-pikk(href='/start') PIKK
+        if(!user)
+            h5 You're not signed in.
+        else
+            h5="You're signed in as "+user.username
+        if(user)
+            a.btn.btn-primary.btn-pikk(href='/start') PIKK
     .slider.slick-list
         .card.slick-slide
             .card-block.pikk-special

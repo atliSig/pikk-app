@@ -16,28 +16,32 @@ var passport = require('passport');
 router.get('/', getIndex);
 
 function getIndex(req,res,next){
-    res.render('index', { title: 'Express'});
+    var user = req.session.user;
+    res.render('index', { user: user, title: 'Express'});
 }
 
 //------------ROUTING FOR LOGIN------------//
 router.get('/login', getLogin);
 
 function getLogin(req,res,next){
-    res.render('login', { title: 'Express' });
+    var user = req.session.user;
+    res.render('login', { user:user, title: 'Express' });
 }
 
 //------------ROUTING FOR SEARCH------------//
 router.get('/search', apiTools.doSearch, getSearch);
 
 function getSearch(req,res,next){
-    res.render('resultlist',{results: req.search_result});
+    var user = req.session.user;
+    res.render('resultlist',{ user:user, results: req.search_result});
 }
 
 //------------ROUTING FOR PLACE------------//
 router.get('/place/:placeId', apiTools.showPlace, getPlace);
 
 function getPlace(req,res,next) {
-    res.render('place',{place: req.search_result[0]});
+    var user = req.session.user;
+    res.render('place',{ user:user, place: req.search_result[0]});
 }
 
 //------------ROUTING FOR HEADOUT------------//
@@ -45,29 +49,33 @@ function getPlace(req,res,next) {
 router.use('/headout', getHeadout);
 
 function getHeadout(req,res,next){
+    var user = req.session.user;
     var key = process.env.AUTHKEY || '';
-    res.render('headout', {title: 'Le Pikk', jaObject: req.search_result[0]});
+    res.render('headout', { user:user, title: 'Le Pikk', jaObject: req.search_result[0]});
 }
 
 //------------ROUTING FOR START------------//
 router.get('/start',authTools.isLoggedIn, pikkTools.createForm,getStart);
 
 function getStart(req,res,next){
-    res.render('start', {title: 'Le Start',form:req.form});
+    var user = req.session.user;
+    res.render('start', {user: user, title: 'Le Start',form:req.form});
 }
 
 //----------ROUTING FOR CHOOSE------------//
 router.post('/choose',apiTools.queryByTags,pikkTools.filterByNotWanted,getChoose);
 function getChoose(req,res,next){
-    res.render('choose', {title:'usr choose one', results: req.search_result});
+    var user = req.session.user;
+    res.render('choose', { user:user, title:'usr choose one', results: req.search_result});
 }
 
 //------------ROUTING FOR MAP------------//
 router.get('/map/*', function (req, res, next){
-  var q = querystring.stringify(req.query);
-  q = querystring.unescape(q);
-  var query = (querystring.parse(q));
-  res.render('map', {query: query});
+    var user = req.session.user;
+    var q = querystring.stringify(req.query);
+    q = querystring.unescape(q);
+    var query = (querystring.parse(q));
+    res.render('map', {user: user, query: query});
 });
 
 router.get('/logout', function(req, res) {

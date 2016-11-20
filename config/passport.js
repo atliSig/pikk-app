@@ -42,6 +42,7 @@ module.exports = function(passport){
             //nextTick ensures we have all data from Google before
             //calling User.findOne
             process.nextTick(function () {
+                var img_url = profile.photos[0].value.replace('sz=50','sz=250');
                 User.find({where: {'google.id': profile.id}}).then(
                     function (user) {
                         if (user) {
@@ -56,9 +57,10 @@ module.exports = function(passport){
                                 'google.name': profile.displayName,
                                 'first_name': profile.name.givenName,
                                 'last_name': profile.name.familyName,
-                                'username': email.replace("@",'.'),
+                                'username': email.replace("@gmail.com",''),
                                 'google.email': email,
-                                'email': email
+                                'email': email,
+                                'img_url': img_url
                             }).then(function(newUser){
                                 done(null, newUser)
                             });

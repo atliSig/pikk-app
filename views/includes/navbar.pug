@@ -3,21 +3,29 @@ nav.navbar.navbar-light.bg-faded
         img.d-inline-block.align-top(src='/images/pikk-avatar.png', width='30', height='30', alt='')
         | Pikk
     ul.nav.navbar-nav
-        li.nav-item.active
-            a.nav-link(href='/auth/google')
-                | Login
-                span.sr-only (current)
-        li.nav-item
-            a.nav-link(href='#') About
-        li.nav-item.dropdown
-            a#supportedContentDropdown.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Actions
-            .dropdown-menu(aria-labelledby='supportedContentDropdown')
-                a.dropdown-item(href='/u') My profile
-                a.dropdown-item(href='/g') My groups
-                form(method="POST", action="/u/signout")
-                    button.dropdown-item(role="submit") Log out
-                a.dropdown-item(href='#') My settings
-    button#get-location() Get Location
+        if(!user)
+            li.nav-item.active
+                a.nav-link(href='/auth/google').login-btn
+                    | Login
+                    span.sr-only (current)
+        else
+            li.nav-item.active
+                a.nav-link.signed-in=user.username
+        if(user)
+            li.nav-item.active
+                a.nav-link(href='/u')
+                    i.fa.fa-user-circle-o.fa-lg.nav-icon
+        if(user)
+            li.nav-item.active
+                a.nav-link(href='#')
+                    i.fa.fa-users.fa-lg.nav-icon
+        if(user)
+            li.nav-item.active
+                a.nav-link(href='#')
+                    i.fa.fa-gear.fa-lg.nav-icon
+        if(user)
+            li.nav-item.active
+                a.logout-btn.btn.btn-secondary.nav-link(role="button", href="/logout") Log out
     form.form-inline.float-xs-right(method='get', action='/search')
         input.form-control(name='query', value='macland', type='text')
         button.btn.btn-secondary(type='submit' id="search-button") Leita

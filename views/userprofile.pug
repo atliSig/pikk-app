@@ -1,12 +1,53 @@
 extends layout
 
 block content
-    if owner
-        h1= 'Notandi ' + owner.username
-        h2= 'Nafn: ' + owner.first_name + ' '+owner.last_name
-        h3= 'Simi: ' + owner.phone
-        h3= 'Email: ' + owner.email
-        h3= 'Pikk Nikk: ' + owner.nikk
-    else
-        h1 Notandi fannst ekki
-        a(href="/") Smelltu her til ad fara heim
+    .col-lg-8
+        //h1= 'Usr: '+user.username
+        //h2= 'ownr: '+owner.username
+        if (owner)
+            .card.user-card
+                .card-header=owner.username
+                    i.fa.fa-user-circle-o.pikk-card-icon
+                .card-block
+                    h4.card-title=owner.first_name+' '+owner.last_name
+                    img(src=owner.img_url, alt="User Image").user-img
+                ul.list-group.list-group-flush
+                    li.list-group-item=owner.email
+                        i.fa.fa-at.pikk-card-icon
+                    if(owner.phone)
+                        li.list-group-item=owner.phone
+                            i.fa.fa-phone.pikk-card-icon
+                    if(owner.nikk)
+                        li.list-group-item="PikkNikk: "+owner.nikk
+                            i.fa.fa-diamond.pikk-card-icon
+                    li.list-group-item
+                        a(href="#").user-social-link
+                            i.fa.fa-facebook.fa-lg.user-social-icon
+                        a(href="#").user-social-link
+                            i.fa.fa-twitter.fa-lg.user-social-icon
+                        a(href="#").user-social-link
+                            i.fa.fa-instagram.fa-lg.user-social-icon
+                        a(href="#").user-social-link
+                            i.fa.fa-snapchat.fa-lg.user-social-icon
+        else
+            h1 Notandi fannst ekki
+            a(href="/") Smelltu her til ad fara heim
+    .col-lg-4.friend-list
+        if(owner.username==user.username)
+            .card
+                .card-header Hópar
+                    i.fa.fa-users.pikk-card-icon
+                i.fa.fa-user-circle-o.pikk-card-icon
+                ul.list-group.list-group-flush
+                    li.list-group-item
+                        a(href='#').friend-link Föstudagsfjör
+                    li.list-group-item
+                        a(href='#').friend-link Vinir út að borða
+                    li.list-group-item
+                        a(href='#').friend-link Laugardagurinn 18 apríl
+                    li.list-group-item
+                        a(href='#').friend-link Atli + Pétur
+                    li.list-group-item
+                        a(href='#').friend-link PIKK Celebration dinner
+                    li.list-group-item
+                        a(href='#').friend-link Fjallameistarinn út að borða
