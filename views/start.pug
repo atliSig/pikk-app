@@ -7,20 +7,109 @@ block content
                 div.pikk-form
                     .card
                         .card-header
-                            | Main Questions
-                            i.card-title.fa-fa-star.pikk-card-icon
+                            | Matartegund
+                            i.fa.fa-filter.pikk-card-icon
                         .card-block
-                            h3.card-title Poo
+                            button.btn.btn-secondary.first-check.check
+                                i.fa.fa-check.first-icon
+                            br
                             p.card-text
-                                | Hvað er að fara að gerast hér?
-                            form(method='get', action='/choose')
-                                input(type='text', placeholder="Hamborgari", name="first", id="first").pikk-input
-                                br
-                                input(type='text', placeholder="Pizza", name="second", id="second").pikk-input
-                                br
-                                input(type='text', placeholder="Fiskur", name="third", id="third").pikk-input
-                                button.btn.btn-primary(type='submit' id="start-pikk-button") PIKK
+                                | Er einhver sérstök matartegund sem þig langar í af þessum flokkum?
+                            form(method="post", action="/headout")
+                                .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
+                                    label.btn.btn-secondary.choice-button.first-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Vegan
+                                    label.btn.btn-secondary.choice-button.first-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Grænmeti
+                                    label.btn.btn-secondary.choice-button.first-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Kjöt
+                                    label.btn.btn-secondary.choice-button.first-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Tegund
+                                    label.btn.btn-secondary.choice-button.first-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Önnur tegund?
+                                    label.btn.btn-secondary.choice-button.first-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Dettur ekkert í
+                                    label.btn.btn-secondary.choice-button.first-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Hug
+                    .card
+                        .card-header
+                            | Skyndibiti
+                            i.fa.fa-bolt.pikk-card-icon
+                        .card-block
+                            button.btn.btn-secondary.second-check.check
+                                i.fa.fa-check.second-icon
+                            br
+                            p.card-text
+                                | Myndi þig langa í eitthvað hér? Veldu það sem þér líst á.
+                            form(method="post", action="/headout")
+                                .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
+                                    label.btn.btn-secondary.choice-button.second-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Pizza
+                                    label.btn.btn-secondary.choice-button.second-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Hamborgari
+                                    label.btn.btn-secondary.choice-button.second-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Indverskt
+                                    label.btn.btn-secondary.choice-button.second-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Mexikóskt
+                                    label.btn.btn-secondary.choice-button.second-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Pizza
+                                    label.btn.btn-secondary.choice-button.second-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Hamborgari
+                                    label.btn.btn-secondary.choice-button.second-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Bjór
+                    .card
+                        .card-header
+                            | Aðeins fínna
+                            i.fa.fa-glass.pikk-card-icon
+                        .card-block
+                            button.btn.btn-secondary.third-check.check
+                                i.fa.fa-check.third-icon
+                            br
+                            p.card-text
+                                | Myndi þig langa í eitthvað hér? Veldu það sem þér líst á.
+                            form(method="post", action="/headout")
+                                .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Steik
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Pasta
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Sushi
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Kjúklingur
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Súpa
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Fleiri möguleikar
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Annar möguleiki
+                                    label.btn.btn-secondary.choice-button.third-checkpoint
+                                        input(type="checkbox", autocomplete="off")
+                                        | Vín
+                    button.btn.btn-primary(type='submit' id="start-pikk-button") PIKK
             .col-lg-3
             .col-lg-3
 block scripts
     script(src="javascript/selection.js")
+    script(src="javascript/checkboxes.js")
