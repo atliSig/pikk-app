@@ -2,109 +2,43 @@ extends layout
 
 block content
         .row
-            .col-lg-3
-            .col-lg-6
+            .col-lg-2
+            .col-lg-8
+                .card
+                    .card-header
+                        | Veldu mest þrjá flokka hér að neðan
+                        i.fa.fa-filter.pikk-card-icon
+                    .card-block
+                        p.card-text
+                            | Við veljum staði fyrir þig sem eiga við þessa flokka.
+                            | Sumir staðirnir geta uppfyllt öll skilyrðin en aðrir bara sum
+                        button.btn.btn-outline-primary.btn-space(value=0) Kjúklingur
+                        button.btn.btn-outline-primary.btn-space(value=1) Steik
+                        button.btn.btn-outline-primary.btn-space(value=2) Sjávarréttir
+                        button.btn.btn-outline-primary.btn-space(value=3) Pítsa
+                        button.btn.btn-outline-primary.btn-space(value=4) Hamborgari
+                        button.btn.btn-outline-primary.btn-space(value=5) Sushi
+                        button.btn.btn-outline-primary.btn-space(value=6) Salat
+                        button.btn.btn-outline-primary.btn-space(value=7) Kebab
+                        button.btn.btn-outline-primary.btn-space(value=8) Tælenskt
+                        button.btn.btn-outline-primary.btn-space(value=9) Asískt
+                        button.btn.btn-outline-primary.btn-space(value=10) Inverskt
+                        button.btn.btn-outline-primary.btn-space(value=11) Mexíkóskt
+                        button.btn.btn-outline-primary.btn-space(value=12) Ítalskt
+                        button.btn.btn-outline-primary.btn-space(value=13) Íslenskt
+                        button.btn.btn-outline-primary.btn-space(value=14) Hádegismatur
+                        button.btn.btn-outline-primary.btn-space(value=15) Vegan
+                        button.btn.btn-outline-primary.btn-space(value=16) Hollt
+                        button.btn.btn-outline-primary.btn-space(value=17) Bakarí
+                        button.btn.btn-outline-primary.btn-space(value=18) Bístró
+                        button.btn.btn-outline-primary.btn-space(value=19) Kaffi
+                        button.btn.btn-outline-primary.btn-space(value=20) Áfengi
+
+
+
                 form#start-pikk-form(method="post", action="/choose")
-                    div.pikk-form
-                        .card
-                            .card-header
-                                | Tegund af mat
-                                i.fa.fa-filter.pikk-card-icon
-                            .card-block
-                                button.btn.btn-secondary.first-check.check
-                                    i.fa.fa-check.first-icon
-                                br
-                                p.card-text
-                                    | Tegund af mat
-                                    .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons")
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=0)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Kjúklingur
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=1)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Steik
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=2)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Sjávarréttir
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=3)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Pítsa
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=4)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Hamborgari
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=5)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Sushi
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=6)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Salat
-                                        label.btn.btn-secondary.choice-button.first-checkpoint(value=7)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Kebab
-                        .card
-                            .card-header
-                                | Matur eftir uppruna
-                                i.fa.fa-bolt.pikk-card-icon
-                            .card-block
-                                button.btn.btn-secondary.second-check.check
-                                    i.fa.fa-check.second-icon
-                                br
-                                p.card-text
-                                    | Matur eftir uppruna
-                                    .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
-                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=8)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Tælenskt
-                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=9)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Asískt
-                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=10)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Inverskt
-                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=11)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Mexíkóskt
-                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=12)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Ítalskt
-                                        label.btn.btn-secondary.choice-button.second-checkpoint(value=13)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Íslenskt
-                        .card
-                            .card-header
-                                | Aðrir möguleikar
-                                i.fa.fa-glass.pikk-card-icon
-                            .card-block
-                                button.btn.btn-secondary.third-check.check
-                                    i.fa.fa-check.third-icon
-                                br
-                                p.card-text
-                                    | Aðrir möguleikar
-                                    .btn-group.btn-group-lg.text-center.pagination-centered(role='group', aria-label='First group',data-toggle="buttons"    )
-                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=14)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Hádegismatur
-                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=15)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Vegan
-                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=16)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Hollt
-                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=17)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Bakarí
-                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=18)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Bístró
-                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=19)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Kaffi
-                                        label.btn.btn-secondary.choice-button.third-checkpoint(value=20)
-                                            input(type="checkbox", autocomplete="off")
-                                            | Áfengi
-                        button.btn.btn-primary(type='submit' id="start-pikk-button") Pikk
-            button.btn.btn-seconaary(id='location-button') Háð staðsetningu
-            .col-lg-3
-            .col-lg-3
+                    button.btn.btn-primary(type='submit' id="start-pikk-button") Pikk
+                    button.btn.btn-seconaary(id='location-button') Háð staðsetningu
+            .col-lg-2
 block scripts
     script(src="javascript/selection.js")
