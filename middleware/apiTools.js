@@ -3,7 +3,6 @@
  */
 var https = require('https');
 var url = require('url');
-var geolib = require('geolib');
 
 //The main function for a connection with the Ja API
 apiConnector = function(query,req,res,next){
@@ -19,7 +18,7 @@ apiConnector = function(query,req,res,next){
         response.on('end', function () {
             var keyword='laptop';
             req.search_result = JSON.parse(str).yellow.items;
-            //console.log(req.search_result);
+            console.log(req.search_result);
             next();
         });
     });
@@ -93,8 +92,12 @@ exports.queryByTags = function(req, res, next){
 
 
     //userData contains index into the array types
-    var userData = JSON.parse(req.body.userinput);
-    console.log(userData);
+    var userInput = JSON.parse(req.body.userinput);
+    var userData  = userInput.selection;
+    req.current_location = userInput.location;
+    console.log(req.current_location);
+    //Testing distance
+    req.maximum_distance = 10000;
     //We build a query on the form
     //((tag1 or tag2) or (tag3 or tag4) or...)AND(tag: veitingastadur)
     var q = '('

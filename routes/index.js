@@ -55,7 +55,7 @@ function getHeadout(req,res,next){
 }
 
 //------------ROUTING FOR START------------//
-router.get('/start',authTools.isLoggedIn, pikkTools.createForm,getStart);
+router.get('/start', pikkTools.createForm,getStart);
 
 function getStart(req,res,next){
     var user = req.session.user;
@@ -63,7 +63,7 @@ function getStart(req,res,next){
 }
 
 //----------ROUTING FOR CHOOSE------------//
-router.post('/choose',apiTools.queryByTags,pikkTools.filterByNotWanted,getChoose);
+router.post('/choose',apiTools.queryByTags,pikkTools.filterByDistance,getChoose);
 function getChoose(req,res,next){
     var user = req.session.user;
     res.render('choose', { user:user, title:'usr choose one', results: req.search_result});

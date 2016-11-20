@@ -2,6 +2,7 @@
  * Created by atli on 5.11.2016.
  */
 
+var geolib = require('geolib');
 
 exports.findPlaces = function(req,res,next){
     //var data = req.pikkParam;
@@ -58,7 +59,7 @@ exports.filterByNotWanted = function(req,res,next){
     });
     req.search_result=isWanted;
     next();
-}
+};
 
 //Filter results by keywords
 //NEED TO CHANGE TO TAGS FOR SEMANTICS
@@ -92,15 +93,33 @@ function filterByRating(results, rating){
     return hasRating;
 }
 
-function filterByDistance(results, selection, max){
+
+exports.filterByDistance=function(req,res,next){
+    var close_result=[];
+    var results = req.search_result;
+    var curr_loc= req.current_location;
+    var max_dist= req.maximum_distance;
     var isClose = [];
     results.forEach(function(item){
         //dist is in meters
-        var dist = geolib.getDistance(
-            {latitude:item.coordinates.lat, longitude:item.coordinates.lon},
-            {latitude:selection.location.latitude, longitude: selection.location.latitude}
-        );
-        console.log('dist in meters: '+ dist);
-    })
-}
+        if(item.has_coordinates) {
+            console.log(item.name);
+            console.log(item.coordinates.lat+","+item.coordinates.lon);
+            console.log(curr_loc);
+            var dist = geolib.getDistance(
+                {latitude: item.coordinates.lat, longitude: item.coordinates.lon},
+                {latitude: curr_loc.latitude, longitude: curr_loc.longitude}
+            );
+            console.log('dist: '+dist);
+            console.log('max_dist: '+max_dist);
+            if(dist<max_dist){
+                close_result.push(item);
+            }
+        }
+
+    });
+    req.search_result=close_result;
+    next();
+};
+
 
