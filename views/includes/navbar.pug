@@ -1,42 +1,43 @@
 nav.navbar.navbar-light.bg-faded(role='navigation')
-    button.navbar-toggler.hidden-sm-up.pull-right(type='button', data-toggle='collapse', data-target='#nav-content' aria-expanded='false')
-    #nav-content.collapse.navbar-toggleable-xs
-        ul.nav.navbar-nav
-            li.nav.nav-item
-                a.navbar-brand(href='/')
-                    img.d-inline-block.align-top(src='/images/pikk-avatar.png', width='30', height='30', alt='')
-            li.nav-item.dropdown
-                a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') BadOne
-                .dropdown-menu
-                    a.dropdown-item(href='#') First
-                    a.dropdown-item(href='#') Second
-                    a.dropdown-item(href='#') Third
-                    .dropdown-divider
-                    a.dropdown-item(href='#') All Groups
-            li.nav-item.dropdown
-                a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Events
-                .dropdown-menu
-                    a.dropdown-item(href='#') First
-                    a.dropdown-item(href='#') Second
-                    a.dropdown-item(href='#') Third
-                    .dropdown-divider
-                    a.dropdown-item(href='#') All Events
-            li.nav-item.dropdown
-                a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                    img.d-inline-block.align-top.profile-icon(src=user.img_url,width='28', height='28', alt='')
-                .dropdown-menu.dropdown-menu-left
-                    a.dropdown-item(href='#') First
-                    a.dropdown-item(href='#') Second
-                    a.dropdown-item(href='#') Third
-                    .dropdown-divider
-                    a.dropdown-item(href='#') All Events
-            li.nav-item.dropdown
-                a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                    i.fa.fa-bell(aria-hidden='true', width='28', height='28')
-                .dropdown-menu
-                    a.dropdown-item(href='#') Action
-                    a.dropdown-item(href='#') Another action
-                    a.dropdown-item(href='#') Something else here
-        form.form-inline.float-xs-right(method='get', action='/search')
-            input.form-control(name='query', value='macland', type='text')
-            button.btn.btn-secondary(type='submit' id="search-button") Leita
+    .container-fluid
+        .navbar-header
+            a.navbar-brand(href='/')
+                img.d-inline-block.align-top(src='/images/pikk-avatar.png', width='30', height='30', alt='')
+            button.navbar-toggler.hidden-sm-up.pull-right(type='button', data-toggle='collapse', data-target='#nav-content' aria-expanded='false')
+        #nav-content.collapse.navbar-toggleable-xs
+            ul.nav.navbar-nav
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Groups
+                    .dropdown-menu
+                        a.dropdown-item(href='#') First
+                        a.dropdown-item(href='#') Second
+                        a.dropdown-item(href='#') Third
+                        .dropdown-divider
+                        a.dropdown-item(href='#') All Groups
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Events
+                    .dropdown-menu
+                        a.dropdown-item(href='#') First
+                        a.dropdown-item(href='#') Second
+                        a.dropdown-item(href='#') Third
+                        .dropdown-divider
+                        a.dropdown-item(href='#') All Events
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        img.d-inline-block.align-top.profile-icon(src='http://0.gravatar.com/avatar/f424fcf17bf20527a274d966efd2e3bf?s=80&d=mm&r=g',width='28', height='28', alt='')
+                    .dropdown-menu.dropdown-menu-left
+                        a.dropdown-item(href='#') First
+                        a.dropdown-item(href='#') Second
+                        a.dropdown-item(href='#') Third
+                        .dropdown-divider
+                        a.dropdown-item(href='#') All Events
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        i.fa.fa-bell(aria-hidden='true', width='28', height='28')
+                    .dropdown-menu
+                        a.dropdown-item(href='#') Action
+                        a.dropdown-item(href='#') Another action
+                        a.dropdown-item(href='#') Something else here
+            form.form-inline.float-xs-right(method='get', action='/search')
+                input.form-control(name='query', value='macland', type='text')
+                button.btn.btn-secondary(type='submit' id="search-button") Leita
