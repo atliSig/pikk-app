@@ -9,7 +9,7 @@ var authTools = require('../middleware/authTools');
 //Load user model
 var User = db.User;
 var Group = db.Group;
-
++
 
 router.get('/:username', authTools.isLoggedIn, get_user_profile);
 router.get('/', authTools.isLoggedIn, get_own_page);

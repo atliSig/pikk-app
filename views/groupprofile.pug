@@ -6,12 +6,16 @@ block content
 
     a.btn.btn-secondary(href='.', role='button') Pikk a pleis
 
-    if events
+    if events.length > 0
+        h3 Events
         .card-columns
-        each event in events
-            .card
-                p= event.date
-
+            each event in events
+                .card
+                    .card-header= event.title
+                    .card-block
+                        .card-text= event.description
+    else
+        h3 No events have been planned
 
 block leftside
     form(method="POST", action="/g/"+group.id+"/addMember")

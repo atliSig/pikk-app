@@ -57,8 +57,7 @@ app.use(require('less-middleware')(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 
-
-//Initialize db
+//Initialize database associations
 db.init();
 
 

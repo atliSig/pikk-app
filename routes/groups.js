@@ -9,6 +9,7 @@ var authTools = require('../middleware/authTools');
 
 var Group = db.Group;
 var User = db.User;
+var Event = db.Event;
 
 module.exports = router;
 
@@ -59,8 +60,14 @@ function showGroupPage(req, res, next) {
             order: 'first_name'
             }]
     }).then(function(users){
-        Group.findOne({where: {id:groupid}})
+        Group.findOne(
+            {
+                where: {
+                    id:groupid
+                }
+            })
             .then(function(group){
+
                 if(group && users) {
                     var in_group = false;
                     for(var i in users){
@@ -73,13 +80,18 @@ function showGroupPage(req, res, next) {
                     }
                     if(in_group) {
                         //grant access to members
-                        res.render('groupprofile', {
-                            group: group,
-                            user: user,
-                            members: users
+
+                        group.getEvents().then(function(events){
+                            res.render('groupprofile', {
+                                group: group,
+                                user: user,
+                                members: users,
+                                events: events
+                            });
                         });
                     }
                     //Restrict access to outsiders
+
                     else{
                         res.redirect('/');
                     }
