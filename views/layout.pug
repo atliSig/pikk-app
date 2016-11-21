@@ -20,15 +20,17 @@ html(lang="en")
         block links
 
 body
-    include includes/navbar.pug
-    .container-fluid.main-wrapper
-        .row.layout-row
-            .col-lg-2
-                block leftside
-            .col-lg-8
-                block content
-            .col-lg-2
-                block rightside
+    .wrapper
+        include includes/navbar.pug
+        .container-fluid.main-wrapper
+            .row.layout-row
+                .col-lg-2
+                    block leftside
+                .col-lg-8
+                    block content
+                .col-lg-2
+                    block rightside
+        .push
     footer.footer
         .container-fluid
             .row
