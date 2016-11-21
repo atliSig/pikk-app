@@ -14,7 +14,7 @@ var Event = db.Event;
 module.exports = router;
 
 router.get('/', authTools.isLoggedIn, displayGroupPage);
-router.get('/:groupid', authTools.isLoggedIn, showGroupPage);
+router.get('/:groupid', authTools.isLoggedIn,showGroupPage);
 router.post('/creategroup', authTools.isLoggedIn, createGroup);
 router.post('/:groupid/addMember', authTools.isLoggedIn, addMember);
 

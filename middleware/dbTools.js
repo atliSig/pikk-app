@@ -61,7 +61,7 @@ function fx(){
                 group.addEvent(event);
             });
         });
-};
+}
 
 module.exports = {
     User: User,
