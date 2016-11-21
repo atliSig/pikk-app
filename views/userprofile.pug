@@ -1,24 +1,35 @@
 extends layout
 
 block content
-        .row
-            .col-md-3
+    .row
+        .col-lg-3.col-sm-2
+            .card
+                img.card-img-top(src=owner.img_url).profile-image
+        .col-lg-9.col-sm-10
+            .card
+                .card-block
+                    h4=owner.google.displayName
+                ul.list-group.list-group-flush
+                    li.list-group-item=owner.google.email
+                        i.fa.fa-at.pikk-card-icon
+                    li.list-group-item
+                        a(href="#").btn.btn-primary Create a new group
+    .row
+        .col-lg-6.col-sm-12
+            if(owner.username==user.username)
                 .card
-                    img.card-img-top(src=owner.img_url).profile-image
-            .col-md-9
-                .card
-                    .card-block
-                        h4=owner.google.displayName
+                    .card-header Events
+                        i.fa.fa-users.pikk-card-icon
                     ul.list-group.list-group-flush
-                        li.list-group-item=owner.google.email
-                            i.fa.fa-at.pikk-card-icon
-        .row
-            .col-md-12
-                if(owner.username==user.username)
-                    .card
-                        .card-header Hópar
-                            i.fa.fa-users.pikk-card-icon
-                        ul.list-group.list-group-flush
-                            each group in groups
-                                li.list-group-item
-                                    a(href='/g/'+group.id).friend-link= group.name
+                        each group in groups
+                            li.list-group-item
+                                a(href='/g/'+group.id).friend-link= group.name
+        .col-lg-6.col-sm-12
+            if(owner.username == user.username)
+                .card
+                    .card-header Groups
+                        i.fa.fa-users.pikk-card-icon
+                    ul.list-group.list-group-flush
+                        each group in groups
+                            li.list-group-item
+                                a(href='/g/' + group.id).friend-link= group.name

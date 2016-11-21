@@ -1,45 +1,39 @@
 extends layout
 
 block content
-    h1.group-banner= group.name
-    h2= group.description
-    br
-    a.btn.btn-secondary(href='.', role='button') Pikk a pleis
-    if events.length > 0
-        h3 Events
-        .card-columns
-            each event in events
-                .card
-                    .card-header= event.title
-                    .card-block
-                        .card-text= event.description
-    else
-        h3 No events have been planned
+    .row
+        .col-lg-12
+            .card
+                .card-block
+                    h1= group.name
+                    h2= group.description
+    .row
+        .col-lg-6.col-sm-12
+            .card
+                .card-header Events
+                if events.length > 0
+                    ul.list-group.list-group-flush
+                        li.list-group-item
+                            p=event.title
+                            p=event.description
+        .col-lg-6.col-sm-12
+            .card
+                .card-header Members
+                ul.list-group.list-group-flush
+                    each member in members
+                        li.list-group-item
+                            a.friend-link(href='/u/' + member.username)= member.first_name
+                            p=member.email
+    .row
+        .col-lg-6.col-sm-12
+            .card
+                .card-block
+                    form(method="POST", action="/g/"+group.id+"/addMember")
+                        fieldset
+                            legend Add a member
+                            .form-group
+                                label(for="username") Username
+                                input.form-control(type=text, name="username", id="username", required="required")
 
-block leftside
-    form(method="POST", action="/g/"+group.id+"/addMember")
-        fieldset
-            legend Add a member
-            .form-group
-                label(for="username") Username
-                input.form-control(type=text, name="username", id="username", required="required")
-
-            .form-group
-                button.btn.btn-secondary(type="submit") Add Member
-
-    if errors
-        p An error occurred
-        each error in errors
-            p= error
-
-    h3 Description
-    .card.card-block
-        if group.description
-            article= group.description
-        else
-            .card-text No description exists yet for this group.
-
-block rightside
-    each member in members
-        a.friend-link(href='/u/'+member.username)= member.first_name
-        p= member.email
+                            .form-group
+                                button.btn.btn-primary(type="submit") Add Member
