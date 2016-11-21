@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    form(method="POST", action="/u/settings")
+        fieldset.form-group
+            legend Settings
+            .form-group
+                label(for="username") Change username
+                input.form-control(type=text, name="username", id="username", required="required", value=user.username)
+
+            .form-group
+                label(for="members") Members
+                ul(id="members")
+                    li
+                        input.list-group-item.form-control(type=text, name="member1")
+                    li
+                        input.form-control(type=text, name="member2")
+
+            .form-group
+                label(for="description") Description
+                textarea.form-control(name="description", placeholder="(Optional)", id="description")
+            .form-group
+                button.btn.btn-secondary(type=submit) Save
+
+
+    if errors && errors.length > 0
+        .errors
+            p= errors.length + ' error occurred when creating your group:'
+            each error in errors
+                p= error

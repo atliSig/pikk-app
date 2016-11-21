@@ -3,29 +3,35 @@ nav.navbar.navbar-light.bg-faded
         img.d-inline-block.align-top(src='/images/pikk-avatar.png', width='30', height='30', alt='')
         | Pikk
     ul.nav.navbar-nav
-        if(!user)
+
+        if(user)
+            //username
+            li.nav-item.active
+                a.nav-link.signed-in=user.username
+
+            //user icon, go to profile
+            li.nav-item.active
+                a.nav-link(href='/u')
+                    i.fa.fa-user-circle-o.fa-lg.nav-icon
+
+            //groups icon
+            li.nav-item.active
+                a.nav-link(href='/g')
+                    i.fa.fa-users.fa-lg.nav-icon
+
+            //settings icon
+            li.nav-item.active
+                a.nav-link(href='#')
+                    i.fa.fa-gear.fa-lg.nav-icon
+
+            li.nav-item.active
+                a.logout-btn.btn.btn-secondary.nav-link(role="button", href="/logout") Log out
+        else
             li.nav-item.active
                 a.nav-link(href='/auth/google').login-btn
                     | Login
                     span.sr-only (current)
-        else
-            li.nav-item.active
-                a.nav-link.signed-in=user.username
-        if(user)
-            li.nav-item.active
-                a.nav-link(href='/u')
-                    i.fa.fa-user-circle-o.fa-lg.nav-icon
-        if(user)
-            li.nav-item.active
-                a.nav-link(href='#')
-                    i.fa.fa-users.fa-lg.nav-icon
-        if(user)
-            li.nav-item.active
-                a.nav-link(href='#')
-                    i.fa.fa-gear.fa-lg.nav-icon
-        if(user)
-            li.nav-item.active
-                a.logout-btn.btn.btn-secondary.nav-link(role="button", href="/logout") Log out
+
     form.form-inline.float-xs-right(method='get', action='/search')
         input.form-control(name='query', value='macland', type='text')
         button.btn.btn-secondary(type='submit' id="search-button") Leita

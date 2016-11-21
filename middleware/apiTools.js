@@ -9,7 +9,6 @@ apiConnector = function(query,req,res,next){
     //query=encodeURIComponent(query);
     //the query string for the Ja API
     var q = "https://api.ja.is/search?q="+query+"&access_code="+process.env.SEARCH_KEY;
-    console.log(q);
     var str='';
     https.get(q,function(response) {
         response.on('data', function (chunk) {
@@ -18,7 +17,7 @@ apiConnector = function(query,req,res,next){
         response.on('end', function () {
             var keyword='laptop';
             req.search_result = JSON.parse(str).yellow.items;
-            console.log(req.search_result);
+            // console.log(req.search_result);
             next();
         });
     });
@@ -95,7 +94,6 @@ exports.queryByTags = function(req, res, next){
     var userInput = JSON.parse(req.body.userinput);
     var userData  = userInput.selection;
     req.current_location = userInput.location;
-    console.log(req.current_location);
     //Testing distance
     req.maximum_distance = 10000;
     //We build a query on the form

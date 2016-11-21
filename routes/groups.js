@@ -23,7 +23,7 @@ function addMember(req, res, next){
     var user = req.session.user;
     var groupid = req.params.groupid;
     var username = req.body.username;
-
+    var errors = [];
     Group.findOne({where:{id:groupid}})
         .then(function(group){
             User.find({where:{
@@ -34,7 +34,14 @@ function addMember(req, res, next){
                         group.addMember(member).then(function(){
                             res.redirect('/g/'+groupid);
                         });
+
+                }, function(err){
+                    errors.push(err);
+                    res.render('groupprofile', {errors: errors, user: user});
                 });
+        }, function(err){
+            errors.push(err);
+            res.render('groupprofile', {errors: errors, user: user});
         });
 }
 
@@ -48,7 +55,8 @@ function showGroupPage(req, res, next) {
         include:[{
             model: Group,
             as: 'group',
-            where: {id: groupid}
+            where: {id: groupid},
+            order: 'first_name'
             }]
     }).then(function(users){
         Group.findOne({where: {id:groupid}})

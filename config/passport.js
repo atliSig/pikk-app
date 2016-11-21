@@ -17,7 +17,6 @@ module.exports = function(passport){
     //Serialize user for session, we currently use
     //session.destroy though
     passport.serializeUser(function(user,done){
-        //console.log(user);
         done(null, user);
     });
 

@@ -4,10 +4,10 @@
 
 //Checks if the current session has a logged in user
 module.exports.isLoggedIn= function(req,res,next){
-    next();
-    /*if(req.session.user){
+    //next();
+    if(req.session.user){
         next();
     }else{
         res.redirect('/');
-    }*/
+    }
 };

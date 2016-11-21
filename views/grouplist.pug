@@ -15,7 +15,7 @@ block content
             each group in groups
                     .card
                         .card-block
-                            p.card-text= group.name
+                            a(href="/g/"+group.id).card-text= group.name
                             p.text-muted= group.description
     else
         h2 No groups to display

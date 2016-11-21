@@ -4,15 +4,39 @@ block content
     h1= group.name
     h2= group.description
 
-        each member in members
-            p= member.first_name
-            p= member.email
+    a.btn.btn-secondary(href='.', role='button') Pikk a pleis
+
+    if events
+        .card-columns
+        each event in events
+            .card
+                p= event.date
+
 
 block leftside
     form(method="POST", action="/g/"+group.id+"/addMember")
-        .form-group
-            label(for="username") Username
-            input.form-control(type=text, name="username", id="username", required="required")
+        fieldset
+            legend Add a member
+            .form-group
+                label(for="username") Username
+                input.form-control(type=text, name="username", id="username", required="required")
 
-        .form-group
-            button.btn.btn-secondary(type="submit") Add Member
+            .form-group
+                button.btn.btn-secondary(type="submit") Add Member
+
+    if errors
+        p An error occurred
+        each error in errors
+            p= error
+
+    h3 Description
+    .card.card-block
+        if group.description
+            article= group.description
+        else
+            .card-text No description exists yet for this group.
+
+block rightside
+    each member in members
+        a.friend-link(href='/u/'+member.username)= member.first_name
+        p= member.email

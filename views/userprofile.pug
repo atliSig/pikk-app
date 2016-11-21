@@ -37,17 +37,7 @@ block content
             .card
                 .card-header Hópar
                     i.fa.fa-users.pikk-card-icon
-                i.fa.fa-user-circle-o.pikk-card-icon
                 ul.list-group.list-group-flush
-                    li.list-group-item
-                        a(href='#').friend-link Föstudagsfjör
-                    li.list-group-item
-                        a(href='#').friend-link Vinir út að borða
-                    li.list-group-item
-                        a(href='#').friend-link Laugardagurinn 18 apríl
-                    li.list-group-item
-                        a(href='#').friend-link Atli + Pétur
-                    li.list-group-item
-                        a(href='#').friend-link PIKK Celebration dinner
-                    li.list-group-item
-                        a(href='#').friend-link Fjallameistarinn út að borða
+                    each group in groups
+                        li.list-group-item
+                            a(href='/g/'+group.id).friend-link= group.name

@@ -20,14 +20,6 @@ function getIndex(req,res,next){
     res.render('index', { user: user, title: 'Express'});
 }
 
-//------------ROUTING FOR LOGIN------------//
-router.get('/login', getLogin);
-
-function getLogin(req,res,next){
-    var user = req.session.user;
-    res.render('login', { user:user, title: 'Express' });
-}
-
 //------------ROUTING FOR SEARCH------------//
 router.get('/search', apiTools.doSearch, getSearch);
 
