@@ -9,7 +9,6 @@ var authTools = require('../middleware/authTools');
 //Load user model
 var User = db.User;
 var Group = db.Group;
-+
 
 router.get('/:username', authTools.isLoggedIn, get_user_profile);
 router.get('/', authTools.isLoggedIn, get_own_page);
@@ -37,6 +36,7 @@ function get_own_page(req, res, next){
 function get_user_profile(req, res, next){
     var page_owner = req.params.username;
     var user = req.session.user;
+    console.log(user);
     User.findOne({
         where:{username:page_owner},
         include:[{model: Group, as:'group'}]

@@ -52,11 +52,11 @@ module.exports = function(passport){
                             User.create({
                                 'google.id': profile.id,
                                 'google.token': token,
-                                'google.name': profile.displayName,
+                                'google.displayName': profile.displayName,
+                                'google.email': email,
                                 'first_name': profile.name.givenName,
                                 'last_name': profile.name.familyName,
                                 'username': email.replace("@gmail.com",''),
-                                'google.email': email,
                                 'email': email,
                                 'img_url': img_url
                             }).then(function(newUser){
