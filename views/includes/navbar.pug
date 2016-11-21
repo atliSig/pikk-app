@@ -1,48 +1,55 @@
-nav.navbar.navbar-light.bg-faded(role='navigation')
-    .container-fluid
-        .row
-            .navbar-header
-                a.navbar-brand(href='/')
-                    img.d-inline-block.align-top(src='/images/pikk-avatar.png', width='30', height='30', alt='')
-                button.navbar-toggler.hidden-sm-up.pull-right(type='button', data-toggle='collapse', data-target='#nav-content' aria-expanded='false')
-            #nav-content.collapse.navbar-toggleable-xs
-                ul.nav.navbar-nav
-                    if(!user)
-                        li.nav-item.dropdown.active
-                            a.nav-link(href="/auth/google") Login
-                    else
-                        li.nav-item.dropdown
-                            a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Groups
-                            .dropdown-menu
-                                a.dropdown-item(href='#') First
-                                a.dropdown-item(href='#') Second
-                                a.dropdown-item(href='#') Third
-                                .dropdown-divider
-                                a.dropdown-item(href='#') All Groups
-                        li.nav-item.dropdown
-                            a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Events
-                            .dropdown-menu
-                                a.dropdown-item(href='#') First
-                                a.dropdown-item(href='#') Second
-                                a.dropdown-item(href='#') Third
-                                .dropdown-divider
-                                a.dropdown-item(href='#') All Events
-                        li.nav-item.dropdown
-                            a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                img.d-inline-block.align-top.profile-icon(src=user.img_url,width='28', height='28', alt='')
-                            .dropdown-menu.dropdown-menu-left
-                                a.dropdown-item(href='/u') My profile
-                                a.dropdown-item(href='/u/settings') Settings
-                                a.dropdown-item(href='#') Third
-                                .dropdown-divider
-                                a.dropdown-item(href='/logout') Logout
-                        li.nav-item.dropdown
-                            a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                i.fa.fa-bell(aria-hidden='true', width='28', height='28')
-                            .dropdown-menu
-                                a.dropdown-item(href='#') Action
-                                a.dropdown-item(href='#') Another action
-                                a.dropdown-item(href='#') Something else here
-                    form.form-inline.float-xs-right(method='get', action='/search')
-                        input.form-control(name='query', value='macland', type='text')
-                        button.btn.btn-secondary(type='submit' id="search-button") Leita
+nav.navbar.navbar-light.bg-faded
+    .navbar-header
+        ul.nav.navbar-nav
+            li.nav-item.main-icon
+                a.nav-link(href='/')
+                    .icon-wrapper
+                        img.d-inline-block.align-top.pikk-icon(src='/images/pikk-favi.png', width='32', height='28', alt='')
+            li.nav-item.dropdown.float-lg-right.sub-icon
+                a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                    img.d-inline-block.align-top.profile-icon(src=user.img_url,width='28', height='28', alt='')
+                .dropdown-menu.dropdown-menu-right
+                    a.dropdown-item(href='/u') My profile
+                    a.dropdown-item(href='/u/settings') Settings
+                    a.dropdown-item(href='#') Third
+                    .dropdown-divider
+                    a.dropdown-item(href='/logout') Logout
+            li.nav-item.dropdown.float-lg-right.sub-icon.button-secondary
+                .nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                    .icon-wrapper.fa-wrapper
+                        i.fa.fa-bell.pikk-icon(aria-hidden='true')
+                .dropdown-menu.dropdown-menu-right
+                    a.dropdown-item(href='#') Action
+                    a.dropdown-item(href='#') Another action
+                    a.dropdown-item(href='#') Something else here
+            button.navbar-toggler.hidden-lg-up(type='button', data-toggle='collapse', data-target='#navbarResponsive',
+            aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+    #navbarResponsive.collapse.navbar-toggleable-md
+        ul.nav.navbar-nav
+            if(!user)
+                li.nav-item.dropdown.active
+                    a.nav-link(href="/auth/google") Login
+            else
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Groups
+                    .dropdown-menu
+                        a.dropdown-item(href='#') First
+                        a.dropdown-item(href='#') Second
+                        a.dropdown-item(href='#') Third
+                        .dropdown-divider
+                        a.dropdown-item(href='#') All Groups
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Events
+                    .dropdown-menu
+                        a.dropdown-item(href='#') First
+                        a.dropdown-item(href='#') Second
+                        a.dropdown-item(href='#') Third
+                        .dropdown-divider
+                        a.dropdown-item(href='#') All Events
+            li.nav-item.float-lg-right
+                form.form-inline(method='get', action='/search')
+                    .inner-addon.right-addon
+                        i.fa.fa-search.input-icon
+                        input.form-control.icon-input(type='text')
+
+

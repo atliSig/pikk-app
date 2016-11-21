@@ -290,6 +290,24 @@ button.dropdown-item:hover {
   border-radius: 3px;
 }
 
+.icon-wrapper{
+  border-radius: 3px;
+  width: 28px;
+  height: 28px;
+  text-align:center;
+}
+
+.fa-wrapper{
+  background-color: white;
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+.pikk-icon{
+  color: #373a3c;
+  position: relative;
+  top: calc(50% - 44px);
+}
+
 .footer{
   height: 60px;
   background-color: #f5f5f5;
@@ -304,10 +322,39 @@ button.dropdown-item:hover {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  /* Negative indent footer by it's height */
   margin: 0 auto -60px;
 }
 
 .push{
   height:60px;
+}
+
+.inner-addon {
+  position: relative;
+}
+
+.inner-addon .input-icon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+.right-addon .input-icon { right: 0px;}
+
+.right-addon .icon-input { padding-right: 30px; }
+
+.icon-input{
+  width: 100% !important;
+}
+
+.main-icon{
+  margin-right:20px;
+}
+
+.sub-icon{
+  margin-left:5px !important;
+}
+
+.sub-icon>.dropdown-toggle{
+  padding-top: .31rem !important;
 }
