@@ -1,21 +1,26 @@
 extends layout
 
-block leftside
-    include includes/groupform.pug
-
 block content
+
     if user
-        h1= 'Welcome to your groups, '+user.first_name
+        if(last_letter)
+            h2.group-banner=user.first_name+"' groups"
+        else
+            h2.group-banner=user.first_name+"'s groups"
     else
         h1 Who the hell are you?
         h2 Authenticate, motherfucker!
+    a.btn.btn-primary(href="/g/creategroup") Create new group
     if groups
         //h2= groups.length +' groups'
-        .card-columns
+        .card-columns.group-list
             each group in groups
-                    .card
+                    .card.group-card
                         .card-block
-                            a(href="/g/"+group.id).card-text= group.name
-                            p.text-muted= group.description
+                            .card-title
+                                h5=group.name
+                            .card-text
+                                p.text-muted= group.description
+                            a(href="/g/"+group.id).btn.btn-primary View group
     else
         h2 No groups to display

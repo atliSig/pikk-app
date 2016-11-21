@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    form(method="POST", action="/g/creategroup")
+        fieldset.form-group
+            legend Create a group
+            .form-group
+                label(for="groupname") Group Name
+                input.form-control(type=text, name="groupname", id="groupname", required="required")
+            .form-group
+                label(for="members") Members
+                ul(id="members").group-members-input
+                    li
+                        input.list-group-item.form-control.group-member-input(type=text, name="member1")
+                    li
+                        input.list-group-item.form-control.group-member-input(type=text, name="member2")
+            .form-group
+                label(for="description") Description
+                textarea.form-control(name="description", placeholder="(Optional)", id="description")
+            .form-group
+            button.btn.btn-secondary(type=submit) Create
+    if errors && errors.length > 0
+        .errors
+            p= errors.length + ' error occurred when creating your group:'
+            each error in errors
+                p= error

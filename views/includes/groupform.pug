@@ -6,12 +6,11 @@ form(method="POST", action="/g/creategroup")
             input.form-control(type=text, name="groupname", id="groupname", required="required")
         .form-group
             label(for="members") Members
-            ul(id="members")
+            ul(id="members").group-members
                 li
                     input.list-group-item.form-control(type=text, name="member1")
                 li
-                    input.form-control(type=text, name="member2")
-
+                    input.list-group-item.form-control(type=text, name="member2")
         .form-group
             label(for="description") Description
             textarea.form-control(name="description", placeholder="(Optional)", id="description")

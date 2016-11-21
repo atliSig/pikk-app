@@ -14,7 +14,8 @@ var Event = db.Event;
 module.exports = router;
 
 router.get('/', authTools.isLoggedIn, displayGroupPage);
-router.get('/:groupid', authTools.isLoggedIn,showGroupPage);
+router.get('/creategroup', authTools.isLoggedIn, showCreateGroup);
+router.get('/:groupid', authTools.isLoggedIn, showGroupPage);
 router.post('/creategroup', authTools.isLoggedIn, createGroup);
 router.post('/:groupid/addMember', authTools.isLoggedIn, addMember);
 
@@ -106,14 +107,26 @@ function showGroupPage(req, res, next) {
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
     var user = req.session.user;
+    var last_letter = false;
+    if(user.first_name.slice(-1)==='s')
+    {
+        last_letter=true;
+    }
     Group.findAll()
          .then(function(groups) {
              res.render('grouplist',{
                  title: 'My groups',
                  user: user,
-                 groups: groups
+                 groups: groups,
+                 last_letter: last_letter
              });
          });
+}
+
+//Rendering the creategroup view
+function showCreateGroup(req, res, next){
+    var user = req.session.user;
+    res.render('creategroup', {title: 'Create Group', user:user});
 }
 
 //Create group handler

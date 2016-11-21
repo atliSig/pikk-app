@@ -17,7 +17,7 @@ router.get('/', getIndex);
 
 function getIndex(req,res,next){
     var user = req.session.user;
-    res.render('index', { user: user, title: 'Express'});
+    res.render('index', { user: user, title: 'Pikk'});
 }
 
 //------------ROUTING FOR SEARCH------------//
@@ -43,7 +43,7 @@ router.use('/headout', getHeadout);
 function getHeadout(req,res,next){
     var user = req.session.user;
     var key = process.env.AUTHKEY || '';
-    res.render('headout', { user:user, title: 'Le Pikk', jaObject: req.search_result[0]});
+    res.render('headout', { user:user, title: 'Pikk', jaObject: req.search_result[0]});
 }
 
 //------------ROUTING FOR START------------//
@@ -51,14 +51,14 @@ router.get('/start', pikkTools.createForm,getStart);
 
 function getStart(req,res,next){
     var user = req.session.user;
-    res.render('start', {user: user, title: 'Le Start',form:req.form});
+    res.render('start', {user: user, title: 'Pikk',form:req.form});
 }
 
 //----------ROUTING FOR CHOOSE------------//
 router.post('/choose',apiTools.queryByTags,pikkTools.filterByDistance,getChoose);
 function getChoose(req,res,next){
     var user = req.session.user;
-    res.render('choose', { user:user, title:'usr choose one', results: req.search_result});
+    res.render('choose', { user:user, title:'Choose', results: req.search_result});
 }
 
 //------------ROUTING FOR MAP------------//
