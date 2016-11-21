@@ -157,6 +157,7 @@ function createGroup(req, res, next){
     }
 
     //Create group if no errors
+    console.log(errors);
     if(errors.length === 0) {
         Group.create({
             name: groupname,
@@ -176,6 +177,7 @@ function createGroup(req, res, next){
     }
     //else display errors
     else{
-        res.render('grouplist', {errors:errors, groups:[], user:user});
+        var groupname = req.body.groupname;
+        res.render('creategroup', {errors:errors, groups:[], user:user, groupname: groupname});
     }
 }

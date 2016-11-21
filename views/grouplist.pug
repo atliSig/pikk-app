@@ -1,7 +1,6 @@
 extends layout
 
 block content
-
     if user
         if(last_letter)
             h2.group-banner=user.first_name+"' groups"
@@ -12,7 +11,6 @@ block content
         h2 Authenticate, motherfucker!
     a.btn.btn-primary(href="/g/creategroup") Create new group
     if groups
-        //h2= groups.length +' groups'
         .card-columns.group-list
             each group in groups
                     .card.group-card

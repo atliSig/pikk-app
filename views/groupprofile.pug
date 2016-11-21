@@ -1,11 +1,10 @@
 extends layout
 
 block content
-    h1= group.name
+    h1.group-banner= group.name
     h2= group.description
-
+    br
     a.btn.btn-secondary(href='.', role='button') Pikk a pleis
-
     if events.length > 0
         h3 Events
         .card-columns
