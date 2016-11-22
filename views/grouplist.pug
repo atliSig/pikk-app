@@ -1,24 +1,30 @@
 extends layout
 
 block content
-    if user
-        if(last_letter)
-            h2.group-banner=user.first_name+"' groups"
-        else
-            h2.group-banner=user.first_name+"'s groups"
-    else
-        h1 Who the hell are you?
-        h2 Authenticate, motherfucker!
-    a.btn.btn-primary(href="/g/creategroup") Create new group
-    if groups
-        .card-columns.group-list
-            each group in groups
-                    .card.group-card
-                        .card-block
-                            .card-title
-                                h5=group.name
-                            .card-text
-                                p.text-muted= group.description
-                            a(href="/g/"+group.id).btn.btn-primary View group
-    else
-        h2 No groups to display
+    .row
+        .col-lg-12
+            if groups
+                if groups.length < 2
+                    each group in groups
+                            .card
+                                .card-block
+                                    .card-title
+                                        h5=group.name
+                                    .card-text
+                                        p.text-muted=group.description
+                                    a(href="/g/"+group.id).btn.btn-primary View group
+                else
+                    .card-columns
+                        each group in groups
+                            .card
+                                .card-block
+                                    .card-title
+                                        h5=group.name
+                                    .card-text
+                                        p.text-muted=group.description
+                                    a(href="/g/" + group.id).btn.btn-primary View group
+            else
+                h2 No groups to display
+    .row
+        .col-lg-6.col-sm-12
+            a.btn.btn-primary(href="/g/creategroup") Create new group

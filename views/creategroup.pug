@@ -1,24 +1,33 @@
 extends layout
 
 block content
-    h2.group-banner Create a group
-    form(method="POST", action="/g/creategroup").create-group-form
-        .form-group
-            label(for="groupname") Group Name
-            input.form-control(type=text, name="groupname", id="groupname", required="required", value=groupname)
-        .form-group
-            label(for="members") Members
-            ul(id="members").group-members-input
-                li
-                    input.list-group-item.form-control.group-member-input(type=text, name="member1")
-                li
-                    input.list-group-item.form-control.group-member-input(type=text, name="member2")
-        .form-group
-            label(for="description") Description
-            textarea.form-control(name="description", placeholder="(Optional)", id="description")
-        .form-group
-        button.btn.btn-primary(type=submit) Create
+    .row
+        .col-lg-8.col-sm-12.offset-lg-2
+            .card
+                .card-block
+                    form(method="POST", action="/g/creategroup", id='create-group-form').create-group-form
+                        .form-group
+                            label(for="groupname") Group Name
+                            input.form-control(type=text, name="groupname", id="groupname", required="required", value=groupname)
+                        .form-group
+                            label(for="description") Description
+                            textarea.form-control(name="description", placeholder="(Optional)", id="description")
+                        .form-group
+                            label(for="members") Members
+                            .row
+                                .col-xs-10.col-sm-11
+                                    input.form-control(type=email, name="members" id="members")
+                                .col-xs-2.col-sm-1
+                                    button.btn.btn-primary.pull-right(type="button", id='add-member')
+                                        i.fa.fa-check
+                        .card#insert-wrapper
+                            .card-block#insert-area
 
-    if errors && errors.length > 0
-            each error in errors
-                p.alert.alert-danger= error
+                        .form-group
+                            button.btn.btn-primary.pull-right(type=submit id='create-group') Create
+
+                        button.btn.btn-outline-primary.btn-space#hide-it
+                            i.fa.fa-close.side-icon
+
+block scripts
+    script(src="../javascript/addMembers.js")
