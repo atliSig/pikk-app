@@ -9,6 +9,7 @@ var authTools = require('../middleware/authTools');
 //Load user model
 var User = db.User;
 var Group = db.Group;
+var Event = db.Event;
 
 router.get('/:userid', authTools.isLoggedIn, get_user_profile);
 router.get('/', authTools.isLoggedIn, get_own_page);
@@ -26,22 +27,25 @@ function get_user_profile(req, res, next){
     var user = req.session.user;
     User.findOne({
         where:{'google.id': page_owner},
-        include:[{model: Group, as:'group'}]
+        include:[{model: Group, as:'group'},{model: Event, as: 'event'}]
     })
         .then(function(owner){
-        if(owner){
-            res.render('userprofile', {
-                title: user.first_name,
-                user: user,
-                owner:owner,
-                groups: owner.group});
-        }
-        else next();
-    }, function(err){
-        if(err){
-            next(err);
-        }
-    });
+            console.log(user);
+            if(owner){
+                res.render('userprofile', {
+                    title: owner.first_name,
+                    user: user,
+                    owner:owner,
+                    groups: owner.group,
+                    events: owner.event
+                });
+            }
+            else next();
+        }, function(err){
+            if(err){
+                next(err);
+            }
+        });
 }
 
 module.exports = router;

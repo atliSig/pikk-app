@@ -17,7 +17,7 @@ apiConnector = function(query,req,res,next){
         response.on('end', function () {
             var keyword='laptop';
             req.search_result = JSON.parse(str).yellow.items;
-            console.log(req.search_result);
+            //console.log(req.search_result);
             next();
         });
     });

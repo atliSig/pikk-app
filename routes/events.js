@@ -13,11 +13,9 @@ var Event = db.Event;
 
 module.exports = router;
 
-// router.get('/', authTools.isLoggedIn, displayGroupPage);
 router.get('/createevent', authTools.isLoggedIn, showCreateEvent);
 router.post('/createevent', authTools.isLoggedIn, createEvent);
 router.get('/:eventid', authTools.isLoggedIn, showEventPage);
-// router.post('/:groupid/addMember', authTools.isLoggedIn, addMember);
 
 //-------handlers------//
 
@@ -73,7 +71,7 @@ function showEventPage(req, res, next){
         include: [{model: User, as: 'member'}]
     })
         .then(function(event){
-                    res.render('eventpage', {
+                    res.render('eventlayout', {
                         user: user,
                         event:event});
                 }

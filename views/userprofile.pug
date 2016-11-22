@@ -20,16 +20,16 @@ block content
                 .card
                     .card-header Events
                         i.fa.fa-users.pikk-card-icon
-                    ul.list-group.list-group-flush
-                        each group in groups
+                    ul.list-group.list-group-flush.scrollable-list
+                        each event in events
                             li.list-group-item
-                                a(href='/g/'+group.id).friend-link= group.name
+                                a(href='/e/'+event.id).friend-link= event.title
         .col-lg-6.col-sm-12
             if(owner.google.id == user.google.id)
                 .card
                     .card-header Groups
                         i.fa.fa-users.pikk-card-icon
-                    ul.list-group.list-group-flush
+                    ul.list-group.list-group-flush.scrollable-list
                         each group in groups
                             li.list-group-item
                                 a(href='/g/' + group.id).friend-link= group.name

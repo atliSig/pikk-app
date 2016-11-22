@@ -1,14 +1,17 @@
 extends layout
 
 block content
-    if group
-        p= group.name
-        each member in group.member
-            p= member.id
-            p= member.first_name
 
     if event
-        p= event.title
+        h1= event.title
         p= event.description
         for member in event.member
             p= member.email
+    if event.isReady
+        h1
+
+    if '2016-11-20 05:49:25.872+00' < '2016-10-20 06:49:25.872+00'
+        h1 Hai
+
+    else
+        h2 Nai

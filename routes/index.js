@@ -20,7 +20,7 @@ function getIndex(req,res,next){
 }
 
 //------------ROUTING FOR SEARCH------------//
-router.get('/search', apiTools.doSearch, getSearch);
+router.get('/search', authTools.isLoggedIn, apiTools.doSearch, getSearch);
 
 function getSearch(req,res,next){
     var user = req.session.user;
@@ -28,7 +28,7 @@ function getSearch(req,res,next){
 }
 
 //------------ROUTING FOR PLACE------------//
-router.get('/place/:placeId', apiTools.showPlace, getPlace);
+router.get('/place/:placeId', authTools.isLoggedIn, apiTools.showPlace, getPlace);
 
 function getPlace(req,res,next) {
     var user = req.session.user;
@@ -37,7 +37,7 @@ function getPlace(req,res,next) {
 
 //------------ROUTING FOR HEADOUT------------//
 //WIP
-router.use('/headout', getHeadout);
+router.use('/headout', authTools.isLoggedIn, getHeadout);
 
 function getHeadout(req,res,next){
     var user = req.session.user;
@@ -46,7 +46,7 @@ function getHeadout(req,res,next){
 }
 
 //------------ROUTING FOR START------------//
-router.get('/start', pikkTools.createForm,getStart);
+router.get('/start', authTools.isLoggedIn, pikkTools.createForm, getStart);
 
 function getStart(req,res,next){
     var user = req.session.user;
@@ -54,20 +54,22 @@ function getStart(req,res,next){
 }
 
 //----------ROUTING FOR CHOOSE------------//
-router.post('/choose',apiTools.queryByTags,pikkTools.filterByDistance,getChoose);
+router.post('/choose', authTools.isLoggedIn, apiTools.queryByTags, pikkTools.filterByDistance, getChoose);
 function getChoose(req,res,next){
     var user = req.session.user;
     res.render('choose', { user:user, title:'Choose', results: req.search_result});
 }
 
 //------------ROUTING FOR MAP------------//
-router.get('/map/*', function (req, res, next){
+router.get('/map/*', authTools.isLoggedIn, showMap);
+
+function showMap(req, res, next){
     var user = req.session.user;
     var q = querystring.stringify(req.query);
     q = querystring.unescape(q);
     var query = (querystring.parse(q));
     res.render('map', {user: user, query: query});
-});
+}
 
 router.get('/logout', function(req, res) {
     req.session.destroy(function (err) {
