@@ -1,3 +1,11 @@
-//
-   Created by peturhelgi on 11/21/16.
+extends layout
 
+block content
+    if group
+        p= group.name
+        each member in group.member
+            p= member.id
+            p= member.first_name
+
+    if event
+        p= event.description

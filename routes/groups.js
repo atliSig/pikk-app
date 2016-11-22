@@ -168,7 +168,7 @@ function createGroup(req, res, next){
                     where: {username: user.username}
                 })
                     .then(function (user) {
-                        group.addMember(user, {is_admin: true})
+                        group.addMember(user, {isAdmin: true})
                             .then(function (newGroup) {
                                 res.redirect('/g/' + group.id);
                             });

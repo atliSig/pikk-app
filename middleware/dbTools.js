@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DATABASE_URL, {logging: false});
+var sequelize = new Sequelize(process.env.DATABASE_URL, {logging: true});
 
 var user = require('../lib/users');
 var group = require('../lib/groups');
@@ -12,7 +12,7 @@ var User = user.User(sequelize, Sequelize);
 var Group = group.Group(sequelize, Sequelize);
 var GroupMember = group.GroupMembers(sequelize, Sequelize);
 var Event = event.Event(sequelize, Sequelize);
-var EventMember = event.EventMember(sequelize, Sequelize);
+var EventMember = event.EventMembers(sequelize, Sequelize);
 
 
 //--- Initializes important database model associations ---//
@@ -35,13 +35,13 @@ function init() {
 
     Event.belongsToMany(User, {
         through: EventMember,
-        as:'invitee',
+        as:'member',
         foreignKey: 'eventId'
     });
     User.belongsToMany(Event, {
         through: EventMember,
         as: 'event',
-        foreignKey: 'attendeeId'
+        foreignKey: 'memberId'
     });
 
     sequelize.sync();
@@ -62,6 +62,7 @@ function fx(){
             });
         });
 }
+
 
 module.exports = {
     User: User,

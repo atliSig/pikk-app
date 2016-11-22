@@ -1,3 +1,28 @@
-//
-   Created by peturhelgi on 11/21/16.
+extends layout
 
+block content
+    form(method="POST", action="/e/createevent")
+        fieldset.form-group
+            legend Create an event
+            .form-group
+                label(for="title") Title
+                input.form-control(type=text, name="title", id="title")
+
+            .form-group
+                label(for="description") Description
+                textarea.form-control(name="description", placeholder="(Optional)", id="description")
+            .form-group
+                label(for="deadline") Deadline (when should everyone have pikked?)
+                input.form-control(type="data",name="deadline", placeholder="(Optional)", id="deadline")
+            .form-group
+                label(for="toe") Time of Event
+                input.form-control(type="data", name="toe", placeholder="(Optional)", id="toe")
+            .form-group
+                button.btn.btn-secondary(type=submit) Create
+
+
+    if errors && errors.length > 0
+        .errors
+            p= errors.length + ' error occurred when creating your group:'
+            each error in errors
+                p= error
