@@ -6,31 +6,41 @@ block content
             h2 Engar niðurstöður
             br
             i.fa.fa-frown-o.fa-3x
-    .card-columns.results
-        each res in results
-            .col-sm-12
-                .card
-                    if res.coordinates
-                        if(res.coordinates.ja360_image_url)
-                            img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
-                        if(res.coordinates.ja360_image_url && res.logo_url)
-                            img(src="http://media.ja.is/"+res.logo_url).img-logo
-                    .card-block
-                        h4.card-title= res.name
-                        p.card-text= res.address_nominative
-                    ul.list-group.list-group-flush
-                        li.list-group-item.choose_item
-                            .row
-                                .col-md-9
-                                    a(href='../place/'+res.phonebook_id_number).btn.btn-secondary Velja
-                                .col-md-3
-                                    .open-status
-                                        if res.is_open == false
-                                                i.open-icon.fa.fa-circle.text-danger
-                                                | Lokað
+    .row
+        .col-lg-12
+            .card-columns
+                each res in results
+                    .card
+                        if res.coordinates
+                            if(res.coordinates.ja360_image_url)
+                                img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                            if(res.coordinates.ja360_image_url && res.logo_url)
+                                img(src="http://media.ja.is/"+res.logo_url).img-logo
+                        .card-block
+                            h4.card-title= res.name
+                            p.card-text= res.address_nominative
+                        ul.list-group.list-group-flush
+                            li.list-group-item.choose_item
+                                .row
+                                    .col-md-12
+                                        a(href='../place/'+res.phonebook_id_number).btn.btn-secondary Velja
+                                        if res.hours
+                                            button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
+                                                if res.is_open
+                                                    i.open-icon.fa.fa-circle.text-success
+                                                    | Opið
+                                                else
+                                                    i.open-icon.fa.fa-circle.text-danger
+                                                    | Lokað
+
                                         else
-                                                i.open-icon.fa.fa-circle.text-success
-                                                | Opið
+                                            button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
+                                                if res.is_open
+                                                    i.open-icon.fa.fa-circle.text-success
+                                                    | Opið
+                                                else
+                                                    i.open-icon.fa.fa-circle.text-danger
+                                                    | Lokað
 
-
-
+block scripts
+    script(src="/javascript/popover.js")
