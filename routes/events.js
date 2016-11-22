@@ -38,7 +38,7 @@ function createEvent(req, res, next){
 
     Group.findOne({
             where: {id: groupid},
-            include: [{model:User, as:'member'}]
+            include: [{model:User, as:'member', }]
         }
     ).then(function(group){
         //console.log(group);
@@ -65,7 +65,7 @@ function createEvent(req, res, next){
 function showEventPage(req, res, next){
     var user = req.session.user;
     var eventid = req.params.eventid;
-    var groupid
+
     Event.findOne({
         where:{
             id: eventid
@@ -73,7 +73,9 @@ function showEventPage(req, res, next){
         include: [{model: User, as: 'member'}]
     })
         .then(function(event){
-                    res.render('eventpage', {event:event});
+                    res.render('eventpage', {
+                        user: user,
+                        event:event});
                 }
             );
 }

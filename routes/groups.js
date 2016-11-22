@@ -17,7 +17,7 @@ router.get('/', authTools.isLoggedIn, displayGroupPage);
 router.get('/creategroup', authTools.isLoggedIn, showCreateGroup);
 router.get('/:groupid', authTools.isLoggedIn, showGroupPage);
 router.post('/creategroup', authTools.isLoggedIn, createGroup);
-router.post('/:groupid/addMember', authTools.isLoggedIn, addMember);
+router.post('/:groupid/addMember', authTools.isLoggedIn, addMember, showGroupPage);
 
 
 //\\\\\\\\\\functions//////////\\
@@ -25,21 +25,39 @@ function addMember(req, res, next){
     var user = req.session.user;
     var groupid = req.params.groupid;
     var username = req.body.username;
+
     var errors = [];
     Group.findOne({where:{id:groupid}})
         .then(function(group){
-            User.find({where:{
-                username: username
-            }})
+            User.findOne({
+                where:{
+                    username: username
+                },
+                required: true
+            })
                 .then(function(member){
-                    if(member && group)
-                        group.addMember(member).then(function(){
-                            res.redirect('/g/'+groupid);
-                        });
+                    if(member == null)
+                    {
+                        errors.push('Username not found');
+                        req.errors = errors;
+                        next();
+                    }
+                    else {
+                        group
+                            .addMember(member)
+                            .then(function () {
+                                res.redirect('/g/' + groupid);
+                                // next();
+                            }, function (err) {
+                                errors.push(err);
+                                errors.push()
+                            });
+                    }
 
                 }, function(err){
-                    errors.push(err);
-                    res.render('groupprofile', {errors: errors, user: user});
+                    errors.push('Username not found');
+                    req.errors = errors;
+                    next();
                 });
         }, function(err){
             errors.push(err);
@@ -51,58 +69,98 @@ function addMember(req, res, next){
 function showGroupPage(req, res, next) {
     var user = req.session.user;
     var groupid = req.params.groupid;
+    var inGroup = false;
+    var errors= req.errors;
+    Group
+        .findOne({
+            where: {
+                id: groupid
+            },
+            include: [{
+                model: User,
+                as: 'member'}]
 
-    // Get all group members in the specified group
-    User.findAll({
-        include:[{
-            model: Group,
-            as: 'group',
-            where: {id: groupid},
-            order: 'first_name'
-        }]
-    }).then(function(users){
-        Group.findOne(
-            {
-                where: {
-                    id:groupid
+        })
+        .then(
+            function(group){
+                var members = group.member;
+                for(var i in members){
+                    if(members[i].dataValues.username == user.username)
+                    {
+                        console.log(members[i].dataValues.username);
+                        inGroup = true;
+                        break;
+                    }
                 }
-            })
-            .then(function(group){
-
-                if(group && users) {
-                    var in_group = false;
-                    for(var i in users){
-
-                        if(users[i].dataValues.username == user.username)
-                        {
-                            in_group = true;
-                            break;
-                        }
-                    }
-                    if(in_group) {
-                        //grant access to members
-
-                        group.getEvents()
-                            .then(function(events){
-                                res.render('groupprofile', {
-                                    group: group,
-                                    user: user,
-                                    members: users,
-                                    events: events
-                                });
+                if(inGroup){
+                    group
+                        .getEvents()
+                        .then(function(events){
+                            res.render('groupprofile', {
+                                group: group,
+                                user: user,
+                                members: members,
+                                events: events,
+                                errors: errors
                             });
-                    }
-                    //Restrict access to outsiders
-
-                    else{
-                        res.redirect('/');
-                    }
+                        });
                 }
                 else{
-                    next();
+                    res.redirect('/');
                 }
-            });
-    });
+            }
+        );
+    // Get all group members in the specified group
+    // User.findAll({
+    //     include:[{
+    //         model: Group,
+    //         as: 'group',
+    //         where: {id: groupid},
+    //         order: 'first_name'
+    //     }]
+    // }).then(function(users){
+    //     Group.findOne(
+    //         {
+    //             where: {
+    //                 id:groupid
+    //             }
+    //         })
+    //         .then(function(group){
+    //
+    //             if(group && users) {
+    //                 for(var i in users){
+    //
+    //                     if(users[i].dataValues.username == user.username)
+    //                     {
+    //                         in_group = true;
+    //                         break;
+    //                     }
+    //                 }
+    //                 if(in_group) {
+    //                     //grant access to members
+    //
+    //                     group.getEvents()
+    //                         .then(function(events){
+    //
+    //                             res.render('groupprofile', {
+    //                                 group: group,
+    //                                 user: user,
+    //                                 members: users,
+    //                                 events: events
+    //                             });
+    //                         });
+    //                 }
+    //                 //Restrict access to outsiders
+    //
+    //                 else{
+    //                     res.redirect('/');
+    //                 }
+    //             }
+    //             else{
+    //                 next();
+    //             }
+    //         });
+    // });
 }
 
 //Displays groups which the user is a member of.
@@ -114,7 +172,9 @@ function displayGroupPage(req, res, next){
         last_letter=true;
     }
     Group
-        .findAll()
+        .findAll({
+            include:[{model: User, as: 'member', where: {username: user.username}}]
+        })
         .then(function(groups) {
             res.render('grouplist',{
                 title: 'My groups',

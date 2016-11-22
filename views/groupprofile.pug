@@ -1,6 +1,10 @@
 extends layout
 
 block content
+    if errors && errors.length >0
+        .row
+            each error in errors
+                p= error
     .row
         .col-lg-12
             .card
