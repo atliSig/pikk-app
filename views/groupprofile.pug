@@ -5,35 +5,33 @@ block content
         .col-lg-12
             .card
                 .card-block
-                    h1= group.name
-                    h2= group.description
+                    .row
+                        .col-md-4
+                            h1= group.name
+                            p= group.description
+                        .col-md-4.offset-md-4
+                            form(method="POST", action="/g/" + group.id + "/addMember")
+                                fieldset
+                                    legend Add a member
+                                    .form-group
+                                        label(for="username") By email
+                                        input.form-control(type=text, name="username", id="username", placeholder='enter email' required="required")
+                                    .form-group
+                                        button.btn.btn-primary.pull-right(type="submit") Add Member
     .row
         .col-lg-6.col-sm-12
             .card
-                .card-block
-                    form(method="POST", action="/g/" + group.id + "/addMember")
-                        fieldset
-                            legend Add a member
-                            .form-group
-                                label(for="username") Username
-                                input.form-control(type=text, name="username", id="username", required="required")
-
-                            .form-group
-                                button.btn.btn-primary(type="submit") Add Member
-        .col-lg-6.col-sm-12
-            .card
                 .card-header Members
-                ul.list-group.list-group-flush
+                ul.list-group.list-group-flush.scrollable-list
                     each member in members
                         li.list-group-item
                             a.friend-link(href='/u/' + member.username)= member.first_name
                             p=member.email
-    .row
-        .col-lg-12
+        .col-lg-6.col-sm-12
             .card
                 .card-header Events
                 if events.length > 0
-                    ul.list-group.list-group-flush
+                    ul.list-group.list-group-flush.scrollable-list
                         each event in events
                             li.list-group-item
                                 a(href="/e/" + event.id)= event.title
