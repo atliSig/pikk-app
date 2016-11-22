@@ -7,9 +7,9 @@ $(document).ready(function() {
             dots: true,
             arrows: true,
             speed: 900,
-            slidesToShow: 3,
+            slidesToShow: 5,
             infinite: true,
-            slidesToScroll: 1,
+            slidesToScroll: 3,
             autoplay: true,
             autoplaySpeed: 4000,
             responsive: [

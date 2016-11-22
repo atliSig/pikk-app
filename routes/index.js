@@ -13,11 +13,10 @@ var passport = require('passport');
 
 
 //------------ROUTING FOR INDEX------------//
-router.get('/', getIndex);
+router.get('/', pikkTools.getIndexFeed, apiTools.queryForFeed,getIndex);
 
 function getIndex(req,res,next){
-    var user = req.session.user;
-    res.render('index', { user: user, title: 'Pikk'});
+    res.render('index', { user: req.session.user,results: req.search_result});
 }
 
 //------------ROUTING FOR SEARCH------------//

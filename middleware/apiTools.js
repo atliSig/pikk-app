@@ -28,7 +28,12 @@ exports.doSearch = function(req,res,next){
     apiConnector(encodeURIComponent(req.query.query),req,res,next);
 };
 
-//The API call method for showing endpoints for specific places
+//The API call function for building the dynamic feed on the index
+exports.queryForFeed = function(req,res,next){
+    apiConnector(encodeURIComponent(req.query),req,res,next);
+}
+
+//The API call function for showing endpoints for specific places
 exports.showPlace = function(req,res,next){
     apiConnector('nameid:'+encodeURIComponent(req.params.placeId),req,res,next);
 };

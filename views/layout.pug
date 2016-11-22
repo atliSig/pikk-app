@@ -24,12 +24,11 @@ body
         include includes/navbar.pug
         .container-fluid.main-wrapper
             .row.layout-row
-                .col-lg-2
-                    block leftside
-                .col-lg-8
+                .col-lg-8.offset-lg-2
                     block content
-                .col-lg-2
-                    block rightside
+            .row.layout-row
+                .col-lg-12
+                    block indexcontent
         .push
     footer.footer
         .container-fluid

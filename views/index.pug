@@ -1,33 +1,36 @@
 extends layout
 
-block content
-    div.main-banner
-        h2 Welcome to Pikk!
-        if(user)
-            a.btn.btn-primary.btn-pikk(href='/start') PIKK
+block indexcontent
     .slider.slick-list
-        .card
-            .card-block
-                h4.card-title Pikk of the day
-                p.card-text
-                    | Here you can view what place has been the most popular today.
-                a.btn.btn-primary(href='#') Take me there
-        .card
-            .card-block
-                h4.card-title Pikk of the week
-                p.card-text
-                    | Here you can view what place has been the most popular this week.
-                a.btn.btn-primary(href='#') Take me there
-        .card
-            .card-block
-                h4.card-title Pikk of the month
-                p.card-text
-                    | Here you can view what place has been the most popular this month.
-                a.btn.btn-primary(href='#') Take me there
-        .card
-            .card-block
-                h4.card-title Editor's choice
-                p.card-text
-                    | Here you can view what we think is worthy of the front page. The best of the best.
-                a.btn.btn-primary(href='#') Take me there
+        for res in results
+            .card.index-card
+                if res.coordinates
+                    if(res.coordinates.ja360_image_url)
+                        img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                    if(res.coordinates.ja360_image_url && res.logo_url)
+                        img(src="http://media.ja.is/" + res.logo_url).img-logo
+                .card-block
+                    h4.card-title= res.name
+                    p.card-text= res.address_nominative
+                ul.list-group.list-group-flush
+                    li.list-group-item.choose_item
+                        a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Velja
+                        if res.hours
+                            button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
+                                if res.is_open
+                                    i.open-icon.fa.fa-circle.text-success
+                                    | Opið
+                                else
+                                    i.open-icon.fa.fa-circle.text-danger
+                                    | Lokað
+
+                        else
+                            button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
+                                if res.is_open
+                                    i.open-icon.fa.fa-circle.text-success
+                                    | Opið
+                                else
+                                    i.open-icon.fa.fa-circle.text-danger
+                                    | Lokað
 block scripts
+    script(src="/javascript/popover.js")

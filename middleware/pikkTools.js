@@ -93,7 +93,6 @@ function filterByRating(results, rating){
     return hasRating;
 }
 
-
 exports.filterByDistance=function(req,res,next){
     var close_result=[];
     var results = req.search_result;
@@ -122,4 +121,8 @@ exports.filterByDistance=function(req,res,next){
     next();
 };
 
+exports.getIndexFeed=function(req,res,next){
+    req.query='burger';
+    next();
+};
 
