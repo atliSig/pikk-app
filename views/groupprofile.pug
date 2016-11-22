@@ -10,13 +10,16 @@ block content
     .row
         .col-lg-6.col-sm-12
             .card
-                .card-header Events
-                if events.length > 0
-                    ul.list-group.list-group-flush
-                        each event in events
-                            li.list-group-item
-                                a(href="/e/"+event.id)= event.title
-                                p= event.description
+                .card-block
+                    form(method="POST", action="/g/" + group.id + "/addMember")
+                        fieldset
+                            legend Add a member
+                            .form-group
+                                label(for="username") Username
+                                input.form-control(type=text, name="username", id="username", required="required")
+
+                            .form-group
+                                button.btn.btn-primary(type="submit") Add Member
         .col-lg-6.col-sm-12
             .card
                 .card-header Members
@@ -26,15 +29,12 @@ block content
                             a.friend-link(href='/u/' + member.username)= member.first_name
                             p=member.email
     .row
-        .col-lg-6.col-sm-12
+        .col-lg-12
             .card
-                .card-block
-                    form(method="POST", action="/g/"+group.id+"/addMember")
-                        fieldset
-                            legend Add a member
-                            .form-group
-                                label(for="username") Username
-                                input.form-control(type=text, name="username", id="username", required="required")
-
-                            .form-group
-                                button.btn.btn-primary(type="submit") Add Member
+                .card-header Events
+                if events.length > 0
+                    ul.list-group.list-group-flush
+                        each event in events
+                            li.list-group-item
+                                a(href="/e/" + event.id)= event.title
+                                p= event.description

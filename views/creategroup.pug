@@ -1,6 +1,11 @@
 extends layout
 
 block content
+    if errors
+        .row
+            .col-lg-8.col-sm-12.offset-lg-2
+                each error in errors
+                    .alert.alert-danger(role='alert')=error
     .row
         .col-lg-8.col-sm-12.offset-lg-2
             .card
@@ -11,7 +16,7 @@ block content
                             input.form-control(type=text, name="groupname", id="groupname", required="required", value=groupname)
                         .form-group
                             label(for="description") Description
-                            textarea.form-control(name="description", placeholder="(Optional)", id="description")
+                            textarea.form-control(name="description", placeholder="Optional", id="description")
                         .form-group
                             label(for="members") Members
                             .row

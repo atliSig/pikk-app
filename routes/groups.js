@@ -137,20 +137,15 @@ function createGroup(req, res, next){
     var body = req.body;
     var errors = [];
     var members = [];
+    var bodyMembers = req.body.members;
 
     ///----Check for members in the form----////
-    for(var key in body){
-        if(key !== 'groupname' && key !== 'description'){
-            var member = body[key];
-            if (member.length > 0 && member !== user.username){
-                members.push(member);
-            }
+    bodyMembers.forEach(function(member){
+        if (member.length > 0 && member !== user.username && member!=='[]'){
+            members.push(member);
         }
-    }
+    });
 
-    if(!body.groupname || body.groupname.trim().length === 0){
-        errors.push('Group must have non-empty name.');
-    }
     var groupname = body.groupname;
     var description = body.description;
 
@@ -181,4 +176,9 @@ function createGroup(req, res, next){
         var groupname = req.body.groupname;
         res.render('creategroup', {errors:errors, groups:[], user:user, groupname: groupname});
     }
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }
