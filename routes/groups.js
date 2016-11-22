@@ -24,21 +24,21 @@ router.post('/:groupid/addMember', authTools.isLoggedIn, addMember, showGroupPag
 function addMember(req, res, next){
     var user = req.session.user;
     var groupid = req.params.groupid;
-    var username = req.body.username;
+    var email = req.body.email;
 
     var errors = [];
     Group.findOne({where:{id:groupid}})
         .then(function(group){
             User.findOne({
                 where:{
-                    username: username
+                    email: email
                 },
                 required: true
             })
                 .then(function(member){
                     if(member == null)
                     {
-                        errors.push('Username not found');
+                        errors.push('User not found');
                         req.errors = errors;
                         next();
                     }
@@ -47,7 +47,6 @@ function addMember(req, res, next){
                             .addMember(member)
                             .then(function () {
                                 res.redirect('/g/' + groupid);
-                                // next();
                             }, function (err) {
                                 errors.push(err);
                                 errors.push()
@@ -55,7 +54,7 @@ function addMember(req, res, next){
                     }
 
                 }, function(err){
-                    errors.push('Username not found');
+                    errors.push('User not found');
                     req.errors = errors;
                     next();
                 });
@@ -85,9 +84,8 @@ function showGroupPage(req, res, next) {
             function(group){
                 var members = group.member;
                 for(var i in members){
-                    if(members[i].dataValues.username == user.username)
+                    if(members[i].dataValues.google.id == user.google.id)
                     {
-                        console.log(members[i].dataValues.username);
                         inGroup = true;
                         break;
                     }
@@ -110,57 +108,6 @@ function showGroupPage(req, res, next) {
                 }
             }
         );
-    // Get all group members in the specified group
-    // User.findAll({
-    //     include:[{
-    //         model: Group,
-    //         as: 'group',
-    //         where: {id: groupid},
-    //         order: 'first_name'
-    //     }]
-    // }).then(function(users){
-    //     Group.findOne(
-    //         {
-    //             where: {
-    //                 id:groupid
-    //             }
-    //         })
-    //         .then(function(group){
-    //
-    //             if(group && users) {
-    //                 for(var i in users){
-    //
-    //                     if(users[i].dataValues.username == user.username)
-    //                     {
-    //                         in_group = true;
-    //                         break;
-    //                     }
-    //                 }
-    //                 if(in_group) {
-    //                     //grant access to members
-    //
-    //                     group.getEvents()
-    //                         .then(function(events){
-    //
-    //                             res.render('groupprofile', {
-    //                                 group: group,
-    //                                 user: user,
-    //                                 members: users,
-    //                                 events: events
-    //                             });
-    //                         });
-    //                 }
-    //                 //Restrict access to outsiders
-    //
-    //                 else{
-    //                     res.redirect('/');
-    //                 }
-    //             }
-    //             else{
-    //                 next();
-    //             }
-    //         });
-    // });
 }
 
 //Displays groups which the user is a member of.
@@ -173,7 +120,7 @@ function displayGroupPage(req, res, next){
     }
     Group
         .findAll({
-            include:[{model: User, as: 'member', where: {username: user.username}}]
+            include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
         })
         .then(function(groups) {
             res.render('grouplist',{
@@ -201,7 +148,7 @@ function createGroup(req, res, next){
 
     ///----Check for members in the form----////
     bodyMembers.forEach(function(member){
-        if (member.length > 0 && member !== user.username && member!=='[]'){
+        if (member.length > 0 && member !== user.email && member!=='[]'){
             members.push(member);
         }
     });
@@ -221,7 +168,7 @@ function createGroup(req, res, next){
         })
             .then(function (group) {
                 User.findOne({
-                    where: {username: user.username}
+                    where: {'google.id': user.google.id}
                 })
                     .then(function (user) {
                         group.addMember(user, {isAdmin: true})

@@ -10,40 +10,31 @@ var authTools = require('../middleware/authTools');
 var User = db.User;
 var Group = db.Group;
 
-router.get('/:username', authTools.isLoggedIn, get_user_profile);
+router.get('/:userid', authTools.isLoggedIn, get_user_profile);
 router.get('/', authTools.isLoggedIn, get_own_page);
-router.get('/settings', authTools.isLoggedIn, getSettings);
-router.post('/settings', authTools.isLoggedIn, saveNewSettings);
 
 //------HANDLERS-------//
-function getSettings(req, res, next){
-    var user = req.session.user;
-
-    res.render('usersettings', {user: user});
-}
-
-function saveNewSettings(req,res,next){
-    var user = req.session.user;
-    res.send('Implement me plz');
-}
 
 
 function get_own_page(req, res, next){
     var user = req.session.user;
-    res.redirect('/u/'+user.username);
+    res.redirect('/u/'+user.google.id);
 }
 
 function get_user_profile(req, res, next){
-    var page_owner = req.params.username;
+    var page_owner = req.params.userid;
     var user = req.session.user;
-    console.log(user);
     User.findOne({
-        where:{username:page_owner},
+        where:{'google.id': page_owner},
         include:[{model: Group, as:'group'}]
     })
         .then(function(owner){
         if(owner){
-            res.render('userprofile', {title: user.first_name, user:user, owner:owner, groups: owner.group});
+            res.render('userprofile', {
+                title: user.first_name,
+                user: user,
+                owner:owner,
+                groups: owner.group});
         }
         else next();
     }, function(err){

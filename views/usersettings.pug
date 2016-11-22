@@ -4,12 +4,6 @@ block content
     form(method="POST", action="/u/settings")
         fieldset.form-group
             legend Settings
-            .form-group
-                label(for="username") Change username
-                input.form-control(type=text, name="username", id="username", required="required", value=user.username)
-            .form-group
-                label(for="phone") Change phone number
-                input.form-control(type="phone", name="phone", id="phone", value=user.phone, placeholder="Phone")
 
             .form-group
                 button.btn.btn-secondary(type=submit) Save

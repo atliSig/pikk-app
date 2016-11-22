@@ -56,7 +56,6 @@ module.exports = function(passport){
                                 'google.email': email,
                                 'first_name': profile.name.givenName,
                                 'last_name': profile.name.familyName,
-                                'username': email.replace("@gmail.com",''),
                                 'email': email,
                                 'img_url': img_url
                             }).then(function(newUser){

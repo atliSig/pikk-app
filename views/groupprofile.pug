@@ -1,10 +1,11 @@
 extends layout
 
 block content
-    if errors && errors.length >0
+    if errors
         .row
-            each error in errors
-                p= error
+            .col-lg-12
+                each error in errors
+                    .alert.alert-danger(role='alert')=error
     .row
         .col-lg-12
             .card
@@ -18,8 +19,8 @@ block content
                                 fieldset
                                     legend Add a member
                                     .form-group
-                                        label(for="username") By email
-                                        input.form-control(type=text, name="username", id="username", placeholder='enter email' required="required")
+                                        label(for="email") By email
+                                        input.form-control(type=text, name="email", id="email", placeholder='enter email' required="required")
                                     .form-group
                                         button.btn.btn-primary.pull-right(type="submit") Add Member
     .row
@@ -29,7 +30,7 @@ block content
                 ul.list-group.list-group-flush.scrollable-list
                     each member in members
                         li.list-group-item
-                            a.friend-link(href='/u/' + member.username)= member.first_name
+                            a.friend-link(href='/u/' + member.google.id)= member.first_name
                             p=member.email
         .col-lg-6.col-sm-12
             .card
