@@ -8,4 +8,7 @@ block content
             p= member.first_name
 
     if event
+        p= event.title
         p= event.description
+        for member in event.member
+            p= member.username

@@ -34,7 +34,7 @@ function createEvent(req, res, next){
     var description = req.body.description || 'Nice descor';
     var deadline = req.body.deadline || '2016-11-20 05:54:35.496+00';
     var toe = req.body.toe || '2016-11-20 05:54:35.496+00';
-    var groupid = req.body.groupid || 26;
+    var groupid = 26;
 
     Group.findOne({
             where: {id: groupid},
@@ -46,14 +46,12 @@ function createEvent(req, res, next){
             title: title,
             description: description,
             deadline: deadline,
-            toe: toe,
-            include: [{model: User, as: 'member'}]
+            toe: toe
         })
             .then(function (event) {
-                var member = group.member[0];
+                var member = group.member;
                 event.addMember(member)
                     .then(function(members){
-                        console.log(members);
                         res.redirect(event.id);
                     });
             },function(err){

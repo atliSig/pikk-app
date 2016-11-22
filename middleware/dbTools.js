@@ -10,9 +10,9 @@ var event = require('../lib/events');
 
 var User = user.User(sequelize, Sequelize);
 var Group = group.Group(sequelize, Sequelize);
-var GroupMember = group.GroupMembers(sequelize, Sequelize);
+var GroupMember = group.GroupMember(sequelize, Sequelize);
 var Event = event.Event(sequelize, Sequelize);
-var EventMember = event.EventMembers(sequelize, Sequelize);
+var EventMember = event.EventMember(sequelize, Sequelize);
 
 
 //--- Initializes important database model associations ---//
@@ -54,12 +54,14 @@ function fx(){
         deadline: Date.now(),
         toe: Date.now(),
         title: 'Celebration sleep'
-    }).then(function(event){
-            Group.findOne({where:{
-                id: 26
-            }}).then(function(group){
-                group.addEvent(event);
-            });
+    })
+        .then(function(event){
+            User.findOne({
+                where: {id:1}
+            })
+                .then(function(user){
+                    event.addMember(user, {isAdmin: false});
+                });
         });
 }
 

@@ -59,7 +59,7 @@ function showGroupPage(req, res, next) {
             as: 'group',
             where: {id: groupid},
             order: 'first_name'
-            }]
+        }]
     }).then(function(users){
         Group.findOne(
             {
@@ -82,14 +82,15 @@ function showGroupPage(req, res, next) {
                     if(in_group) {
                         //grant access to members
 
-                        group.getEvents().then(function(events){
-                            res.render('groupprofile', {
-                                group: group,
-                                user: user,
-                                members: users,
-                                events: events
+                        group.getEvents()
+                            .then(function(events){
+                                res.render('groupprofile', {
+                                    group: group,
+                                    user: user,
+                                    members: users,
+                                    events: events
+                                });
                             });
-                        });
                     }
                     //Restrict access to outsiders
 
@@ -100,7 +101,7 @@ function showGroupPage(req, res, next) {
                 else{
                     next();
                 }
-        });
+            });
     });
 }
 
@@ -112,15 +113,16 @@ function displayGroupPage(req, res, next){
     {
         last_letter=true;
     }
-    Group.findAll()
-         .then(function(groups) {
-             res.render('grouplist',{
-                 title: 'My groups',
-                 user: user,
-                 groups: groups,
-                 last_letter: last_letter
-             });
-         });
+    Group
+        .findAll()
+        .then(function(groups) {
+            res.render('grouplist',{
+                title: 'My groups',
+                user: user,
+                groups: groups,
+                last_letter: last_letter
+            });
+        });
 }
 
 //Rendering the creategroup view
@@ -157,7 +159,6 @@ function createGroup(req, res, next){
     }
 
     //Create group if no errors
-    console.log(errors);
     if(errors.length === 0) {
         Group.create({
             name: groupname,

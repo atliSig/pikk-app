@@ -13,9 +13,10 @@ block content
                 .card-header Events
                 if events.length > 0
                     ul.list-group.list-group-flush
-                        li.list-group-item
-                            p=event.title
-                            p=event.description
+                        each event in events
+                            li.list-group-item
+                                a(href="/e/"+event.id)= event.title
+                                p= event.description
         .col-lg-6.col-sm-12
             .card
                 .card-header Members
