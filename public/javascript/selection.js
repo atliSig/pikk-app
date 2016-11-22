@@ -4,6 +4,7 @@
 $(document).ready(function() {
     var userInput = {};
     var selection = [];
+    var index=0;
     //Default location to fall on is
     //downtown Reykjavik
     userInput.location={
@@ -33,9 +34,26 @@ $(document).ready(function() {
         }
     });
 
+    //Add item to list
     $('.choice-button').on('click',function(){
         selection.push($(this).attr('value'));
+        $('#insert-wrapper').css({'display':'block'});
+        var sel = $('#hide-it').clone();
+        sel.text($(this).text());
+        $('#members').val('');
+        sel.removeAttr('id');
+        sel.val(index);
+        sel.addClass('added-member');
+        $('#insert-area').append(sel);
+        index++;
     });
+
+    //Remove item from list
+    $('#insert-area').on('click','.added-member',function(){
+        selection.splice($(this).val(),1);
+        $(this).remove();
+    });
+
 
     $("#start-pikk-button").on('click',function() {
         userInput.selection=selection;

@@ -113,11 +113,7 @@ function showGroupPage(req, res, next) {
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
     var user = req.session.user;
-    var last_letter = false;
-    if(user.first_name.slice(-1)==='s')
-    {
-        last_letter=true;
-    }
+    console.log(user);
     Group
         .findAll({
             include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
@@ -127,7 +123,6 @@ function displayGroupPage(req, res, next){
                 title: 'My groups',
                 user: user,
                 groups: groups,
-                last_letter: last_letter
             });
         });
 }
@@ -145,7 +140,7 @@ function createGroup(req, res, next){
     var errors = [];
     var members = [];
     var bodyMembers = req.body.members;
-
+    bodyMembers.splice(0,1);
     ///----Check for members in the form----////
     bodyMembers.forEach(function(member){
         if (member.length > 0 && member !== user.email && member!=='[]'){

@@ -1,5 +1,4 @@
 var express = require('express');
-var router = express.Router();
 var pikkJson = require('../config/pikk.json');
 var apiTools = require('../middleware/apiTools');
 var validateTools = require('../middleware/validateTools');
@@ -10,7 +9,8 @@ var session = require('session');
 var users = require('../lib/users');
 var dbTools = require('../middleware/dbTools');
 var passport = require('passport');
-
+var app = require('express')();
+var router = express.Router();
 
 //------------ROUTING FOR INDEX------------//
 router.get('/', pikkTools.getIndexFeed, apiTools.queryForFeed,getIndex);

@@ -28,6 +28,7 @@
     "pug": "^2.0.0-beta6",
     "sequelize": "^3.25.1",
     "serve-favicon": "~2.3.0",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "socket.io": "^1.6.0"
   }
 }
