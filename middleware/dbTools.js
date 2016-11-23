@@ -25,6 +25,8 @@ function init() {
        foreignKey: 'memberId'
     });
 
+    Notification.belongsTo(User);
+
     Group.belongsToMany(User, {
         through: GroupMember,
         as:'member',
@@ -108,5 +110,6 @@ module.exports = {
     User: User,
     Group: Group,
     Event: Event,
+    Notification: Notification,
     init:init
 };

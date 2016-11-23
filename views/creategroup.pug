@@ -44,9 +44,11 @@ block content
                             .card
                                 .card-block.scrollable-list.friend-list
                                     each friend in friends
+
                                         if friend.google.displayName.length !=0
                                             button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.google.displayName
                                         else
                                             button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.first_name
+
 block scripts
     script(src="../javascript/addMembers.js")

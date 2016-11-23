@@ -105,7 +105,7 @@ function showGroupPage(req, res, next) {
                     group
                         .getEvents()
                         .then(function(events){
-                            //console.log(events);
+
                             req.session.currentGroup=group;
                             res.render('groupprofile', {
                                 group: group,
@@ -167,6 +167,7 @@ function createGroup(req, res, next){
     bodyMembers=JSON.parse(bodyMembers[0]);
     ///----Check for members in the form----////
     bodyMembers.forEach(function(member){
+
         if (member.length > 0 && member !== user.email && member!=='[]'){
             members.push(member);
         }
@@ -182,22 +183,56 @@ function createGroup(req, res, next){
 
     //Create group if no errors
     if(errors.length === 0) {
+        //Create the group
         Group.create({
             name: groupname,
             description: description
         })
             .then(function (group) {
+                //find group creator
                 User.findOne({
                     where: {'google.id': user.google.id}
                 })
                     .then(function (user) {
+                        //add the group creator as admin
                         group
                             .addMember(user,{
                                 isAdmin: true
                             })
-                            .then(function (newGroup) {
-                                //User.addMember()
-                                res.redirect('/g/' + group.id);
+                            .then(function () {
+                                //find the users that the admin wanted in the group
+                                User
+                                    .findAll({
+                                        where: {
+                                            email: {$in: members}}
+                                    })
+                                    .then(function(newMembers) {
+                                        var url = '/g/'+group.id;
+                                        var content = user.google.displayName +' added you to the group '
+                                            + group.name;
+                                        var notificationArray = [];
+
+                                        //Notify users when being added
+                                        newMembers.forEach(function (member) {
+                                            if(member.dataValues.id != user.id)
+                                                notificationArray.push({
+                                                    url: url,
+                                                    content: content,
+                                                    memberId: member.dataValues.id
+                                                });
+                                        });
+
+                                        group
+                                            .addMember(newMembers)
+                                            .then(function (membeers) {
+                                                Notification
+                                                    .bulkCreate(notificationArray)
+                                                    .then(function () {
+                                                        res.redirect('/g/' + group.id);
+                                                    });
+
+                                            });
+                                    });
                             });
                     });
             });

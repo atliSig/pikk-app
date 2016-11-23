@@ -25,7 +25,7 @@ var GroupMember = function(sequelize, DataTypes){
     return sequelize.define('groupMember', {
         isAdmin: {
             type: DataTypes.BOOLEAN,
-            defaultValue: false
+            defaultValue: "false"
         }
     });
 };

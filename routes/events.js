@@ -14,7 +14,7 @@ var eventTools= require('../middleware/eventTools');
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
-var EventMember = db.Event.EventMember;
+var Notification = db.Notification;
 
 module.exports = router;
 
@@ -54,44 +54,15 @@ function createEvent(req, res, next){
     console.log(req.body.deadline);
     var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
     var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
-    //var grroup = req.session.currentGroup;
+    var currentgroup = req.session.currentGroup;
 
-    // / Group.findOne({
-    //         where: {id:23},
-    //         include: [{model: User, as:'member'}]
-    //     }
-    // ).then(function(group) {
-    //         Event.create({
-    //             title: title,
-    //             description: description,
-    //             deadline: deadline,
-    //             toe: toe
-    //         }).then(function (event) {
-    //             User.findOne({
-    //                 where: {'google.id': user.google.id}
-    //             }).then(function (user) {
-    //                 event
-    //                     .addMembers(group.member)
-    //                     .then(function(member){
-    //                         event
-    //                             .addMember(user, {isAdmin: true})
-    //                             .then(function () {
-    //                                 res.redirect(event.id);
-    //                             });
-    //                     });
-    //             });
-    //         }, function (err) {
-    //             return next('no thing' + err);
-    //         });
-    //     }
-    // );
-   // var grroup = req.session.currentGroup;
     var groupid = req.session.currentGroup.id;
     Group.findOne({
             where: {id: groupid},
             include: [{model:User, as:'member'}]
         }
     ).then(function(group){
+        //Create the event
         Event.create({
             title: title,
             description: description,
@@ -100,10 +71,32 @@ function createEvent(req, res, next){
             groupId: groupid
         })
             .then(function (event) {
-                var member = group.member;
-                event.addMember(member)
+                var groupmembers = group.member;
+
+                //add all groupmembers to the event
+                event
+                    .addMember(groupmembers)
                     .then(function(members){
-                        res.redirect(event.id);
+
+                        var notificationArray = [];
+                        var url = '/e/'+event.id;
+                        var content = user.first_name + ' invited you to the event '+title
+                            +' with your group '+currentgroup.name +'!';
+
+                        groupmembers.forEach(function (member) {
+                            if(member.dataValues.id != user.id)
+                                notificationArray.push({
+                                    url: url,
+                                    memberId: member.dataValues.id,
+                                    content: content
+                                });
+                        });
+                        // Notify all members
+                        Notification
+                            .bulkCreate(notificationArray)
+                            .then(function(notification){
+                                res.redirect(url);
+                            });
                     });
             },function(err){
                 return next('no thing'+err);

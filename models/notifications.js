@@ -1,7 +1,7 @@
 'use strict';
 
 var Notification = function(sequelize, DataTypes){
-    var notification = sequelize.define('event', {
+    var notification = sequelize.define('notification', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey:true,
@@ -21,4 +21,6 @@ var Notification = function(sequelize, DataTypes){
     return notification;
 };
 
-module.exports.Notification = Notification;
+module.exports = {
+    Notification: Notification
+};
