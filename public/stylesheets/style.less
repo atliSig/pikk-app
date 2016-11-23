@@ -54,12 +54,12 @@ main {
 }
 
 .star-rating>.fa-star{
-  margin: 10px !important;
+  margin: 5px !important;
   color: #f44336;
 }
 
 .star-rating>.fa-star-half-o{
-  margin: 10px !important;
+  margin: 5px !important;
   color: #f44336;
 }
 
@@ -198,6 +198,10 @@ button.dropdown-item:hover {
 .place-banner{
   text-align: center;
   padding: 5%;
+}
+
+.place-banner-img{
+  min-width: 100%;
 }
 
 .info-icon{
@@ -455,6 +459,24 @@ ul{
 @keyframes animatebottom {
   from{ bottom:-50px; opacity:0 }
   to{ bottom:0; opacity:1 }
+}
+
+
+.animate-left {
+  -webkit-animation-name: animateleft;
+  -webkit-animation-duration: 0.9s;
+  animation-name: animateleft;
+  animation-duration: 0.9s
+}
+
+@-webkit-keyframes animateleft {
+  from { right:-50px; opacity:0 }
+  to { left:0px; opacity:1 }
+}
+
+@keyframes animateleft {
+  from{ right:-50px; opacity:0 }
+  to{ left:0; opacity:1 }
 }
 
 #slick-first{

@@ -16,13 +16,17 @@ block indexcontent
             .slider.slick-list
                 for res in results.first
                     .card.index-card
-                        if res.coordinates
+                        if(res.brand_banner_path)
+                            img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                        else if res.coordinates
                             if(res.brand_banner_path)
                                 img(src=res.brand_banner_path).card-img-top.img-fluid
                             else if(res.coordinates.ja360_image_url)
                                 img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
                                 if(res.logo_url && !res.brand_banner_path && res.coordinates.ja360_image_url)
                                     img(src="http://media.ja.is/" + res.logo_url).img-logo
+                        else
+                            img(src="/images/bannandi.png").card-img-top.img-fluid
                         .card-block
                             h5.card-title= res.name
                             p.card-text= res.address_nominative
@@ -54,13 +58,17 @@ block indexcontent
             .slider.slick-list
                 for res in results.second
                     .card.index-card
-                        if res.coordinates
+                        if(res.brand_banner_path)
+                            img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                        else if res.coordinates
                             if(res.brand_banner_path)
                                 img(src=res.brand_banner_path).card-img-top.img-fluid
                             else if(res.coordinates.ja360_image_url)
                                 img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
                                 if(res.logo_url && !res.brand_banner_path && res.coordinates.ja360_image_url)
                                     img(src="http://media.ja.is/" + res.logo_url).img-logo
+                        else
+                            img(src="/images/bannandi.png").card-img-top.img-fluid
                         .card-block
                             h5.card-title= res.name
                             p.card-text= res.address_nominative
@@ -92,13 +100,17 @@ block indexcontent
             .slider.slick-list
                 for res in results.third
                     .card.index-card
-                        if res.coordinates
+                        if(res.brand_banner_path)
+                            img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                        else if res.coordinates
                             if(res.brand_banner_path)
                                 img(src=res.brand_banner_path).card-img-top.img-fluid
                             else if(res.coordinates.ja360_image_url)
                                 img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
                                 if(res.logo_url && !res.brand_banner_path && res.coordinates.ja360_image_url)
                                     img(src="http://media.ja.is/" + res.logo_url).img-logo
+                        else
+                            img(src="/images/bannandi.png").card-img-top.img-fluid
                         .card-block
                             h5.card-title= res.name
                             p.card-text= res.address_nominative
