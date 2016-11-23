@@ -20,10 +20,11 @@ module.exports = router;
 
 //THIS ROUTE MUST BE AT TOP
 //----------ROUTING FOR CHOOSE------------//
-router.get('/choose',
+router.use('/choose',
     authTools.isLoggedIn,
     apiTools.queryByTags,
-    pikkTools.filterByDistance,
+    apiTools.doSearch,
+    //pikkTools.filterByDistance,
     groupTools.getGroupsByUser,
     eventTools.getEventsByUser,
     getChoose

@@ -25,7 +25,11 @@ apiConnector = function(query,req,res,next){
 
 //The API call function for the simple search
 exports.doSearch = function(req,res,next){
-    apiConnector(encodeURIComponent(req.query.query),req,res,next);
+    if(!req.query.query){
+        next();
+    } else {
+        apiConnector(encodeURIComponent(req.query.query), req, res, next);
+    }
 };
 
 //The API call function for building the dynamic feed on the index
@@ -93,25 +97,26 @@ exports.queryByTags = function(req, res, next){
         ['kaffi','juice'],
         ['áfengi','alcohol']
     ];
-
-
-    //userData contains index into the array types
-    console.log(req.body.userinput);
-    var userInput = JSON.parse(req.body.userinput);
-    var userData  = userInput.selection;
-    req.current_location = userInput.location;
-    //Testing distance
-    req.maximum_distance = 10000;
-    //We build a query on the form
-    //((tag1 or tag2) or (tag3 or tag4) or...)AND(tag: veitingastadur)
-    var q = '('
-    //The query is (tag:param1+OR+tag:param2+OR+tag:param3)+AND+(tag:veitingastadur)
-    userData.forEach(function(index){
-        q+=buildQueryByTagArray(types[index]);
-    });
-    q.substring(0,q.length-4);
-    q+=')+AND+(tag:'+encodeURIComponent('veitingastaður')+')';
-    apiConnector(q,req,res,next);
+    if(!req.body.userinput){
+        next();
+    }
+    else {
+        var userInput = JSON.parse(req.body.userinput);
+        var userData = userInput.selection;
+        req.current_location = userInput.location;
+        //Testing distance
+        req.maximum_distance = 10000;
+        //We build a query on the form
+        //((tag1 or tag2) or (tag3 or tag4) or...)AND(tag: veitingastadur)
+        var q = '('
+        //The query is (tag:param1+OR+tag:param2+OR+tag:param3)+AND+(tag:veitingastadur)
+        userData.forEach(function (index) {
+            q += buildQueryByTagArray(types[index]);
+        });
+        q.substring(0, q.length - 4);
+        q += ')+AND+(tag:' + encodeURIComponent('veitingastaður') + ')';
+        apiConnector(q, req, res, next);
+    }
 };
 
 //Returns a query part on the form:

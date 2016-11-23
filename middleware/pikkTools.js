@@ -94,6 +94,7 @@ function filterByRating(results, rating){
 }
 
 exports.filterByDistance=function(req,res,next){
+    console.log('oyoy');
     var close_result=[];
     var results = req.search_result;
     var curr_loc= req.current_location;
