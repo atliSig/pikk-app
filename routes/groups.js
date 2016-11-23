@@ -24,6 +24,11 @@ router.post('/:groupid/addMember', authTools.isLoggedIn, addMember, showGroupPag
 
 //\\\\\\\\\\functions//////////\\
 function addMember(req, res, next){
+    //addmember is a body variable from another route
+    var addmember;
+    if(req.body.addmember){
+        addmember =  req.body.addmember;
+    }
     var user = req.session.user;
     var groupid = req.params.groupid;
     var email = req.body.email;
@@ -33,11 +38,12 @@ function addMember(req, res, next){
         .then(function(group){
             User.findOne({
                 where:{
-                    email: email
+                    $or: [{'email': email},{'google.id':addmember}]
                 },
                 required: true
             })
                 .then(function(member){
+                    console.log
                     if(member == null)
                     {
                         errors.push('User not found');
@@ -99,7 +105,7 @@ function showGroupPage(req, res, next) {
                     group
                         .getEvents()
                         .then(function(events){
-                            console.log(events);
+                            //console.log(events);
                             req.session.currentGroup=group;
                             res.render('groupprofile', {
                                 group: group,
@@ -125,8 +131,6 @@ function displayGroupPage(req, res, next){
             include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
         })
         .then(function(groups) {
-            console.log(req.session.invited_user_id);
-            console.log('heeelo');
             res.render('grouplist',{
                 title: 'My groups',
                 user: user,
@@ -190,7 +194,7 @@ function createGroup(req, res, next){
                                 isAdmin: true
                             })
                             .then(function (newGroup) {
-                                User.addMember()
+                                //User.addMember()
                                 res.redirect('/g/' + group.id);
                             });
                     });

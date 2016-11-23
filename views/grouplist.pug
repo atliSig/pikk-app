@@ -24,7 +24,9 @@ block content
                                                 h5=group.name
                                             .card-text
                                                 p.text-muted=group.description
-                                            a(href="/g/" + group.id + '/' + invited_user_id).btn.btn-primary.pull-right Invite to group
+                                                form(method='post', action="/g/" + group.id + '/addMember')
+                                                    input(type='hidden' name='addmember', id='addmember', value=invited_user_id)
+                                                    button.btn.btn-primary.pull-right Invite to group
                             else
                                 .card-columns
                                     each group in groups
@@ -34,7 +36,9 @@ block content
                                                     h5=group.name
                                                 .card-text
                                                     p.text-muted=group.description
-                                                a(href="/g/" + group.id + '/' + invited_user_id).btn.btn-primary.pull-right Invite to group
+                                                    form(method='post', action="/g/" + group.id + '/addMember')
+                                                        input(type='hidden' name='addmember', id='addmember', value=invited_user_id)
+                                                        button.btn.btn-primary.pull-right Invite to group
                         else
                             h2 No groups to display
                     else

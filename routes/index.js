@@ -40,7 +40,6 @@ router.get('/search',
 );
 
 function getSearch(req,res,next){
-    console.log(req.search_result);
     var user = req.session.user;
     res.render('resultlist',{ user:user, results: req.search_result, groups: req.user_groups, events: req.user_events});
 }

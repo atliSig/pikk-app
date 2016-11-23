@@ -5,7 +5,6 @@
 
 $('#add-member').on('click',function(){
     $('#insert-wrapper').css({'display':'block'});
-    body.friends
     if(validateEmail($('#members').val())) {
         var member = $('#hide-it').clone();
         member.text($('#members').val());
