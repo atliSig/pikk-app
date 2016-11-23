@@ -96,6 +96,7 @@ function showGroupPage(req, res, next) {
                     group
                         .getEvents()
                         .then(function(events){
+                            console.log(events);
                             req.session.currentGroup=group;
                             res.render('groupprofile', {
                                 group: group,
@@ -179,8 +180,12 @@ function createGroup(req, res, next){
                     where: {'google.id': user.google.id}
                 })
                     .then(function (user) {
-                        group.addMember(user, {isAdmin: true})
+                        group
+                            .addMember(user,{
+                                isAdmin: true
+                            })
                             .then(function (newGroup) {
+                                User.addMember()
                                 res.redirect('/g/' + group.id);
                             });
                     });

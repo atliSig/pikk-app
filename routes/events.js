@@ -96,7 +96,8 @@ function createEvent(req, res, next){
             title: title,
             description: description,
             deadline: deadline,
-            toe: toe
+            toe: toe,
+            groupId: groupid
         })
             .then(function (event) {
                 var member = group.member;
