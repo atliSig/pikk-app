@@ -164,12 +164,14 @@ function createGroup(req, res, next){
     var members = [];
     var bodyMembers = req.body.members;
     bodyMembers.splice(0,1);
+    bodyMembers=JSON.parse(bodyMembers[0]);
     ///----Check for members in the form----////
     bodyMembers.forEach(function(member){
         if (member.length > 0 && member !== user.email && member!=='[]'){
             members.push(member);
         }
     });
+    console.log(members);
 
     var groupname = body.groupname;
     var description = body.description;
