@@ -18,17 +18,16 @@ var groups = require('./groups');
 //------------ROUTING FOR INDEX------------//
 router.get('/',
     pikkTools.getIndexFeed,
-    apiTools.queryForFeed,
+    apiTools.firstFeedConnector,
+    apiTools.secondFeedConnector,
+    apiTools.thirdFeedConnector,
     groupTools.getGroupsByUser,
     eventTools.getEventsByUser,
     getIndex
 );
 
 function getIndex(req,res,next){
-    if(req.user_events){
-        console.log(req.user_events);
-    }
-    res.render('index', { user: req.session.user,results: req.search_result, groups: req.user_groups, events: req.user_events});
+    res.render('index', { user: req.session.user,results: req.feed_result, groups: req.user_groups, events: req.user_events});
 }
 
 //------------ROUTING FOR SEARCH------------//

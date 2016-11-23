@@ -15,9 +15,8 @@ apiConnector = function(query,req,res,next){
             str += chunk;
         });
         response.on('end', function () {
-            var keyword='laptop';
             req.search_result = JSON.parse(str).yellow.items;
-            //console.log(req.search_result);
+            console.log(req.search_result);
             next();
         });
     });
@@ -28,14 +27,14 @@ exports.doSearch = function(req,res,next){
     if(!req.query.query){
         next();
     } else {
-        apiConnector(encodeURIComponent(req.query.query), req, res, next);
+        apiConnector('('+encodeURIComponent(req.query.query)+')+AND+(tag:' + encodeURIComponent('veitingastaður') + ')', req, res, next);
     }
 };
 
-//The API call function for building the dynamic feed on the index
-exports.queryForFeed = function(req,res,next){
-    apiConnector(encodeURIComponent(req.query),req,res,next);
-}
+// //The API call function for building the dynamic feed on the index
+// exports.queryForFeed = function(req,res,next){
+//     firstFeedConnector(,req,res,next);
+// }
 
 //The API call function for showing endpoints for specific places
 exports.showPlace = function(req,res,next){
@@ -128,5 +127,53 @@ function buildQueryByTagArray(arr){
     });
     return q;
 }
+
+exports.firstFeedConnector = function(req,res,next){
+    //query=encodeURIComponent(query);
+    //the query string for the Ja API
+    var q = "https://api.ja.is/search?q="+encodeURIComponent(req.query[0])+')+AND+(tag:' + encodeURIComponent('veitingastaður') + ')'+"&access_code="+process.env.SEARCH_KEY;
+    var str='';
+    https.get(q,function(response) {
+        response.on('data', function (chunk) {
+            str += chunk;
+        });
+        response.on('end', function () {
+            req.feed_result.first = (JSON.parse(str).yellow.items);
+            next();
+        });
+    });
+};
+
+exports.secondFeedConnector = function(req,res,next){
+    //query=encodeURIComponent(query);
+    //the query string for the Ja API
+    var q = "https://api.ja.is/search?q="+encodeURIComponent(req.query[1])+')+AND+(tag:' + encodeURIComponent('veitingastaður') + ')'+"&access_code="+process.env.SEARCH_KEY;
+    var str='';
+    https.get(q,function(response) {
+        response.on('data', function (chunk) {
+            str += chunk;
+        });
+        response.on('end', function () {
+            req.feed_result.second = (JSON.parse(str).yellow.items);
+            next();
+        });
+    });
+};
+
+exports.thirdFeedConnector = function(req,res,next){
+    //query=encodeURIComponent(query);
+    //the query string for the Ja API
+    var q = "https://api.ja.is/search?q="+encodeURIComponent(req.query[2])+')+AND+(tag:' + encodeURIComponent('veitingastaður') + ')'+"&access_code="+process.env.SEARCH_KEY;
+    var str='';
+    https.get(q,function(response) {
+        response.on('data', function (chunk) {
+            str += chunk;
+        });
+        response.on('end', function () {
+            req.feed_result.third = (JSON.parse(str).yellow.items);
+            next();
+        });
+    });
+};
 
 
