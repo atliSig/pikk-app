@@ -13,7 +13,10 @@ block content
                     li.list-group-item=owner.google.email
                         i.fa.fa-at.pikk-card-icon
                     li.list-group-item
-                        a(href="/g/creategroup").btn.btn-primary Create a new group
+                        if(owner.google.id == user.google.id)
+                            a(href="/g/creategroup").btn.btn-primary Create a new group
+                        else
+                            a(href="/g/creategroup").btn.btn-primary Invite to a group
     .row
         .col-lg-6.col-sm-12
             if(owner.google.id==user.google.id)

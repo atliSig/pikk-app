@@ -67,12 +67,11 @@ block content
         .col-lg-6.col-sm-12
             .card
                 .card-header Events
-                if events.length > 0
-                    ul.list-group.list-group-flush.scrollable-list
-                        each event in events
-                            li.list-group-item
-                                a(href="/e/" + event.id)= event.title
-                                p= event.description
+                ul.list-group.list-group-flush.scrollable-list
+                    each event in events
+                        li.list-group-item
+                            a(href="/e/" + event.id)= event.title
+                            p= event.description
 
     button.btn.btn-outline-primary.btn-space#hide-it
         i.fa.fa-close.side-icon
