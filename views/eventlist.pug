@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .row
+        .col-lg-12
+            if events
+                if events.length < 2
+                    each event in events
+                        .card
+                            .card-block
+                                .card-title
+                                    h5=event.title
+                                .card-text
+                                    p.text-muted=event.description
+                                a(href="/e/"+event.id).btn.btn-primary View Event
+                else
+                    .card-columns
+                        each event in events
+                            .card
+                                .card-block
+                                    .card-title
+                                        h5=event.title
+                                    .card-text
+                                        p.text-muted=event.description
+                                    a(href="/e/" + event.id).btn.btn-primary View Event
+            else
+                h2 No groups to display

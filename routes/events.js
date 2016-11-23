@@ -16,6 +16,7 @@ module.exports = router;
 router.get('/createevent', authTools.isLoggedIn, showCreateEvent);
 router.post('/createevent', authTools.isLoggedIn, createEvent);
 router.get('/:eventid', authTools.isLoggedIn, showEventPage);
+router.get('/',authTools.isLoggedIn, displayEventPage);
 
 //-------handlers------//
 
@@ -23,12 +24,6 @@ function showCreateEvent(req, res, next) {
     var user = req.session.user;
     res.render('createevent',{user: user});
 }
-
-var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
-console.log( formatedMysqlString );
-var offset = new Date().getTimezoneOffset();
-console.log(offset);
-
 
 function createEvent(req, res, next){
     var user = req.session.user;
@@ -97,4 +92,19 @@ function showEventPage(req, res, next){
                         event:event});
                 }
             );
+}
+
+function displayEventPage(req,res,next){
+    var user = req.session.user;
+    Event
+        .findAll({
+            include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
+        })
+        .then(function(events) {
+            res.render('eventlist',{
+                title: 'My groups',
+                user: user,
+                events: events,
+            });
+        });
 }
