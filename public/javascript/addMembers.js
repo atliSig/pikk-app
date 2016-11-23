@@ -2,8 +2,10 @@
  * Created by atli on 22.11.2016.
  */
 //To add item to list
+
 $('#add-member').on('click',function(){
     $('#insert-wrapper').css({'display':'block'});
+    body.friends
     if(validateEmail($('#members').val())) {
         var member = $('#hide-it').clone();
         member.text($('#members').val());
@@ -26,9 +28,9 @@ $('.friend-list').on('click', '.current-friend', function(){
     var member = $('#hide-it').clone();
     member.text($(this).text());
     member.removeAttr('id');
-    console.log($(this).attr('value'));
     member.val($(this).attr('value'));
-    member.addClass('added-member is-friend');
+    member.addClass('added-member is-friend btn-outline-success');
+    member.removeClass('btn-outline-warning');
     member.attr('type', 'button');
     var icon = $('<i></i>');
     icon.addClass('fa fa-close side-icon');

@@ -19,7 +19,7 @@ block content
                             label(for="description") Description
                             textarea.form-control(name="description", placeholder="Optional", id="description")
                         .form-group
-                            label(for="members") Members
+                            label(for="members") Add members by e-mail
                             .row
                                 .col-xs-10.col-sm-11
                                     input.form-control(type=email, name="members" id="members")
@@ -34,7 +34,7 @@ block content
                         .form-group
                             button.btn.btn-primary.pull-right(type=submit id='create-group') Create
 
-                        button.btn.btn-outline-success.btn-space(type=button)#hide-it
+                        button.btn.btn-outline-warning.btn-space(type=button)#hide-it
                             i.fa.fa-close.side-icon
         .col-lg-6
             if friends && friends.length > 0

@@ -1,9 +1,6 @@
 /**
  * Created by Matthías on 23.11.2016.
  */
-
-console.log('Hey resize');
-
 var windowsize = $(window).width();
 
 $(window).resize(function() {
