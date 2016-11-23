@@ -27,13 +27,10 @@ function showCreateEvent(req, res, next) {
 
 function createEvent(req, res, next){
     var user = req.session.user;
-    //console.log(req.session.currentGroup);
-    //console.log(user);
     var title = req.body.title;
     var description = req.body.description;
     console.log(req.body.deadline);
     var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
-    console.log(deadline);
     var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
     var group = req.session.currentGroup;
     Event.create({

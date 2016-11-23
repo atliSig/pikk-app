@@ -28,3 +28,23 @@ exports.getEventsByUser = function(req,res,next){
         next();
     }
 };
+
+exports.getEventsByGroup = function(req,res,next){
+    var groupId = req.params.groupid;
+    Group.findOne({
+        where:{
+            id: groupId
+        },
+        include: [{model: User, as: 'member'}]
+    }).then(
+        function(group){
+            group.getEvents().then(
+                function(events){
+                    res.render('pickGroup',{
+
+                    })
+                }
+            )
+        }
+    )
+};
