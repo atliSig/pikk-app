@@ -27,7 +27,7 @@ function showCreateEvent(req, res, next) {
 
 function createEvent(req, res, next){
     var user = req.session.user;
-
+    console.log(user);
     var title = req.body.title || 'Event Title';
     var description = req.body.description || 'Nice descor';
     var deadline = req.body.deadline || '2004-10-19 10:23:54+02';
