@@ -13,21 +13,23 @@ block content
                     .row
                         .col-md-6
                             .row
-                                .card
-                                    .card-block
-                                        h1= group.name
-                                        p= group.description
+                                .col-md-12
+                                    .card
+                                        .card-block
+                                            h1= group.name
+                                            p= group.description
                             .row
-                                .card
-                                    .card-block
-                                        form(method="POST", action="/g/" + group.id + "/addMember")
-                                            fieldset
-                                                legend Add a member
-                                                .form-group
-                                                    label(for="email") By email
-                                                    input.form-control(type=text, name="email", id="email", placeholder='enter email' required="required")
-                                                .form-group
-                                                    button.btn.btn-primary.pull-right(type="submit") Add Member
+                                .col-md-12
+                                    .card
+                                        .card-block
+                                            form(method="POST", action="/g/" + group.id + "/addMember")
+                                                fieldset
+                                                    legend Add a member
+                                                    .form-group
+                                                        label(for="email") By email
+                                                        input.form-control(type=text, name="email", id="email", placeholder='enter email' required="required")
+                                                    .form-group
+                                                        button.btn.btn-primary.pull-right(type="submit") Add Member
                         .col-md-6
                             .card
                                 .card-header='Create a new event for ' + group.name
