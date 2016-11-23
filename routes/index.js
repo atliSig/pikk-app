@@ -88,20 +88,6 @@ function getStart(req,res,next){
     res.render('start', {user: user, title: 'Pikk',form:req.form, groups: req.user_groups, events: req.user_events});
 }
 
-//----------ROUTING FOR CHOOSE------------//
-router.post('/choose',
-    authTools.isLoggedIn,
-    apiTools.queryByTags,
-    pikkTools.filterByDistance,
-    groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
-    getChoose
-);
-function getChoose(req,res,next){
-    var user = req.session.user;
-    res.render('choose', { user:user, title:'Choose', results: req.search_result, groups: req.user_groups, events: req.user_events});
-}
-
 //------------ROUTING FOR MAP------------//
 router.get('/map/*',
     authTools.isLoggedIn,
@@ -125,5 +111,7 @@ router.get('/logout', function(req, res) {
         res.redirect('/');
     });
 });
+
+
 
 module.exports = router;

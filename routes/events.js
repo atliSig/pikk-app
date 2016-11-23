@@ -6,12 +6,32 @@ var session = require('express-session');
 var groups = require('../lib/groups');
 var db = require('../middleware/dbTools');
 var authTools = require('../middleware/authTools');
+var apiTools= require('../middleware/apiTools');
+var pikkTools= require('../middleware/pikkTools');
+var groupTools= require('../middleware/groupTools');
+var eventTools= require('../middleware/eventTools');
 
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
 
 module.exports = router;
+
+
+//THIS ROUTE MUST BE AT TOP
+//----------ROUTING FOR CHOOSE------------//
+router.get('/choose',
+    authTools.isLoggedIn,
+    apiTools.queryByTags,
+    pikkTools.filterByDistance,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    getChoose
+);
+function getChoose(req,res,next){
+    var user = req.session.user;
+    res.render('choose', { user:user, title:'Choose', results: req.search_result, groups: req.user_groups, events: req.user_events});
+}
 
 router.get('/createevent', authTools.isLoggedIn, showCreateEvent);
 router.post('/createevent', authTools.isLoggedIn, createEvent);

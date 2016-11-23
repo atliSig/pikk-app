@@ -69,9 +69,6 @@ $(document).ready(function() {
         $(".added-tag").each(function(index){
             selection.push($(this).val());
         });
-        alert(selection);
-        alert(count);
-        alert(userInput);
         userInput.selection=selection;
         var input = $("<input>")
             .addClass('remove-me')
