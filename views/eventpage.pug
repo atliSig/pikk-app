@@ -30,12 +30,12 @@ block content
                             button.btn.btn-outline-primary.btn-space.choice-button(value=17) Pastries
                             button.btn.btn-outline-primary.btn-space.choice-button(value=18) Bistro style
                             button.btn.btn-outline-primary.btn-space.choice-button(value=19) Coffee
-                            button.btn.btn-outline-primary.btn-space.choice-button(value=20) Alchohol
+                            button.btn.btn-outline-primary.btn-space.choice-button(value=20, disabled=false) Alchohol
                             .card#insert-wrapper
                                 .card-block#insert-area
                             form#start-pikk-form(method="post", action="/choose")
-                            button.btn.btn-primary(type='submit' id="start-pikk-button") Pikk
-                            button.btn.btn-seconaary(id='location-button') Near Me
+                                button.btn.btn-primary(type='submit' id="start-pikk-button") Pikk
+                                button.btn.btn-seconaary(type='button' id='location-button') Near Me
         if event
             h1= event.title
             p= event.description
@@ -43,6 +43,8 @@ block content
                 p= member.email
         if event.isReady
             hi
+
+    button.btn.btn-outline-primary.btn-space(type=button)#hide-it
 
 block scripts
     script(src="../javascript/selection.js")

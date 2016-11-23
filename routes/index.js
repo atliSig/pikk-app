@@ -16,7 +16,13 @@ var router = express.Router();
 var groups = require('./groups');
 
 //------------ROUTING FOR INDEX------------//
-router.get('/', pikkTools.getIndexFeed, apiTools.queryForFeed, groupTools.getGroupsByUser, eventTools.getEventsByUser, getIndex);
+router.get('/',
+    pikkTools.getIndexFeed,
+    apiTools.queryForFeed,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    getIndex
+);
 
 function getIndex(req,res,next){
     if(req.user_events){
@@ -26,56 +32,93 @@ function getIndex(req,res,next){
 }
 
 //------------ROUTING FOR SEARCH------------//
-router.get('/search', authTools.isLoggedIn, apiTools.doSearch, getSearch);
+router.get('/search',
+    authTools.isLoggedIn,
+    apiTools.doSearch,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    getSearch
+);
 
 function getSearch(req,res,next){
     var user = req.session.user;
-    res.render('resultlist',{ user:user, results: req.search_result});
+    res.render('resultlist',{ user:user, results: req.search_result, groups: req.user_groups, events: req.user_events});
 }
 
 //------------ROUTING FOR PLACE------------//
-router.get('/place/:placeId', authTools.isLoggedIn, apiTools.showPlace, getPlace);
+router.get('/place/:placeId',
+    authTools.isLoggedIn,
+    apiTools.showPlace,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    getPlace
+);
 
 function getPlace(req,res,next) {
     var user = req.session.user;
-    res.render('place',{ user:user, place: req.search_result[0]});
+    res.render('place',{ user:user, place: req.search_result[0], groups: req.user_groups, events: req.user_events});
 }
 
 //------------ROUTING FOR HEADOUT------------//
 //WIP
-router.use('/headout', authTools.isLoggedIn, getHeadout);
+router.use('/headout',
+    authTools.isLoggedIn,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    getHeadout
+);
 
 function getHeadout(req,res,next){
     var user = req.session.user;
     var key = process.env.AUTHKEY || '';
-    res.render('headout', { user:user, title: 'Pikk', jaObject: req.search_result[0]});
+    res.render('headout', { user:user, title: 'Pikk', jaObject: req.search_result[0], groups: req.user_groups, events: req.user_events});
 }
 
 //------------ROUTING FOR START------------//
-router.get('/start', authTools.isLoggedIn, pikkTools.createForm, getStart);
+router.get('/start',
+    authTools.isLoggedIn,
+    pikkTools.createForm,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    getStart
+);
 
 function getStart(req,res,next){
     var user = req.session.user;
-    res.render('start', {user: user, title: 'Pikk',form:req.form});
+    res.render('start', {user: user, title: 'Pikk',form:req.form, groups: req.user_groups, events: req.user_events});
 }
 
 //----------ROUTING FOR CHOOSE------------//
-router.post('/choose', authTools.isLoggedIn, apiTools.queryByTags, pikkTools.filterByDistance, getChoose);
+router.post('/choose',
+    authTools.isLoggedIn,
+    apiTools.queryByTags,
+    pikkTools.filterByDistance,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    getChoose
+);
 function getChoose(req,res,next){
     var user = req.session.user;
-    res.render('choose', { user:user, title:'Choose', results: req.search_result});
+    res.render('choose', { user:user, title:'Choose', results: req.search_result, groups: req.user_groups, events: req.user_events});
 }
 
 //------------ROUTING FOR MAP------------//
-router.get('/map/*', authTools.isLoggedIn, showMap);
+router.get('/map/*',
+    authTools.isLoggedIn,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    showMap
+);
 
 function showMap(req, res, next){
     var user = req.session.user;
     var q = querystring.stringify(req.query);
     q = querystring.unescape(q);
     var query = (querystring.parse(q));
-    res.render('map', {user: user, query: query});
+    res.render('map', {user: user, query: query, groups: req.user_groups, events: req.user_events});
 }
+
+//------------ROUTING FOR LOGOUT------------//
 
 router.get('/logout', function(req, res) {
     req.session.destroy(function (err) {

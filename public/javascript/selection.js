@@ -2,15 +2,12 @@
  * Created by atli on 4.11.2016.
  */
 $(document).ready(function() {
-    var userInput = {};
-    var selection = [];
-    var index=0;
+    $('.choice-button').prop('disabled', false);
+    $('#insert-wrapper').css({'display':'none'});
+    $('.remove-me').remove();
+    var count=0;
     //Default location to fall on is
     //downtown Reykjavik
-    userInput.location={
-        latitude:'64.147410',
-        longitude:'-21.936253'
-    }
     //Get location of user
     $('#location-button').on('click',function(){
         var options = {
@@ -36,28 +33,48 @@ $(document).ready(function() {
 
     //Add item to list
     $('.choice-button').on('click',function(){
-        selection.push($(this).attr('value'));
         $('#insert-wrapper').css({'display':'block'});
         var sel = $('#hide-it').clone();
         sel.text($(this).text());
-        $('#members').val('');
         sel.removeAttr('id');
-        sel.val(index);
-        sel.addClass('added-member');
+        sel.addClass('added-tag');
+        var icon = $('<i></i>');
+        icon.addClass('fa fa-close side-icon');
+        sel.append(icon);
+        sel.val($(this).attr('value'));
         $('#insert-area').append(sel);
-        index++;
+        count++;
+        if(count>=3){
+            $('.choice-button').prop('disabled', true);
+        }
     });
 
     //Remove item from list
-    $('#insert-area').on('click','.added-member',function(){
-        selection.splice($(this).val(),1);
+    $('#insert-area').on('click','.added-tag',function(){
         $(this).remove();
+        count--;
+        if(count<3){
+            $('.choice-button').prop('disabled', false);
+        }
     });
 
 
     $("#start-pikk-button").on('click',function() {
+        var userInput = {};
+        userInput.location={
+            latitude:'64.147410',
+            longitude:'-21.936253'
+        }
+        var selection=[];
+        $(".added-tag").each(function(index){
+            selection.push($(this).val());
+        });
+        alert(selection);
+        alert(count);
+        alert(userInput);
         userInput.selection=selection;
         var input = $("<input>")
+            .addClass('remove-me')
             .attr("type", "hidden")
             .attr("name", "userinput").val(JSON.stringify(userInput));
         $("#start-pikk-form").append($(input));

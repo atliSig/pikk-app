@@ -96,6 +96,7 @@ exports.queryByTags = function(req, res, next){
 
 
     //userData contains index into the array types
+    console.log(req.body.userinput);
     var userInput = JSON.parse(req.body.userinput);
     var userData  = userInput.selection;
     req.current_location = userInput.location;
