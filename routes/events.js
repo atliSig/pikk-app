@@ -1,5 +1,5 @@
 'use strict';
-
+var fecha = require('fecha');
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
@@ -24,16 +24,21 @@ function showCreateEvent(req, res, next) {
     res.render('createevent',{user: user});
 }
 
+var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+console.log( formatedMysqlString );
+var offset = new Date().getTimezoneOffset();
+console.log(offset);
+
+
 function createEvent(req, res, next){
     var user = req.session.user;
     //console.log(req.session.currentGroup);
     //console.log(user);
     var title = req.body.title;
     var description = req.body.description;
-    var deadline = req.body.deadline || '2004-10-19 10:23:54+02';
-    var toe = req.body.toe || '2004-10-19 10:23:54+02';
+    var deadline = fecha.format(new Date(req.body.deadline),'YYYY-DD-MM HH:mm:ss')+'+02';
+    var toe = fecha.format(new Date(req.body.toe),'YYYY-DD-MM HH:mm:ss')+'+02';
     var group = req.session.currentGroup;
-    console.log(group.member);
     Event.create({
         title: title,
         description: description,

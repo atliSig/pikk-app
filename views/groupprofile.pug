@@ -11,41 +11,47 @@ block content
             .card
                 .card-block
                     .row
-                        .col-md-4
-                            h1= group.name
-                            p= group.description
-                        .col-md-4.offset-md-4
-                            form(method="POST", action="/g/" + group.id + "/addMember")
-                                fieldset
-                                    legend Add a member
-                                    .form-group
-                                        label(for="email") By email
-                                        input.form-control(type=text, name="email", id="email", placeholder='enter email' required="required")
-                                    .form-group
-                                        button.btn.btn-primary.pull-right(type="submit") Add Member
-    .row
-        .col-lg-6
-            .card
-                .card-header='Create a new event for '+group.name
-                .card-block
-                    form(method="POST", action="/e/createevent")
-                        fieldset.form-group
-                            legend Create an event
-                            .form-group
-                                label(for="title") Title
-                                input.form-control(type=text, name="title", id="title")
+                        .col-md-6
+                            .row
+                                .card
+                                    .card-block
+                                        h1= group.name
+                                        p= group.description
+                            .row
+                                .card
+                                    .card-block
+                                        form(method="POST", action="/g/" + group.id + "/addMember")
+                                            fieldset
+                                                legend Add a member
+                                                .form-group
+                                                    label(for="email") By email
+                                                    input.form-control(type=text, name="email", id="email", placeholder='enter email' required="required")
+                                                .form-group
+                                                    button.btn.btn-primary.pull-right(type="submit") Add Member
+                        .col-md-6
+                            .card
+                                .card-header='Create a new event for ' + group.name
+                                .card-block
+                                    form(method="POST", action="/e/createevent")
+                                        fieldset.form-group
+                                            .form-group
+                                                label(for="title") Title
+                                                input.form-control(type=text, required='required', "title", id="title")
+                                            .form-group
+                                                label(for="description") Description
+                                                textarea.form-control(name="description",required='required', id="description")
+                                            .row
+                                                .col-lg-6
+                                                    .form-group
+                                                        label(for="deadline") Deadline for pikking a place
+                                                        input.form-control(type="datetime-local",name="deadline", required='required',id="deadline").pick-date
+                                                .col-lg-6
+                                                    .form-group
+                                                        label(for="toe") Time of Event
+                                                        input.form-control(type="data", name="toe", required='required',id="toe").pick-date
+                                            .form-group
+                                                button.btn.btn-primary.pull-right(type=submit) Create
 
-                            .form-group
-                                label(for="description") Description
-                                textarea.form-control(name="description", placeholder="(Optional)", id="description")
-                            .form-group
-                                label(for="deadline") Deadline (when should everyone have pikked?)
-                                input.form-control(type="data",name="deadline", placeholder="(Optional)", id="deadline")
-                            .form-group
-                                label(for="toe") Time of Event
-                                input.form-control(type="data", name="toe", placeholder="(Optional)", id="toe")
-                            .form-group
-                                button.btn.btn-secondary(type=submit) Create
 
     .row
         .col-lg-6.col-sm-12
@@ -71,3 +77,4 @@ block content
 
 block scripts
     script(src="../javascript/selection.js")
+    script(src='http://code.jquery.com/ui/1.12.1/jquery-ui.min.js', integrity='sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=', crossorigin='anonymous')

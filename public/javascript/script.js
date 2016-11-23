@@ -16,3 +16,7 @@ if (windowsize < 992) {
     $('.dropdown-menu').addClass('dropdown-menu-left');
 
 }
+
+$( function() {
+    $( ".pick-date" ).datepicker();
+});
