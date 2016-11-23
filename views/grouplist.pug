@@ -5,24 +5,18 @@ block content
         .col-lg-12
             .card
                 .card-block
-                    p Here You can see all the groups that you currently belong to
-                    a.btn.btn-primary.pull-right(href="/g/creategroup") Create new group
+                    if invited_user_id
+                        p Choose a group to invite your friend to from the list of your current groups below
+                    else
+                        p Here You can see all the groups that you currently belong to
+                        a.btn.btn-primary.pull-right(href="/g/creategroup") Create new group
     .row
         .col-lg-12
             .card
                 .card-block
-                    if groups
-                        if groups.length < 2
-                            each group in groups
-                                    .card
-                                        .card-block
-                                            .card-title
-                                                h5=group.name
-                                            .card-text
-                                                p.text-muted=group.description
-                                            a(href="/g/"+group.id).btn.btn-primary.pull-right View group
-                        else
-                            .card-columns
+                    if invited_user_id
+                        if groups
+                            if groups.length < 2
                                 each group in groups
                                     .card
                                         .card-block
@@ -30,6 +24,39 @@ block content
                                                 h5=group.name
                                             .card-text
                                                 p.text-muted=group.description
-                                            a(href="/g/" + group.id).btn.btn-primary.pull-right View group
+                                            a(href="/g/" + group.id + '/' + invited_user_id).btn.btn-primary.pull-right Invite to group
+                            else
+                                .card-columns
+                                    each group in groups
+                                        .card
+                                            .card-block
+                                                .card-title
+                                                    h5=group.name
+                                                .card-text
+                                                    p.text-muted=group.description
+                                                a(href="/g/" + group.id + '/' + invited_user_id).btn.btn-primary.pull-right Invite to group
+                        else
+                            h2 No groups to display
                     else
-                        h2 No groups to display
+                        if groups
+                            if groups.length < 2
+                                each group in groups
+                                        .card
+                                            .card-block
+                                                .card-title
+                                                    h5=group.name
+                                                .card-text
+                                                    p.text-muted=group.description
+                                                a(href="/g/"+group.id).btn.btn-primary.pull-right View group
+                            else
+                                .card-columns
+                                    each group in groups
+                                        .card
+                                            .card-block
+                                                .card-title
+                                                    h5=group.name
+                                                .card-text
+                                                    p.text-muted=group.description
+                                                a(href="/g/" + group.id).btn.btn-primary.pull-right View group
+                        else
+                            h2 No groups to display

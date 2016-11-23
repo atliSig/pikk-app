@@ -25,6 +25,8 @@ function get_own_page(req, res, next){
 function get_user_profile(req, res, next){
     var page_owner = req.params.userid;
     var user = req.session.user;
+    console.log('this is userid');
+    console.log(req.session.visited_user_id);
     User.findOne({
         where:{'google.id': page_owner},
         include:[{model: Group, as:'group'},{model: Event, as: 'event'}]

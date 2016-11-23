@@ -6,7 +6,9 @@ var session = require('express-session');
 var groups = require('../models/groups');
 var db = require('../middleware/dbTools');
 var authTools = require('../middleware/authTools');
-
+var groupTools= require('../middleware/groupTools');
+var eventTools= require('../middleware/eventTools');
+var userTools = require('../middleware/userTools');
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
@@ -68,6 +70,7 @@ function addMember(req, res, next){
 
 //Shows the profile of a specific group
 function showGroupPage(req, res, next) {
+
     var user = req.session.user;
     var groupid = req.params.groupid;
     var inGroup = false;
@@ -117,16 +120,18 @@ function showGroupPage(req, res, next) {
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
     var user = req.session.user;
-    console.log(user);
     Group
         .findAll({
             include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
         })
         .then(function(groups) {
+            console.log(req.session.invited_user_id);
+            console.log('heeelo');
             res.render('grouplist',{
                 title: 'My groups',
                 user: user,
                 groups: groups,
+                invited_user_id: req.query.invited
             });
         });
 }
