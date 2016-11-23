@@ -3,7 +3,7 @@ var fecha = require('fecha');
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
-var groups = require('../lib/groups');
+var groups = require('../models/groups');
 var db = require('../middleware/dbTools');
 var authTools = require('../middleware/authTools');
 var apiTools= require('../middleware/apiTools');
@@ -14,6 +14,7 @@ var eventTools= require('../middleware/eventTools');
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
+var EventMember = db.Event.EventMember;
 
 module.exports = router;
 
@@ -53,47 +54,63 @@ function createEvent(req, res, next){
     console.log(req.body.deadline);
     var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
     var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
-    var group = req.session.currentGroup;
-    Event.create({
-        title: title,
-        description: description,
-        deadline: deadline,
-        toe: toe
-    }).then(function (event) {
-        User.findOne({
-            where: {'google.id':user.google.id}
-        }).then(function(user){
-            event.addMember(user,{isAdmin:false});
-            res.redirect(event.id);
-        });
-    },function(err){
-        return next('no thing'+err);
-    });
+    //var grroup = req.session.currentGroup;
 
-    // Group.findOne({
-    //         where: {id: groupid},
-    //         include: [{model:User, as:'member'}]
+    // / Group.findOne({
+    //         where: {id:23},
+    //         include: [{model: User, as:'member'}]
     //     }
-    // ).then(function(group){
-    //     //console.log(group);
-    //     Event.create({
-    //         title: title,
-    //         description: description,
-    //         deadline: deadline,
-    //         toe: toe
-    //     })
-    //         .then(function (event) {
-    //             var member = group.member;
-    //             event.addMember(member)
-    //                 .then(function(members){
-    //                     res.redirect(event.id);
-    //                 });
-    //         },function(err){
-    //            return next('no thing'+err);
+    // ).then(function(group) {
+    //         Event.create({
+    //             title: title,
+    //             description: description,
+    //             deadline: deadline,
+    //             toe: toe
+    //         }).then(function (event) {
+    //             User.findOne({
+    //                 where: {'google.id': user.google.id}
+    //             }).then(function (user) {
+    //                 event
+    //                     .addMembers(group.member)
+    //                     .then(function(member){
+    //                         event
+    //                             .addMember(user, {isAdmin: true})
+    //                             .then(function () {
+    //                                 res.redirect(event.id);
+    //                             });
+    //                     });
+    //             });
+    //         }, function (err) {
+    //             return next('no thing' + err);
     //         });
-    // }, function(err){
-    //     return next('no group'+err);
-    // });
+    //     }
+    // );
+
+    var groupid = 27;
+    Group.findOne({
+            where: {id: groupid},
+            include: [{model:User, as:'member'}]
+        }
+    ).then(function(group){
+        //console.log(group);
+        Event.create({
+            title: title,
+            description: description,
+            deadline: deadline,
+            toe: toe
+        })
+            .then(function (event) {
+                var member = group.member;
+                event.addMember(member)
+                    .then(function(members){
+                        res.redirect(event.id);
+                    });
+            },function(err){
+                return next('no thing'+err);
+            });
+    }, function(err){
+        return next('no group'+err);
+    });
 }
 
 function showEventPage(req, res, next){
@@ -104,12 +121,16 @@ function showEventPage(req, res, next){
         where:{
             id: eventid
         },
-        include: [{model: User, as: 'member'}]
+        include: [{
+            model: User,
+            as: 'member'
+        }]
     })
         .then(function(event){
                 res.render('eventlayout', {
                     user: user,
-                    event:event});
+                    event:event
+                });
             }
         );
 }

@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
-var groups = require('../lib/groups');
+var groups = require('../models/groups');
 var db = require('../middleware/dbTools');
 var authTools = require('../middleware/authTools');
 
@@ -60,7 +60,9 @@ function addMember(req, res, next){
                 });
         }, function(err){
             errors.push(err);
-            res.render('groupprofile', {errors: errors, user: user});
+            res.render('groupprofile', {
+                errors: errors, user: user
+            });
         });
 }
 
@@ -131,7 +133,17 @@ function displayGroupPage(req, res, next){
 //Rendering the creategroup view
 function showCreateGroup(req, res, next){
     var user = req.session.user;
-    res.render('creategroup', {title: 'Create Group', user:user});
+    User.getFriends(user.id, function(friends){
+
+        res.render('creategroup', {
+            title: 'Create Group',
+            user:user,
+            friends: friends
+        });
+    },function(err){
+        next(err);
+    });
+
 }
 
 //Create group handler

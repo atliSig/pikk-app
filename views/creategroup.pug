@@ -33,6 +33,15 @@ block content
 
                         button.btn.btn-outline-primary.btn-space(type=button)#hide-it
                             i.fa.fa-close.side-icon
-
+    .row
+        .card-columns
+            h1 Frends?
+            if friends && friends.length > 0
+                each friend in friends
+                    .card
+                        .card-block
+                            .card-text
+                                p= friend.first_name
+                                p= friend.email
 block scripts
     script(src="../javascript/addMembers.js")
