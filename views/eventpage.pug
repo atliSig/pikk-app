@@ -1,17 +1,45 @@
 extends layout
 
 block content
-
+.card
+    .card-header Pick a Place
+    .card-block
+        .row
+            .col-md-6
+                .card
+                    .card-block
+                        p.card-text
+                            | You can either choose 3 keywords from the list below:
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=0) Chicken
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=1) Steak
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=2) Seafood
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=3) Pizza
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=4) Hamburger
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=5) Sushi
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=6) Salad
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=7) Kebab
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=8) Thai
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=9) Asian
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=10) Indian
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=11) Mexican
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=12) Italian
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=13) Icelandic
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=14) Lunch
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=15) Vegan
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=16) Healthy
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=17) Pastries
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=18) Bistro style
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=19) Coffee
+                        button.btn.btn-outline-primary.btn-space.choice-button(value=20) Alchohol
+                        .card#insert-wrapper
+                            .card-block#insert-area
+                        form#start-pikk-form(method="post", action="/choose")
+                        button.btn.btn-primary(type='submit' id="start-pikk-button") Pikk
+                        button.btn.btn-seconaary(id='location-button') Near Me
     if event
         h1= event.title
         p= event.description
         for member in event.member
             p= member.email
     if event.isReady
-        h1
-
-    if '2016-11-20 05:49:25.872+00' < '2016-10-20 06:49:25.872+00'
-        h1 Hai
-
-    else
-        h2 Nai
+        hi

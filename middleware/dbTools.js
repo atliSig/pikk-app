@@ -45,19 +45,19 @@ function init() {
     });
 
     sequelize.sync();
-    // fx();
+     fx();
 }
 
 function fx(){
     Event.create({
         phone_id: '1493514',
-        deadline: Date.now(),
-        toe: Date.now(),
+        deadline: '2004-10-19 10:23:54+02',
+        toe: '2004-10-19 10:23:54+02',
         title: 'Celebration sleep'
     })
         .then(function(event){
             User.findOne({
-                where: {id:1}
+                where: {id:7}
             })
                 .then(function(user){
                     event.addMember(user, {isAdmin: false});

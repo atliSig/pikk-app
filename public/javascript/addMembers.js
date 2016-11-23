@@ -12,7 +12,6 @@ $('#add-member').on('click',function(){
         member.text($('#members').val());
         member.attr('type', 'button');
         member.val(index);
-        alert($('#members').val());
         members.push($('#members').val());
         $('#members').val('');
         member.removeAttr('id');

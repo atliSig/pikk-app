@@ -30,13 +30,13 @@ function createEvent(req, res, next){
 
     var title = req.body.title || 'Event Title';
     var description = req.body.description || 'Nice descor';
-    var deadline = req.body.deadline || '2016-11-20 05:54:35.496+00';
-    var toe = req.body.toe || '2016-11-20 05:54:35.496+00';
-    var groupid = 26;
+    var deadline = req.body.deadline || '2004-10-19 10:23:54+02';
+    var toe = req.body.toe || '2004-10-19 10:23:54+02';
+    var groupid = 2;
 
     Group.findOne({
             where: {id: groupid},
-            include: [{model:User, as:'member', }]
+            include: [{model:User, as:'member'}]
         }
     ).then(function(group){
         //console.log(group);
