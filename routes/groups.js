@@ -94,6 +94,7 @@ function showGroupPage(req, res, next) {
                     group
                         .getEvents()
                         .then(function(events){
+                            req.session.currentGroup=group;
                             res.render('groupprofile', {
                                 group: group,
                                 user: user,
