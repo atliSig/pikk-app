@@ -85,14 +85,13 @@ function createEvent(req, res, next){
     //         });
     //     }
     // );
-
-    var groupid = 27;
+   // var grroup = req.session.currentGroup;
+    var groupid = req.session.currentGroup.id;
     Group.findOne({
             where: {id: groupid},
             include: [{model:User, as:'member'}]
         }
     ).then(function(group){
-        //console.log(group);
         Event.create({
             title: title,
             description: description,
