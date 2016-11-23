@@ -10,7 +10,7 @@ block content
         .col-lg-12
             .card-columns
                 each res in results
-                    .card
+                    .card.animate-bottom
                         if res.coordinates
                             if(res.brand_banner_path)
                                 img(src=res.brand_banner_path).card-im-top.img-fluid
@@ -36,7 +36,7 @@ block content
                                                     | Lokað
 
                                         else
-                                            button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
+                                            button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='No info')
                                                 if res.is_open
                                                     i.open-icon.fa.fa-circle.text-success
                                                     | Opið

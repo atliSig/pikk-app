@@ -207,8 +207,8 @@ button.dropdown-item:hover {
   margin-left: 10px;
 }
 
-.index-card{
-  word-wrap: break-word;
+.card-block{
+  word-wrap: break-word !important;
 }
 
 .choice-button{
@@ -428,4 +428,25 @@ ul{
 .scrollable-list{
   overflow: auto !important;
   max-height: 420px !important;
+}
+
+/*
+ ANIMATE BOTTOM
+*/
+
+.animate-bottom {
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 0.9s;
+  animation-name: animatebottom;
+  animation-duration: 0.9s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-50px; opacity:0 }
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom {
+  from{ bottom:-50px; opacity:0 }
+  to{ bottom:0; opacity:1 }
 }

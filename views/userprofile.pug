@@ -13,13 +13,13 @@ block content
                     li.list-group-item=owner.google.email
                         i.fa.fa-at.pikk-card-icon
                     li.list-group-item
-                        a(href="#").btn.btn-primary Create a new group
+                        a(href="/g/creategroup").btn.btn-primary Create a new group
     .row
         .col-lg-6.col-sm-12
             if(owner.google.id==user.google.id)
                 .card
                     .card-header Events
-                        i.fa.fa-users.pikk-card-icon
+                        i.fa.fa-calendar.pikk-card-icon
                     ul.list-group.list-group-flush.scrollable-list
                         each event in events
                             li.list-group-item
