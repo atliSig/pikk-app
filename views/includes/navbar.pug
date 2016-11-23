@@ -37,10 +37,9 @@ nav.navbar.navbar-light.bg-faded
                         a.dropdown-item(href='/g') My groups
                         a.dropdown-item(href='/g/creategroup') Create group
                         if groups
-                            if groups.length>0
-                                .dropdown-divider
-                                    for group in groups
-                                        a.dropdown-item(href='/g/'+group.id)=group.name
+                            .dropdown-divider
+                            for group in groups
+                                a.dropdown-item(href='/g/'+group.id)=group.name
 
                 li.nav-item.dropdown
                     a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Events
@@ -50,8 +49,8 @@ nav.navbar.navbar-light.bg-faded
                         if events
                             if events.length>0
                                 .dropdown-divider
-                                    for event in events
-                                        a.dropdown-item(href='/e/' + event.id)=event.title
+                                for event in events
+                                    a.dropdown-item(href='/e/' + event.id)=event.title
             li.nav-item.float-lg-right
                 form.form-inline(method='get', action='/search')
                     .inner-addon.right-addon
