@@ -8,7 +8,7 @@ block content
                     .row
                         .col-md-6
                             .row
-                                .card
+                                .card.animate-bottom
                                     if(place.brand_banner_path)
                                         img(src=place.brand_banner_path).card-im-top.img-fluid
                                     .card-block.place-banner
@@ -16,24 +16,127 @@ block content
                                         if (place.slogan)
                                             p= place.slogan
                             .row
-                                .card
-                                    .card-block
-                                        if place.is_open
-                                            h2 Something to indicate its open
+                                .card.animate-bottom
+                                    .card-header Opening Hours
+                                        span.pull-right
+                                            if(place.is_open)
+                                                i.open-icon.fa.fa-circle.text-success
+                                            else
+                                                i.open-icon.fa.fa-circle.text-danger
+                                    .card-block.open-status
+                                        if(place.is_open)
+                                            h4 Open
                                         else
-                                            h2 It's closed!
+                                            h4 Closed
+                                        if(place.hours)
+                                            .open-status
+                                                li.list-group-item=place.hours
                         .col-md-6
-                            .card
+                            .card.animate-bottom
                                 .card-header Information
-                                    i.fa.fa-info.pikk-card-icon
+                                    span.pull-right
+                                        i.fa.fa-info
                                 ul.list-group.list-group-flush
-                                    li.list-group-item KS
-                                        i.fa.fa-filter.pikk-card-icon
-                                    li.list-group-item KS
-                                        i.fa.fa-filter.pikk-card-icon
-                                    li.list-group-item KS
-                                        i.fa.fa-filter.pikk-card-icon
-                                    li.list-group-item KS
-                                        i.fa.fa-filter.pikk-card-icon
-                                    li.list-group-item KS
-                                        i.fa.fa-filter.pikk-card-icon
+                                    if(place.address)
+                                        li.list-group-item=place.address
+                                        span.pull-right
+                                            i.fa.fa-home
+                                    if(place.postal_station_nominative)
+                                        li.list-group-item=place.postal_station_nominative
+                                        span.pull-right
+                                            i.fa.fa-map-o
+                                    if(place.phone.pretty)
+                                        li.list-group-item=place.phone.pretty
+                                        span.pull-right
+                                            i.fa.fa-phone
+                                    if(place.email)
+                                        li.list-group-item=place.email
+                                        span.pull-right
+                                            i.fa.fa-at
+                                    if(place.url || place.url_pretty)
+                                        li.list-group-item
+                                            a(href=place.url_pretty)=place.url_pretty
+                                            span.pull-right
+                                                i.fa.fa-globe
+                                    if(place.facebook_link)
+                                        li.list-group-item=place.facebook_link
+                                        span.pull-right
+                                            i.fa.fa-facebook
+                                    if(place.twitter_link)
+                                        li.list-group-item=place.twitter_link
+                                        span.pull-right
+                                            i.fa.fa-twitter
+
+    .row
+        if(place.coordinates)
+            if(place.coordinates.ja360_image_url)
+                .col-lg-6.col-sm-12
+                    .card.animate-bottom
+                        .card-header Já 360°
+                            span.pull-right
+                                i.fa.fa-street-view
+                        img(src=place.coordinates.ja360_image_url).card-im-top.img-fluid
+        .col-lg-6.col-sm-12
+            .card.animate-bottom
+                .card-header Rating
+                    span.pull-right
+                        i.fa.fa-star
+                .card-block.rating
+                    if(place.rating_count > 0)
+                        if(place.rating_count == 1)
+                            h2=place.rating_count + " umsögn"
+                        else
+                            h2=place.rating_count + " umsagnir"
+                    if(place.cluster_rating_mean>0)
+                        if(place.cluster_rating_mean<=1)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                        else if(place.cluster_rating_mean>1 && place.cluster_rating_mean<=1.4)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star-half-o.fa-2x
+                        else if(place.cluster_rating_mean>1.4&& place.cluster_rating_mean<=2)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                        else if(place.cluster_rating_mean>2 && place.cluster_rating_mean<=2.4)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star-half-o.fa-2x
+                        else if(place.cluster_rating_mean>2.4 && place.cluster_rating_mean<=3)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                        else if(place.cluster_rating_mean>3 && place.cluster_rating_mean<=3.4)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star-half-o.fa-2x
+                        else if(place.cluster_rating_mean>3.4 && place.cluster_rating_mean<=4)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                        else if(place.cluster_rating_mean>4 && place.cluster_rating_mean<=4.4)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star-half-o.fa-2x
+                        else if(place.cluster_rating_mean>4.4)
+                            button.btn.btn-secondary.star-rating(data-toggle="tooltip", data-placement="bottom",title=rating_string)
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+                                i.fa.fa-star.fa-2x
+
+block scripts
+    script(src="/javascript/popover.js")
+
+

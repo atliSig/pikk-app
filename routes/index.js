@@ -55,8 +55,12 @@ router.get('/place/:placeId',
 );
 
 function getPlace(req,res,next) {
+    console.log('Here it is!!!!');
+    var rating_string = (req.search_result[0].cluster_rating_mean).toString();
     var user = req.session.user;
-    res.render('place',{ user:user, place: req.search_result[0], groups: req.user_groups, events: req.user_events});
+    console.log(rating_string);
+    console.log(typeof rating_string);
+    res.render('place',{ user:user, rating_string: rating_string, place: req.search_result[0], groups: req.user_groups, events: req.user_events});
 }
 
 //------------ROUTING FOR HEADOUT------------//
