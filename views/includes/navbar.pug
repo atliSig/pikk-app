@@ -33,16 +33,17 @@ nav.navbar.navbar-light.bg-faded
             else
                 li.nav-item.dropdown
                     a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Groups
-                    .dropdown-menu
+                    .dropdown-menu.scrollable-list
                         a.dropdown-item(href='/g') My groups
                         a.dropdown-item(href='/g/creategroup') Create group
-                        a.dropdown-item(href='#') Third
                         .dropdown-divider
+                        for group in groups
+                            a.dropdown-item(href='/g/'+group.id)=group.name
                         a.dropdown-item(href='#') All Groups
                 li.nav-item.dropdown
                     a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Events
                     .dropdown-menu
-                        a.dropdown-item(href='#') First
+                        a.dropdown-item(href='/e') My Events
                         a.dropdown-item(href='#') Second
                         a.dropdown-item(href='#') Third
                         .dropdown-divider

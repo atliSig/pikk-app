@@ -6,17 +6,19 @@ var pikkTools= require('../middleware/pikkTools');
 var authTools= require('../middleware/authTools');
 var querystring = require('querystring');
 var session = require('session');
-var users = require('../lib/users');
+var groupTools = require('../middleware/groupTools');
 var dbTools = require('../middleware/dbTools');
 var passport = require('passport');
 var app = require('express')();
 var router = express.Router();
 
+var groups = require('./groups');
+
 //------------ROUTING FOR INDEX------------//
-router.get('/', pikkTools.getIndexFeed, apiTools.queryForFeed,getIndex);
+router.get('/', pikkTools.getIndexFeed, apiTools.queryForFeed, groupTools.getGroupsByUser, getIndex);
 
 function getIndex(req,res,next){
-    res.render('index', { user: req.session.user,results: req.search_result});
+    res.render('index', { user: req.session.user,results: req.search_result, groups: req.user_groups});
 }
 
 //------------ROUTING FOR SEARCH------------//
