@@ -21,8 +21,33 @@ $('#add-member').on('click',function(){
     }
 });
 
+$('.friend-list').on('click', '.current-friend', function(){
+    $('#insert-wrapper').css({'display':'block'});
+    var member = $('#hide-it').clone();
+    member.text($(this).text());
+    member.removeAttr('id');
+    console.log($(this).attr('value'));
+    member.val($(this).attr('value'));
+    member.addClass('added-member is-friend');
+    member.attr('type', 'button');
+    var icon = $('<i></i>');
+    icon.addClass('fa fa-close side-icon');
+    member.append(icon);
+    $(this).remove();
+    $('#insert-area').append(member);
+})
+
 //To remove item of list
 $('#insert-area').on('click','.added-member',function(){
+    var addBack = $(this)
+        .clone()
+        .removeClass('btn-outline-success is-friend')
+        .addClass('btn-outline-primary current-friend')
+        .text($(this).text())
+        .val($(this).val());
+    $('.friend-list')
+        .append(addBack);
+
     $(this).remove();
 });
 

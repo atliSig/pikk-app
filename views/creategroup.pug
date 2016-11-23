@@ -6,8 +6,9 @@ block content
             .col-lg-8.col-sm-12.offset-lg-2
                 each error in errors
                     .alert.alert-danger(role='alert')=error
+    //WE NEED TO CHECK IF NO USERS SO FORM IS COL-LG-12
     .row
-        .col-lg-8.col-sm-12.offset-lg-2
+        .col-lg-6
             .card
                 .card-block
                     form(method="POST", action="/g/creategroup", id='create-group-form').create-group-form
@@ -25,23 +26,25 @@ block content
                                 .col-xs-2.col-sm-1
                                     button.btn.btn-primary.pull-right(type="button", id='add-member')
                                         i.fa.fa-check
-                        .card#insert-wrapper
-                            .card-block#insert-area
+                        .form-group#insert-wrapper
+                            p Added members
+                            .card
+                                .card-block#insert-area
 
                         .form-group
                             button.btn.btn-primary.pull-right(type=submit id='create-group') Create
 
-                        button.btn.btn-outline-primary.btn-space(type=button)#hide-it
+                        button.btn.btn-outline-success.btn-space(type=button)#hide-it
                             i.fa.fa-close.side-icon
-    .row
-        .card-columns
-            h1 Frends?
+        .col-lg-6
             if friends && friends.length > 0
-                each friend in friends
-                    .card
-                        .card-block
-                            .card-text
-                                p= friend.first_name
-                                p= friend.email
+                .card
+                    .card-block
+                        p Your friends from other groups
+                            .card
+                                .card-block.scrollable-list.friend-list
+                                    each friend in friends
+                                        button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.google.displayName
+
 block scripts
     script(src="../javascript/addMembers.js")
