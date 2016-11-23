@@ -39,20 +39,20 @@ block content
                                 ul.list-group.list-group-flush
                                     if(place.address)
                                         li.list-group-item=place.address
-                                        span.pull-right
-                                            i.fa.fa-home
+                                            span.pull-right
+                                                i.fa.fa-home
                                     if(place.postal_station_nominative)
                                         li.list-group-item=place.postal_station_nominative
-                                        span.pull-right
-                                            i.fa.fa-map-o
+                                            span.pull-right
+                                                i.fa.fa-map-o
                                     if(place.phone.pretty)
                                         li.list-group-item=place.phone.pretty
-                                        span.pull-right
-                                            i.fa.fa-phone
+                                            span.pull-right
+                                                i.fa.fa-phone
                                     if(place.email)
                                         li.list-group-item=place.email
-                                        span.pull-right
-                                            i.fa.fa-at
+                                            span.pull-right
+                                                i.fa.fa-at
                                     if(place.url || place.url_pretty)
                                         li.list-group-item
                                             a(href=place.url_pretty)=place.url_pretty
@@ -60,12 +60,12 @@ block content
                                                 i.fa.fa-globe
                                     if(place.facebook_link)
                                         li.list-group-item=place.facebook_link
-                                        span.pull-right
-                                            i.fa.fa-facebook
+                                            span.pull-right
+                                                i.fa.fa-facebook
                                     if(place.twitter_link)
                                         li.list-group-item=place.twitter_link
-                                        span.pull-right
-                                            i.fa.fa-twitter
+                                            span.pull-right
+                                                i.fa.fa-twitter
 
     .row
         if(place.coordinates)
