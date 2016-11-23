@@ -17,6 +17,29 @@ var EventMember = event.EventMember(sequelize, Sequelize);
 
 //--- Initializes important database model associations ---//
 function init() {
+    User.getFriends = function(userid, cb, err){
+        var id = 1;
+        sequelize.query('SELECT * ' +
+            'FROM members ' +
+            'WHERE id IN ( ' +
+            '   SELECT "memberId" '+
+            '   FROM "groupMembers" '+
+            '   WHERE "groupId" IN( '+
+            '      SELECT "groupId" ' +
+            '      FROM "groupMembers" '+
+            '      WHERE "memberId" = ?' +
+            '   )' +
+            '   EXCEPT' +
+            '   SELECT ?'+
+            ')', {
+            model: User,
+            replacements: [userid, userid],
+            type: sequelize.QueryTypes.SELECT
+        })
+            .then(cb, err);
+    };
+
+
     Group.belongsToMany(User, {
         through: GroupMember,
         as:'member',
@@ -45,24 +68,33 @@ function init() {
     });
 
     sequelize.sync();
-     fx();
+    User.getFriends(1, function(members){
+        console.log(members);
+    });
 }
 
-function fx(){
-    Event.create({
-        phone_id: '1493514',
-        deadline: '2004-10-19 10:23:54+02',
-        toe: '2004-10-19 10:23:54+02',
-        title: 'Celebration sleep'
+
+
+function fx(userid, cb, err){
+    var id = 1;
+    sequelize.query('SELECT * ' +
+        'FROM members ' +
+        'WHERE id IN ( ' +
+        '   SELECT "memberId" '+
+        '   FROM "groupMembers" '+
+        '   WHERE "groupId" IN( '+
+        '      SELECT "groupId" ' +
+        '      FROM "groupMembers" '+
+        '      WHERE "memberId" = ?' +
+        '   )' +
+        '   EXCEPT' +
+        '   SELECT ?'+
+        ')', {
+        model: User,
+        replacements: [userid, userid],
+        type: sequelize.QueryTypes.SELECT
     })
-        .then(function(event){
-            User.findOne({
-                where: {id:7}
-            })
-                .then(function(user){
-                    event.addMember(user, {isAdmin: false});
-                });
-        });
+        .then(cb, err);
 }
 
 

@@ -31,8 +31,10 @@ function createEvent(req, res, next){
     //console.log(user);
     var title = req.body.title;
     var description = req.body.description;
-    var deadline = fecha.format(new Date(req.body.deadline),'YYYY-DD-MM HH:mm:ss')+'+02';
-    var toe = fecha.format(new Date(req.body.toe),'YYYY-DD-MM HH:mm:ss')+'+02';
+    console.log(req.body.deadline);
+    var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
+    console.log(deadline);
+    var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
     var group = req.session.currentGroup;
     Event.create({
         title: title,
@@ -40,14 +42,14 @@ function createEvent(req, res, next){
         deadline: deadline,
         toe: toe
     }).then(function (event) {
-            User.findOne({
-                where: {id:user.id}
-            }).then(function(user){
-                event.addMember(user,{isAdmin:false});
-                res.redirect(event.id);
-            });
-        },function(err){
-            return next('no thing'+err);
+        User.findOne({
+            where: {'google.id':user.google.id}
+        }).then(function(user){
+            event.addMember(user,{isAdmin:false});
+            res.redirect(event.id);
+        });
+    },function(err){
+        return next('no thing'+err);
     });
 
     // Group.findOne({
@@ -87,11 +89,11 @@ function showEventPage(req, res, next){
         include: [{model: User, as: 'member'}]
     })
         .then(function(event){
-                    res.render('eventlayout', {
-                        user: user,
-                        event:event});
-                }
-            );
+                res.render('eventlayout', {
+                    user: user,
+                    event:event});
+            }
+        );
 }
 
 function displayEventPage(req,res,next){

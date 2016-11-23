@@ -36,7 +36,7 @@ block content
                                         fieldset.form-group
                                             .form-group
                                                 label(for="title") Title
-                                                input.form-control(type=text, required='required', "title", id="title")
+                                                input.form-control(type=text, required='required', "title", id="title", name="title")
                                             .form-group
                                                 label(for="description") Description
                                                 textarea.form-control(name="description",required='required', id="description")
@@ -48,7 +48,7 @@ block content
                                                 .col-lg-6
                                                     .form-group
                                                         label(for="toe") Time of Event
-                                                        input.form-control(type="data", name="toe", required='required',id="toe").pick-date
+                                                        input.form-control(type="datetime-local", name="toe", required='required',id="toe").pick-date
                                             .form-group
                                                 button.btn.btn-primary.pull-right(type=submit) Create
 
@@ -77,4 +77,4 @@ block content
 
 block scripts
     script(src='http://code.jquery.com/ui/1.12.1/jquery-ui.min.js', integrity='sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=', crossorigin='anonymous')
-    script(src='../javascript/datePick.js")
+    script(src="./javascript/datePick.js")
