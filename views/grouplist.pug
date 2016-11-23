@@ -3,28 +3,33 @@ extends layout
 block content
     .row
         .col-lg-12
-            if groups
-                if groups.length < 2
-                    each group in groups
-                            .card
-                                .card-block
-                                    .card-title
-                                        h5=group.name
-                                    .card-text
-                                        p.text-muted=group.description
-                                    a(href="/g/"+group.id).btn.btn-primary View group
-                else
-                    .card-columns
-                        each group in groups
-                            .card
-                                .card-block
-                                    .card-title
-                                        h5=group.name
-                                    .card-text
-                                        p.text-muted=group.description
-                                    a(href="/g/" + group.id).btn.btn-primary View group
-            else
-                h2 No groups to display
+            .card
+                .card-block
+                    p Here You can see all the groups that you currently belong to
+                    a.btn.btn-primary.pull-right(href="/g/creategroup") Create new group
     .row
-        .col-lg-6.col-sm-12
-            a.btn.btn-primary(href="/g/creategroup") Create new group
+        .col-lg-12
+            .card
+                .card-block
+                    if groups
+                        if groups.length < 2
+                            each group in groups
+                                    .card
+                                        .card-block
+                                            .card-title
+                                                h5=group.name
+                                            .card-text
+                                                p.text-muted=group.description
+                                            a(href="/g/"+group.id).btn.btn-primary.pull-right View group
+                        else
+                            .card-columns
+                                each group in groups
+                                    .card
+                                        .card-block
+                                            .card-title
+                                                h5=group.name
+                                            .card-text
+                                                p.text-muted=group.description
+                                            a(href="/g/" + group.id).btn.btn-primary.pull-right View group
+                    else
+                        h2 No groups to display
