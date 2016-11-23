@@ -7,6 +7,7 @@ var authTools= require('../middleware/authTools');
 var querystring = require('querystring');
 var session = require('session');
 var groupTools = require('../middleware/groupTools');
+var eventTools = require('../middleware/eventTools');
 var dbTools = require('../middleware/dbTools');
 var passport = require('passport');
 var app = require('express')();
@@ -15,10 +16,13 @@ var router = express.Router();
 var groups = require('./groups');
 
 //------------ROUTING FOR INDEX------------//
-router.get('/', pikkTools.getIndexFeed, apiTools.queryForFeed, groupTools.getGroupsByUser, getIndex);
+router.get('/', pikkTools.getIndexFeed, apiTools.queryForFeed, groupTools.getGroupsByUser, eventTools.getEventsByUser, getIndex);
 
 function getIndex(req,res,next){
-    res.render('index', { user: req.session.user,results: req.search_result, groups: req.user_groups});
+    if(req.user_events){
+        console.log(req.user_events);
+    }
+    res.render('index', { user: req.session.user,results: req.search_result, groups: req.user_groups, events: req.user_events});
 }
 
 //------------ROUTING FOR SEARCH------------//

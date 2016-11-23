@@ -37,19 +37,21 @@ nav.navbar.navbar-light.bg-faded
                         a.dropdown-item(href='/g') My groups
                         a.dropdown-item(href='/g/creategroup') Create group
                         .dropdown-divider
-                        for group in groups
-                            a.dropdown-item(href='/g/'+group.id)=group.name
-                        a.dropdown-item(href='#') All Groups
+                        if groups
+                            for group in groups
+                                a.dropdown-item(href='/g/'+group.id)=group.name
                 li.nav-item.dropdown
                     a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Events
-                    .dropdown-menu
+                    .dropdown-menu.scrollable-list
                         a.dropdown-item(href='/e') My Events
-                        a.dropdown-item(href='#') Second
-                        a.dropdown-item(href='#') Third
                         .dropdown-divider
-                        a.dropdown-item(href='#') All Events
+                        if events
+                            for event in events
+                                a.dropdown-item(href='/e/'+event.id)=event.title
             li.nav-item.float-lg-right
                 form.form-inline(method='get', action='/search')
                     .inner-addon.right-addon
                         i.fa.fa-search.input-icon
                         input.form-control.icon-input(name='query', type='text')
+
+

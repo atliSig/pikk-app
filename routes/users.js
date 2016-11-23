@@ -47,5 +47,4 @@ function get_user_profile(req, res, next){
             }
         });
 }
-
 module.exports = router;
