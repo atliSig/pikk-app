@@ -114,12 +114,22 @@ exports.checkIfEventReady = function (req, res, next) {
         .then(function(evmember){
             if(evmember.length == 0){
                 Event
-                    .update({
-                        isReady: true
+                    .findOne({
+                        where: {
+                            id: req.params.eventid
+                        }
                     })
-                    .then(function(ee){
-                        req.eventReady= true;
-                        next();
+                    .then(function(event)
+                    {
+                        event
+                            .update({
+                                isReady: true
+                            })
+                            .then(function () {
+                                req.eventReady= true;
+                                next();
+                            });
+
                     });
             }
             else{
