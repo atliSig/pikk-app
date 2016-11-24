@@ -40,6 +40,7 @@ router.post('/createevent',
 router.get('/:eventid',
     eventTools.choosePlace, //gefur req.picked_place - BOOL
     eventTools.getDecidedMembers, //gefur req.decidedMembers - []user
+    eventTools.getUndecidedMembers, //gefur req.decidedMembers - []user
     eventTools.checkIfEventReady, //gefur req.eventReady - BOOL
     apiTools.queryByIds, //gefur results fra APA
     showEventPage);
@@ -146,6 +147,12 @@ function createEvent(req, res, next){
 }
 
 function showEventPage(req, res, next){
+    console.log('the whole shabang');
+    console.log(req.hasSelected);
+    console.log(req.decidedMembers);
+    console.log(req.undecidedMembers);
+    console.log(req.eventReady);
+    console.log(req.search_result);
     var user = req.session.user;
     var eventid = req.params.eventid;
     req.session.user.current_event_id = eventid;

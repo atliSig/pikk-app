@@ -29,17 +29,12 @@ router.get('/',
 );
 
 router.post('/',
-    function(req, res, next){
-    console.log('dfdfjdsSDLK');
-        next();
-    },
     authTools.isLoggedIn,
     notificationTools.deleteIfOwner
 );
 
 function getIndex(req,res,next){
-    console.log('34567890Ö098765434567890Ö-Ö09876543456790Ö--Ö098765434567890ÖÖ0987654')
-    console.log(req.notifications);
+
     res.render('index', {
         results         : req.feed_result,
         user            : req.session.user,
@@ -161,5 +156,24 @@ router.get('/logout', function(req, res) {
         res.redirect('/');
     });
 });
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
 
 module.exports = router;

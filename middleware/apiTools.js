@@ -130,13 +130,18 @@ function buildQueryByTagArray(arr){
 
 exports.queryByIds =function(req,res,next){
     q='nameid:(';
-    var decidedMembers = req.decidedMembers;
-    decidedMembers.forEach(function(member){
-        q+=encodeURIComponent(member.selectedPlace)+'+OR+'
-    });
-    q+=')';
-    console.log(q);
-    apiConnector(q,req,res,next);
+    if(req.decidedMembers){
+        var decidedMembers = req.decidedMembers;
+        decidedMembers.forEach(function(member){
+            q+=encodeURIComponent(member.selectedPlace)+'+OR+'
+        });
+        q+=')';
+        console.log(q);
+        apiConnector(q,req,res,next);
+    }
+    else{
+        next();
+    }
 }
 
 exports.firstFeedConnector = function(req,res,next){

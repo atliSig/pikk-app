@@ -10,7 +10,6 @@ var Notification = db.Notification;
 exports.getNotificationsByUser = function(req,res,next){
 
     if(req.session.user){
-        console.log('I HAVE A USER');
         var user = req.session.user;
         Notification
             .findAll({

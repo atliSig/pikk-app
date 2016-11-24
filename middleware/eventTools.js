@@ -85,21 +85,47 @@ exports.getDecidedMembers = function(req, res, next){
         include: [{
             model: EventMember,
             as: 'member',
-            where: {
-                $and: [{
-                    eventId: req.params.eventid
-                }, {
-                    selectedPlace: {$ne: null}
-                }]
-            }
-        }]
+
+        }], where: {
+            eventId: req.params.eventid
+            // $and: [{
+            //     eventId: req.params.eventid
+            // }, {
+            //     selectedPlace: {$ne: null}
+            // }]
+        }
     }).then(function(users){
+        console.log('decided users:');
+        console.log(users);
         req.decidedMembers = users;
-        next();
     }, function(){
         next();
     });
 };
+
+exports.getUndecidedMembers = function(req, res, next){
+    User.findAll({
+        include: [{
+            model: EventMember,
+            as: 'member',
+            where: {
+                $and: [{
+                    eventId: req.params.eventid
+                }, {
+                    selectedPlace: null
+                }]
+            }
+        }]
+    }).then(function(users){
+        console.log('decided users:');
+        console.log(users);
+        req.undecidedMembers = users;
+    }, function(){
+        console.log('somehow here');
+        next();
+    });
+};
+
 
 exports.checkIfEventReady = function (req, res, next) {
     EventMember
