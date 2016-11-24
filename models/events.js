@@ -71,7 +71,8 @@ var EventMember = function(sequelize, DataTypes){
         },
         selectedPlace: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: true,
+            default: null
         }
     });
 

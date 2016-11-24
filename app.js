@@ -9,6 +9,7 @@ var compression = require('compression');
 var passport = require('passport');
 var session = require('express-session');
 var db = require('./middleware/dbTools');
+db.init();
 require('./config/passport')(passport);
 require('dotenv').config();
 

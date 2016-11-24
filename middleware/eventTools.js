@@ -81,49 +81,30 @@ exports.choosePlace = function(req,res,next) {
 
 
 exports.getDecidedMembers = function(req, res, next){
-    User.findAll({
-        include: [{
-            model: EventMember,
-            as: 'member',
-
-        }], where: {
-            eventId: req.params.eventid
-            // $and: [{
-            //     eventId: req.params.eventid
-            // }, {
-            //     selectedPlace: {$ne: null}
-            // }]
+    var eventid = req.params.eventid;
+    EventMember.getDecidedMembers(
+        eventid, function(members){
+            console.log('DECIDED MEMBERS: '+members);
+            req.decidedMembers = members;
+            next();
+        },function (err) {
+            next(err);
         }
-    }).then(function(users){
-        console.log('decided users:');
-        console.log(users);
-        req.decidedMembers = users;
-    }, function(){
-        next();
-    });
+    );
 };
 
-exports.getUndecidedMembers = function(req, res, next){
-    User.findAll({
-        include: [{
-            model: EventMember,
-            as: 'member',
-            where: {
-                $and: [{
-                    eventId: req.params.eventid
-                }, {
-                    selectedPlace: null
-                }]
-            }
-        }]
-    }).then(function(users){
-        console.log('decided users:');
-        console.log(users);
-        req.undecidedMembers = users;
-    }, function(){
-        console.log('somehow here');
-        next();
-    });
+exports.getUnDecidedMembers = function(req, res, next){
+    var eventid = req.params.eventid;
+    EventMember.getUnDecidedMembers(
+        eventid, function(members){
+            console.log('UNDECIDED MEMBERS: '+members);
+            req.unDecidedMembers = members;
+            next();
+        }, function(err){
+            next(err);
+        }
+    );
+
 };
 
 
@@ -133,11 +114,13 @@ exports.checkIfEventReady = function (req, res, next) {
             where:{
                 $and:[{
                     eventId: req.params.eventid,
+                    // eventId: req.params.eventid,
                     selectedPlace: null
                 }]
             }
         })
         .then(function(evmember){
+            console.log('is event reddy?' +evmember);
             if(evmember.length == 0){
                 Event
                     .findOne({

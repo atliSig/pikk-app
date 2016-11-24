@@ -22,6 +22,8 @@ var Restaurant = restaurant.Restaurant(sequelize, Sequelize);
 //--- Initializes important database model associations ---//
 function init() {
     User.getFriends = getFriends;
+    EventMember.getDecidedMembers = getDecidedMembers;
+    EventMember.getUnDecidedMembers = getUnDecidedMembers;
 
     User.hasMany(Notification, {
        foreignKey: 'memberId'
@@ -87,6 +89,29 @@ function getFriends(userid, cb, err){
         type: sequelize.QueryTypes.SELECT
     })
         .then(cb, err);
+}
+
+function getDecidedMembers(eventid, cb, err){
+    sequelize.query('' +
+        'SELECT * ' +
+        'FROM "eventMembers" ' +
+        'WHERE "selectedPlace" IS not NULL ' +
+        'AND "eventId" = ?;', {
+        replacements: [eventid],
+        type: sequelize.QueryTypes.SELECT
+    }).then(cb,err);
+}
+
+
+function getUnDecidedMembers(eventid, cb, err){
+    sequelize.query('' +
+        'SELECT * ' +
+        'FROM "eventMembers" ' +
+        'WHERE "selectedPlace" IS NULL ' +
+        'AND "eventId" = ?;', {
+        replacements: [eventid],
+        type: sequelize.QueryTypes.SELECT
+    }).then(cb,err);
 }
 
 

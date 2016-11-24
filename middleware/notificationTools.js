@@ -17,7 +17,6 @@ exports.getNotificationsByUser = function(req,res,next){
                 order: ['createdAt']
             })
             .then(function(notifications) {
-                console.log(notifications);
                 req.notifications = notifications;
                 next();
             });
