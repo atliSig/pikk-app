@@ -2,11 +2,12 @@ extends layout
 
 block indexcontent
     if !user
-        .card.card-primary.card-inverse
-            .card-block.text-xs-center
+        //.card.card-primary.card-inverse.login-banner
+            .card-block.text-lg-center
                 blockquote.card-blockquote
-                    p Login and see what your friends are eating!
-                    a(href='/auth/google').btn.btn-secondary Login
+                    h4 Login and see what your friends are eating!
+                    a(href='/auth/google').btn.btn-secondary.login-btn Login
+        a.btn.btn-primary.btn-lg.btn-block.login-btn.btn-outline-primary(href='/auth/google') Click here to Login and start picking a place to eat!
 
     .card
         .card-header Up for some burgers?
@@ -65,7 +66,7 @@ block indexcontent
                     for event in events
                         .card.index-card.card-outline-primary.text-xs-center
                             .card-block
-                                h3(href='/e/' + event.id)=event.title
+                                a(href='/e/' + event.id)=event.title
                             ul.list-group.list-group-flush
                                 li.list-group-item=event.description
 
@@ -126,7 +127,7 @@ block indexcontent
                     for group in groups
                         .card.index-card.card-outline-primary.text-xs-center
                             .card-block
-                                h3(href='/g/' + group.id)=group.name
+                                a(href='/g/' + group.id)=group.name
                             ul.list-group.list-group-flush
                                 li.list-group-item=group.description
 
