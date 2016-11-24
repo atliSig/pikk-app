@@ -1,14 +1,6 @@
 extends layout
 
 block indexcontent
-    if !user
-        //.card.card-primary.card-inverse.login-banner
-            .card-block.text-lg-center
-                blockquote.card-blockquote
-                    h4 Login and see what your friends are eating!
-                    a(href='/auth/google').btn.btn-secondary.login-btn Login
-        a.btn.btn-primary.btn-lg.btn-block.login-btn.btn-outline-primary(href='/auth/google') Click here to Login and start picking a place to eat!
-
     .card
         .card-header Up for some burgers?
             span.pull-right
@@ -51,6 +43,21 @@ block indexcontent
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
                                             | Closed
+    if !user
+        .row
+            .card(style='background-color:#f7f7f9; margin: 20px 0; padding: 20px 0')
+                .card-block
+                    .col-lg-6.offset-lg-3
+                        .card
+                            .card-block
+                                .card.card-inverse.card-primary.text-xs-center
+                                    .card-block
+                                        blockquote.card-blockquote
+                                            h3 Pikk is a fantastic place to find the next restaurant that you and your friends
+                                                | would like to visit! We have an amazing array of different places to choose from
+                                                | and all the tools you would need for a great time eating out!.
+                                            h2 Why not try Pikk?
+                                a.btn.btn-primary.btn-lg.btn-block.login-btn.btn-outline-primary(href='/auth/google') Click here to experience Pikk!
 
     if events
         .card.card-inverse.card-primary.text-xs-center
