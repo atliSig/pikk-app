@@ -158,12 +158,9 @@ function showEventPage(req, res, next){
     var jaObject;
     if(req.eventReady){
         jaObject = req.search_result;
-
-        console.log(jaObject);
-        console.log('!-------------------------');
     }
 
-
+    conso
     Event.findOne({
         where:{
             id: eventid
