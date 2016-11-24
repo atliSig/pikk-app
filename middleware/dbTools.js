@@ -93,10 +93,10 @@ function getFriends(userid, cb, err){
 
 function getDecidedMembers(eventid, cb, err){
     sequelize.query('' +
-        'SELECT * ' +
-        'FROM "eventMembers" ' +
-        'WHERE "selectedPlace" IS not NULL ' +
-        'AND "eventId" = ?;', {
+        'SELECT members.*, "eventMembers"."selectedPlace" from members, "eventMembers"'
+        +'where members.id = "eventMembers"."memberId"'
+        +'and "eventMembers"."eventId" = ?'
+        +'and "eventMembers"."selectedPlace" is not null', {
         replacements: [eventid],
         type: sequelize.QueryTypes.SELECT
     }).then(cb,err);
@@ -104,11 +104,11 @@ function getDecidedMembers(eventid, cb, err){
 
 
 function getUnDecidedMembers(eventid, cb, err){
-    sequelize.query('' +
-        'SELECT * ' +
-        'FROM "eventMembers" ' +
-        'WHERE "selectedPlace" IS NULL ' +
-        'AND "eventId" = ?;', {
+    sequelize.query(
+        'SELECT members.*, "eventMembers"."selectedPlace" from members, "eventMembers"'
+    +'where members.id = "eventMembers"."memberId"'
+    +'and "eventMembers"."eventId" = ?'
+    +'and "eventMembers"."selectedPlace" is null', {
         replacements: [eventid],
         type: sequelize.QueryTypes.SELECT
     }).then(cb,err);

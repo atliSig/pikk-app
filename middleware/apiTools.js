@@ -129,6 +129,7 @@ function buildQueryByTagArray(arr){
 }
 
 exports.queryByIds =function(req,res,next){
+    console.log(req.decidedMembers);
     q='nameid:(';
     if(req.decidedMembers){
         var decidedMembers = req.decidedMembers;
