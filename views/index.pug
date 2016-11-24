@@ -32,24 +32,24 @@ block indexcontent
                             p.card-text= res.address_nominative
                         ul.list-group.list-group-flush
                             li.list-group-item.choose_item
-                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Velja
+                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Choose
                                 if res.hours
                                     button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
                                         if res.is_open
                                             i.open-icon.fa.fa-circle.text-success
-                                            | Opið
+                                            | Open
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
+                                            | Closed
 
                                 else
                                     button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
                                         if res.is_open
                                             i.open-icon.fa.fa-circle.text-success
-                                            | Opið
+                                            | Open
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
+                                            | Closed
     .card
         .card-header You can't say no to a pizza
             span.pull-right
@@ -79,19 +79,19 @@ block indexcontent
                                     button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
                                         if res.is_open
                                             i.open-icon.fa.fa-circle.text-success
-                                            | Opið
+                                            | Open
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
+                                            | Closed
 
                                 else
                                     button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
                                         if res.is_open
                                             i.open-icon.fa.fa-circle.text-success
-                                            | Opið
+                                            | Open
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
+                                            | Closed
     .card
         .card-header What about some sushi?
             span.pull-right
@@ -116,23 +116,23 @@ block indexcontent
                             p.card-text= res.address_nominative
                         ul.list-group.list-group-flush
                             li.list-group-item.choose_item
-                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Velja
+                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Choose
                                 if res.hours
                                     button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
                                         if res.is_open
                                             i.open-icon.fa.fa-circle.text-success
-                                            | Opið
+                                            | Open
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
+                                            | Closed
 
                                 else
                                     button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
                                         if res.is_open
                                             i.open-icon.fa.fa-circle.text-success
-                                            | Opið
+                                            | Open
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
+                                            | Closed
 block scripts
     script(src="/javascript/popover.js")
