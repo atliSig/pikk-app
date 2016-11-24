@@ -38,5 +38,43 @@ $(document).ready(function() {
                 }
             ]
         }
+    );
+
+    $('.slider2').slick(
+        {
+            dots: true,
+            arrows: true,
+            speed: 500,
+            slidesToShow: 6,
+            infinite: true,
+            slidesToScroll: 5,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            responsive: [
+                {
+                    breakpoint: 1170,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 1,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 940,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        }
     )
 });

@@ -50,6 +50,26 @@ block indexcontent
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
                                             | Closed
+
+    .card.card-inverse.card-primary.text-xs-center
+        .card-block
+            blockquote.card-blockquote
+                h3
+                    | Look at all those groups!
+                footer
+                    | Why don't you invite them to lunch?
+                    cite(title='Source Title') Source Title
+    if events
+        .card.card-outline-primary
+            .card-block
+                .slider2.slick-list
+                    for event in events
+                        .card.index-card.card-outline-primary.text-xs-center
+                            .card-block
+                                h3(href='/e/' + event.id)=event.title
+                            ul.list-group.list-group-flush
+                                li.list-group-item=event.description
+
     .card
         .card-header You can't say no to a pizza
             span.pull-right
@@ -92,6 +112,26 @@ block indexcontent
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
                                             | Closed
+    .card.card-inverse.card-primary.text-xs-center
+        .card-block
+            blockquote.card-blockquote
+                h3
+                    | Don't let your friends wait for you!
+                footer
+                    | You have an event coming up soon.
+                    cite(title='Source Title') Source Title
+
+    if groups
+        .card.card-outline-primary
+            .card-block
+                .slider2.slick-list
+                    for group in groups
+                        .card.index-card.card-outline-primary.text-xs-center
+                            .card-block
+                                h3(href='/g/' + group.id)=group.name
+                            ul.list-group.list-group-flush
+                                li.list-group-item=group.description
+
     .card
         .card-header What about some sushi?
             span.pull-right
