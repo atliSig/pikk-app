@@ -169,6 +169,9 @@ function showEventPage(req, res, next){
                     events          : req.user_events,
                     notifications   : req.notifications,
                     eventReady      : req.eventReady,
+                    undecidedMembers: req.undecidedMembers,
+                    results:req.search_result,
+
                     decidedMembers  : req.decidedMembers,
                     hasSelected     : req.hasSelected
                 });
