@@ -28,19 +28,21 @@ router.use('/:eventid/choose',
     apiTools.queryByTags,
     apiTools.doSearch,
     //pikkTools.filterByDistance,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
     getChoose
 );
 
 router.get('/createevent',
     showCreateEvent);
+
 router.post('/createevent',
     createEvent);
+
 router.get('/:eventid',
     eventTools.choosePlace,
+    eventTools.getDecidedMembers,
+    eventTools.checkIfEventReady,
     showEventPage);
+
 router.get('/',
     displayEventPage);
 
@@ -54,14 +56,18 @@ router.post('/createevent', authTools.isLoggedIn, createEvent);
 router.use('/:eventid', authTools.isLoggedIn, eventTools.choosePlace, showEventPage);
 router.get('/',authTools.isLoggedIn, displayEventPage);
 
-//-------handlers------//
 
+//-------handlers------//
 
 function getChoose(req,res,next){
     var user = req.session.user;
     res.render('choose', {
         title           : 'Choose',
         results         : req.search_result,
+
+        event_id        : req.params.eventid,
+
+
         user            : user,
         groups          : req.user_groups,
         events          : req.user_events,
@@ -141,7 +147,7 @@ function showEventPage(req, res, next){
     var user = req.session.user;
     var eventid = req.params.eventid;
     req.session.user.current_event_id = eventid;
-    console.log(req.session.current_id);
+
     Event.findOne({
         where:{
             id: eventid
@@ -158,7 +164,10 @@ function showEventPage(req, res, next){
                     user            : user,
                     groups          : req.user_groups,
                     events          : req.user_events,
-                    notifications   : req.notifications
+                    notifications   : req.notifications,
+                    eventReady      : req.eventReady,
+                    decidedMembers  : req.decidedMembers,
+                    hasSelected     : req.hasSelected
                 });
             }
         );

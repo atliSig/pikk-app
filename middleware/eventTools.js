@@ -53,25 +53,78 @@ exports.getEventsByGroup = function(req,res,next){
 //Chooses a place for a event member only if he has never chosen before
 exports.choosePlace = function(req,res,next) {
     EventMember.findOne({
-            where: {
-                $and: [{memberId: req.session.user.id}, {eventId: req.params.eventid}]
-            }
-        }).then(
-            function (evmember) {
-                if(evmember.selectedPlace){
+        where: {
+            $and: [{memberId: req.session.user.id}, {eventId: req.params.eventid}]
+        }
+    }).then(
+        function (evmember) {
+            if(evmember.selectedPlace){
+                req.hasSelected = true;
+                next();
+            }else{
+                evmember.update({
+                        selectedPlace: req.body.picked_place
+                    }
+                ).then(function (update) {
+                    console.log(req.body.picked_place);
+                    req.hasSelected = true;
                     next();
-                }else{
-                    evmember.update({
-                            selectedPlace: req.body.picked_place
-                        }
-                    ).then(function (update) {
-                        console.log(req.body.picked_place);
+                });
+            }
+        },
+        function (err) {
+            //Error parsing?
+            console.log('I hae not don notinh');
+            next();
+        });
+};
+
+
+exports.getDecidedMembers = function(req, res, next){
+    User.findAll({
+        include: [{
+            model: EventMember,
+            as: 'member',
+            where: {
+                $and: [{
+                    eventId: req.params.eventid
+                }, {
+                    selectedPlace: {$ne: null}
+                }]
+            }
+        }]
+    }).then(function(users){
+        req.decidedMembers = users;
+        next();
+    }, function(){
+        next();
+    });
+};
+
+exports.checkIfEventReady = function (req, res, next) {
+    EventMember
+        .findAll({
+            where:{
+                $and:[{
+                    eventId: req.params.eventid,
+                    selectedPlace: null
+                }]
+            }
+        })
+        .then(function(evmember){
+            if(evmember.length == 0){
+                Event
+                    .update({
+                        isReady: true
+                    })
+                    .then(function(ee){
+                        req.eventReady= true;
                         next();
                     });
-                }
-            },
-            function (err) {
-                //Error parsing?
+            }
+            else{
+                req.eventReady=false;
                 next();
-            });
+            }
+        });
 };

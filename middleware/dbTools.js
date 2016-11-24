@@ -60,7 +60,7 @@ function init() {
 
     sequelize.sync();
 
-    testFunc();
+    //testFunc();
 
     // User.getFriends(1, function(members){
     //     console.log(members);

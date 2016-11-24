@@ -18,25 +18,18 @@ var Notification = db.Notification;
 module.exports = router;
 
 router.get('/',
-    // authTools.isLoggedIn,
-    // notificationTools.getNotificationsByUser,
     displayGroupPage);
 
 router.get('/creategroup',
-    // authTools.isLoggedIn,
-    // notificationTools.getNotificationsByUser,
     showCreateGroup);
 
 router.get('/:groupid',
-    // authTools.isLoggedIn,
-    // notificationTools.getNotificationsByUser,
     showGroupPage);
 
 router.post('/creategroup',
-    // authTools.isLoggedIn,
     createGroup);
+
 router.post('/:groupid/addMember',
-    // authTools.isLoggedIn,
     addMember,
     showGroupPage);
 
