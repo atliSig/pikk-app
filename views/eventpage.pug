@@ -8,32 +8,6 @@ block content
                     h3= event.title
                     p= event.description
 
-    if !eventReady
-        if decidedMembers
-            for decided in decidedMembers
-                h1=decided.first_name
-
-        .card
-            .card-header They have note picked
-            .card-block
-                if unDecidedMembers!=0
-                    .row
-                        each res in unDecidedMembers
-                            .col-lg-2
-                                .card.text-center
-                                    img.card-img-top.img-fluid(src=res.img_url, alt='Card image cap')
-                                    .card-block.text-center
-                                        p.text-center=res.first_name
-
-
-            //.row
-            //    .col-lg-12
-            //        .card-columns
-            //            for undecided in unDecidedMembers
-            //                .card
-            //                    .card-block.animate-bottom
-            //                        .card-title=undecided.first_name
-
     if !hasSelected
         .row
             .col-lg-12
@@ -73,7 +47,7 @@ block content
                                         .form-group
                                             .card#insert-wrapper
                                                 .card-block#insert-area
-                                            form#start-pikk-form(method="post", action="/e/"+event.id+'/choose')
+                                            form#start-pikk-form(method="post", action="/e/" + event.id + '/choose')
                                                 button.btn.btn-primary.pull-right(type='submit' id="start-pikk-button") Pikk by Tags
                                                 //button.btn.btn-seconaary(type='button' id='location-button') Near Me
                             .col-md-4
@@ -82,12 +56,86 @@ block content
                                         p.card-text
                                             | Or search for your favorite place
                                         .form-group
-                                            form(method="get", action="/e/"+event.id+'/choose')
+                                            form(method="get", action="/e/" + event.id + '/choose')
                                                 fieldset
                                                     .form-group
                                                         input.form-control(type=text, name="query", id="query", placeholder='What are you hungry for?' required="required")
                                                     .form-group
                                                         button.btn.btn-primary.pull-right(type="submit") Pikk by Search
+
+    if !eventReady
+        .row
+            .col-lg-6
+                if unDecidedMembers != 0
+                    .card
+                        .card-header They have already picked
+                        .card-block.scrollable-list
+                            .row
+                                each res in decidedMembers
+                                    .col-lg-4
+                                        .card.text-center
+                                            img.card-img-top.img-fluid(src=res.img_url, alt='Card image cap')
+                                            .card-block.text-center
+                                                p.text-center=res.first_name
+                else
+                    .card
+                        .card-block
+                            p Nobody has picked a place
+            .col-lg-6
+                .card
+                    .card-header They have note picked
+                    .card-block.scrollable-list
+                        if unDecidedMembers!=0
+                            .row
+                                each res in unDecidedMembers
+                                    .col-lg-4
+                                        .card.text-center
+                                            img.card-img-top.img-fluid(src=res.img_url, alt='Card image cap')
+                                            .card-block.text-center
+                                                p.text-center=res.first_name
+        if results
+            .row
+                .col-lg-12
+                    .card-columns
+                        each res in results
+                            .card
+                                if(res.brand_banner_path)
+                                    img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                                else if res.coordinates
+                                    if(res.brand_banner_path)
+                                        img(src=res.brand_banner_path).card-im-top.img-fluid
+                                    else if(res.coordinates.ja360_image_url)
+                                        img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                                        if(res.logo_url)
+                                            img(src="http://media.ja.is/" + res.logo_url).img-logo
+                                .card-block
+                                    h4.card-title= res.name
+                                    p.card-text= res.address_nominative
+                                ul.list-group.list-group-flush
+                                    li.list-group-item.choose_item
+                                        .row
+                                            .col-md-12
+                                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Velja
+                                                if res.hours
+                                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
+                                                        if res.is_open
+                                                            i.open-icon.fa.fa-circle.text-success
+                                                            | Opið
+                                                        else
+                                                            i.open-icon.fa.fa-circle.text-danger
+                                                            | Lokað
+
+                                                else
+                                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='No info')
+                                                        if res.is_open
+                                                            i.open-icon.fa.fa-circle.text-success
+                                                            | Opið
+                                                        else
+                                                            i.open-icon.fa.fa-circle.text-danger
+                                                            | Lokað
+
+
+    else
 
     button.btn.btn-outline-primary.btn-space(type=button)#hide-it
 
