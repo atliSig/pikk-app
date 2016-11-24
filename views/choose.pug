@@ -19,25 +19,12 @@ block content
                 .card-block
                     h4.card-title= res.name
                     p.card-text= res.address_nominative
+                    p=res.common_id
                 ul.list-group.list-group-flush
                     li.list-group-item.choose_item
                         .row
                             .col-md-12
-                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Velja
-                                if res.hours
-                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
-                                        if res.is_open
-                                            i.open-icon.fa.fa-circle.text-success
-                                            | Opið
-                                        else
-                                            i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
-
-                                else
-                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='No info')
-                                        if res.is_open
-                                            i.open-icon.fa.fa-circle.text-success
-                                            | Opið
-                                        else
-                                            i.open-icon.fa.fa-circle.text-danger
-                                            | Lokað
+                                form(method='post', action='/e/'+event_id)
+                                    input.form-control(type='hidden' value=res.common_id, name='picked_place')
+                                    //input.form-control(type=text, name="email", id="email", placeholder='enter email' required="required")
+                                    button(type='submit').btn.btn-secondary.btn-lg.btn-block.btn-success Pick!

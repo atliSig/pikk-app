@@ -35,24 +35,14 @@ var events = require('./routes/events')
 
 var app = express();
 
+
 app.use(cookieParser());
 //session is required for passport
-// app.use(session({
-//   secret: 'pikk',
-//   resave: true,
-//   saveUninitialized: true,
-// }));
-var cookie = { domain: '',
-  httpOnly: false,
-  secure: false };
-
 app.use(session({
   secret: 'pikk',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
-  cookie: cookie
 }));
-
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -63,7 +53,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));

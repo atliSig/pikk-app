@@ -44,6 +44,16 @@ router.get('/:eventid',
 router.get('/',
     displayEventPage);
 
+function getChoose(req,res,next){
+    var user = req.session.user;
+    res.render('choose', { user:user, title:'Choose', event_id: req.params.eventid, results: req.search_result, groups: req.user_groups, events: req.user_events});
+}
+
+router.get('/createevent', authTools.isLoggedIn,showCreateEvent);
+router.post('/createevent', authTools.isLoggedIn, createEvent);
+router.use('/:eventid', authTools.isLoggedIn, eventTools.choosePlace, showEventPage);
+router.get('/',authTools.isLoggedIn, displayEventPage);
+>>>>>>> individual pikk
 
 //-------handlers------//
 

@@ -44,8 +44,9 @@ block content
                             .card
                                 .card-block.scrollable-list.friend-list
                                     each friend in friends
-                                        if friend.google.name.length !=0
-                                            button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.google.name
+                                        if friend.google.name
+                                            if friend.google.name.length !=0
+                                                button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.google.name
                                         else
                                             button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.first_name
 

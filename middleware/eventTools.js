@@ -62,10 +62,10 @@ exports.choosePlace = function(req,res,next) {
                     next();
                 }else{
                     evmember.update({
-                            selectedPlace: 1337
+                            selectedPlace: req.body.picked_place
                         }
                     ).then(function (update) {
-                        console.log('yo');
+                        console.log(req.body.picked_place);
                         next();
                     });
                 }
