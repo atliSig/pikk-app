@@ -146,7 +146,9 @@ function showEventPage(req, res, next){
     req.session.user.current_event_id = eventid;
     console.log('the whole shabang');
     console.log(req.hasSelected);
+    console.log('mamma mia');
     console.log(req.decidedMembers);
+    console.log('pabbi pia');
     console.log(req.unDecidedMembers)
     console.log(req.eventReady);
     // console.log(req.search_result);
@@ -169,9 +171,8 @@ function showEventPage(req, res, next){
                     events          : req.user_events,
                     notifications   : req.notifications,
                     eventReady      : req.eventReady,
-                    undecidedMembers: req.undecidedMembers,
+                    unDecidedMembers: req.unDecidedMembers,
                     results:req.search_result,
-
                     decidedMembers  : req.decidedMembers,
                     hasSelected     : req.hasSelected
                 });
