@@ -19,6 +19,12 @@ var DATABASE = process.env.DATABASE_URL;
 var sequelize = new Sequelize(DATABASE, pool);
 
 
+var authTools = require('./middleware/authTools');
+var eventTools = require('./middleware/eventTools');
+var groupTools = require('./middleware/groupTools');
+var notificationTools = require('./middleware/notificationTools');
+var pikkTools = require('./middleware/pikkTools');
+
 
 //REQUIRE ROUTES HERE//
 var index  = require('./routes/index');
@@ -73,9 +79,26 @@ db.init();
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);
 app.use('/auth', auth);
-app.use('/u', users);
-app.use('/g', groups);
-app.use('/e', events);
+app.use('/u',
+    authTools.isLoggedIn,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
+    users);
+
+app.use('/g',
+    authTools.isLoggedIn,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
+    groups);
+
+app.use('/e',
+    authTools.isLoggedIn,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
+    events);
 
 
 // catch 404 and forward to error handler

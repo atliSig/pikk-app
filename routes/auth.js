@@ -2,12 +2,12 @@
 var express = require('express');
 var router = express.Router();
 var authTools= require('../middleware/authTools');
-var session = require('session');
+var session = require('express-session');
 var passport = require('passport');
 
 
 //--------ROUTING FOR GOOGLE AUTH--------//
-router.get('/google', passport.authenticate('google',{scope: [' openid email profile']}));
+router.get('/google', passport.authenticate('google',{ scope: [' openid email profile']}));
 
 router.get('/google/callback',
     passport.authenticate('google',{
@@ -17,7 +17,6 @@ router.get('/google/callback',
     }),
     function(req,res){
         req.session.user = req.user;
-        //console.log(req.user);
         res.redirect('/');
 });
 

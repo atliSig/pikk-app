@@ -9,6 +9,7 @@ var authTools = require('../middleware/authTools');
 var groupTools= require('../middleware/groupTools');
 var eventTools= require('../middleware/eventTools');
 var userTools = require('../middleware/userTools');
+var notificationTools = require('../middleware/notificationTools');
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
@@ -16,11 +17,28 @@ var Notification = db.Notification;
 
 module.exports = router;
 
-router.get('/', authTools.isLoggedIn, displayGroupPage);
-router.get('/creategroup', authTools.isLoggedIn, showCreateGroup);
-router.get('/:groupid', authTools.isLoggedIn, showGroupPage);
-router.post('/creategroup', authTools.isLoggedIn, createGroup);
-router.post('/:groupid/addMember', authTools.isLoggedIn, addMember, showGroupPage);
+router.get('/',
+    // authTools.isLoggedIn,
+    // notificationTools.getNotificationsByUser,
+    displayGroupPage);
+
+router.get('/creategroup',
+    // authTools.isLoggedIn,
+    // notificationTools.getNotificationsByUser,
+    showCreateGroup);
+
+router.get('/:groupid',
+    // authTools.isLoggedIn,
+    // notificationTools.getNotificationsByUser,
+    showGroupPage);
+
+router.post('/creategroup',
+    // authTools.isLoggedIn,
+    createGroup);
+router.post('/:groupid/addMember',
+    // authTools.isLoggedIn,
+    addMember,
+    showGroupPage);
 
 
 //\\\\\\\\\\functions//////////\\
@@ -90,7 +108,6 @@ function showGroupPage(req, res, next) {
             include: [{
                 model: User,
                 as: 'member'}]
-
         })
         .then(
             function(group){
@@ -110,10 +127,12 @@ function showGroupPage(req, res, next) {
                             req.session.currentGroup=group;
                             res.render('groupprofile', {
                                 group: group,
+                                errors: errors,
                                 user: user,
                                 members: members,
                                 events: events,
-                                errors: errors
+                                groups: req.user_groups,
+                                notifications: req.notifications
                             });
                         });
                 }
@@ -126,30 +145,42 @@ function showGroupPage(req, res, next) {
 
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
-    var user = req.session.user;
-    Group
-        .findAll({
-            include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
-        })
-        .then(function(groups) {
-            res.render('grouplist',{
-                title: 'My groups',
-                user: user,
-                groups: groups,
-                invited_user_id: req.query.invited
-            });
-        });
+    // var user = req.session.user;
+    // Group
+    //     .findAll({
+    //         include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
+    //     })
+    //     .then(function(groups) {
+    //         res.render('grouplist',{
+    //             title: 'My groups',
+    //             user: user,
+    //             groups: groups,
+    //             invited_user_id: req.query.invited
+    //         });
+    //     });
+
+    res.render('grouplist',{
+        title: 'My groups',
+
+        user            : req.session.user,
+        groups          : req.user_groups,
+        events          : req.user_events,
+        invited_user_id : req.query.invited
+    });
 }
 
 //Rendering the creategroup view
 function showCreateGroup(req, res, next){
     var user = req.session.user;
     User.getFriends(user.id, function(friends){
-
         res.render('creategroup', {
             title: 'Create Group',
-            user:user,
-            friends: friends
+            friends: friends,
+
+            user            : user,
+            events          : req.user_events,
+            groups          : req.user_groups,
+            notifications   : req.notifications
         });
     },function(err){
         next(err);
@@ -210,9 +241,8 @@ function createGroup(req, res, next){
                                             email: {$in: members}}
                                     })
                                     .then(function(newMembers) {
-                                        console.log(newMembers);
                                         var url = '/g/'+group.id;
-                                        var content = user.google.displayName +' added you to the group '
+                                        var content = user.google.name +' added you to the group '
                                             + group.name;
                                         var notificationArray = [];
 
@@ -244,7 +274,13 @@ function createGroup(req, res, next){
     //else display errors
     else{
         var groupname = req.body.groupname;
-        res.render('creategroup', {errors:errors, groups:[], user:user, groupname: groupname});
+        res.render('creategroup', {
+            errors:errors,
+            user:user,
+            groupname: groupname,
+            groups: req.user_groups,
+            events: req.user_events,
+            notifications: req.notifications});
     }
 }
 
@@ -252,5 +288,3 @@ function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
-
-

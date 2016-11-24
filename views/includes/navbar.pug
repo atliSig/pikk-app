@@ -20,9 +20,15 @@ nav.navbar.navbar-light.bg-faded
                         .icon-wrapper.fa-wrapper
                             i.fa.fa-bell.pikk-icon(aria-hidden='true')
                     .dropdown-menu.dropdown-menu-right
-                        a.dropdown-item(href='#') Action
-                        a.dropdown-item(href='#') Another action
-                        a.dropdown-item(href='#') Something else here
+
+                        if notifications
+                            a.dropdown-item(href='#') Clear notifications
+                            if notifications.length > 0
+                                .dropdown-divider
+                                for notification in notifications
+                                    a.dropdown-item(href=notification.url)=notification.content
+                        else
+                            p.dropdown-item(href='#') No new notifications
             button.navbar-toggler.hidden-lg-up(type='button', data-toggle='collapse', data-target='#navbarResponsive',
             aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
     #navbarResponsive.collapse.navbar-toggleable-md

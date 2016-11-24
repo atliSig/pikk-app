@@ -10,6 +10,9 @@ var apiTools= require('../middleware/apiTools');
 var pikkTools= require('../middleware/pikkTools');
 var groupTools= require('../middleware/groupTools');
 var eventTools= require('../middleware/eventTools');
+
+var notificationTools = require('../middleware/notificationTools');
+
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
@@ -21,36 +24,58 @@ module.exports = router;
 //THIS ROUTE MUST BE AT TOP
 //----------ROUTING FOR CHOOSE------------//
 router.use('/choose',
-    authTools.isLoggedIn,
+    // authTools.isLoggedIn,
     apiTools.queryByTags,
     apiTools.doSearch,
     //pikkTools.filterByDistance,
-    groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
+
+    // groupTools.getGroupsByUser,
+    // eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
     getChoose
 );
-function getChoose(req,res,next){
-    var user = req.session.user;
-    res.render('choose', { user:user, title:'Choose', results: req.search_result, groups: req.user_groups, events: req.user_events});
-}
 
-router.get('/createevent', authTools.isLoggedIn,showCreateEvent);
-router.post('/createevent', authTools.isLoggedIn, createEvent);
-router.get('/:eventid', authTools.isLoggedIn, eventTools.choosePlace, showEventPage);
-router.get('/',authTools.isLoggedIn, displayEventPage);
+router.get('/createevent',
+    showCreateEvent);
+router.post('/createevent',
+    createEvent);
+router.get('/:eventid',
+    eventTools.choosePlace,
+    showEventPage);
+router.get('/',
+    displayEventPage);
+
 
 //-------handlers------//
 
+
+function getChoose(req,res,next){
+    var user = req.session.user;
+    res.render('choose', {
+        title           : 'Choose',
+        results         : req.search_result,
+
+        user            : user,
+        groups          : req.user_groups,
+        events          : req.user_events,
+        notifications   : req.notifications
+    });
+}
+
 function showCreateEvent(req, res, next) {
     var user = req.session.user;
-    res.render('createevent',{user: user});
+    res.render('createevent',{
+        user            : user,
+        groups          : req.user_groups,
+        events          : req.user_events,
+        notifications   : req.notifications
+    });
 }
 
 function createEvent(req, res, next){
     var user = req.session.user;
     var title = req.body.title;
     var description = req.body.description;
-    console.log(req.body.deadline);
     var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
     var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
     var currentgroup = req.session.currentGroup;
@@ -85,9 +110,9 @@ function createEvent(req, res, next){
                         groupmembers.forEach(function (member) {
                             if(member.dataValues.id != user.id)
                                 notificationArray.push({
-                                    url: url,
+                                    url     : url,
                                     memberId: member.dataValues.id,
-                                    content: content
+                                    content : content
                                 });
                         });
                         // Notify all members
@@ -121,8 +146,12 @@ function showEventPage(req, res, next){
     })
         .then(function(event){
                 res.render('eventlayout', {
-                    user: user,
-                    event:event
+                    event           : event,
+
+                    user            : user,
+                    groups          : req.user_groups,
+                    events          : req.user_events,
+                    notifications   : req.notifications
                 });
             }
         );
@@ -137,8 +166,11 @@ function displayEventPage(req,res,next){
         .then(function(events) {
             res.render('eventlist',{
                 title: 'My groups',
-                user: user,
-                events: events,
+
+                user            : user,
+                events          : events,
+                groups          : req.user_groups,
+                notifications   : req.notifications
             });
         });
 }

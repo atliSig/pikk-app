@@ -11,8 +11,12 @@ var User = db.User;
 var Group = db.Group;
 var Event = db.Event;
 
-router.get('/:userid', authTools.isLoggedIn, get_user_profile);
-router.get('/', authTools.isLoggedIn, get_own_page);
+router.get('/:userid',
+    // authTools.isLoggedIn,
+    get_user_profile);
+router.get('/',
+    // authTools.isLoggedIn,
+    get_own_page);
 
 //------HANDLERS-------//
 
@@ -24,22 +28,22 @@ function get_own_page(req, res, next){
 
 function get_user_profile(req, res, next){
     var page_owner = req.params.userid;
-    var user = req.session.user;
-    console.log('this is userid');
-    console.log(req.session.visited_user_id);
+
     User.findOne({
-        where:{'google.id': page_owner},
-        include:[{model: Group, as:'group'},{model: Event, as: 'event'}]
+        where:{
+            'google.id': page_owner
+        }
     })
         .then(function(owner){
-            console.log(user);
             if(owner){
                 res.render('userprofile', {
-                    title: owner.first_name,
-                    user: user,
-                    owner:owner,
-                    groups: owner.group,
-                    events: owner.event
+                    title           : owner.first_name,
+                    owner           : owner,
+
+                    user            : req.session.user,
+                    groups          : req.user_groups,
+                    events          : req.user_events,
+                    notifications   : req.notifications
                 });
             }
             else next();
