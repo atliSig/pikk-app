@@ -128,6 +128,17 @@ function buildQueryByTagArray(arr){
     return q;
 }
 
+exports.queryByIds =function(req,res,next){
+    q='nameid:(';
+    var ids = req.session.pickIds;
+    ids.forEach(function(id){
+        q+=encodeURIComponent(id)+'+OR+'
+    });
+    q+=')';
+    console.log(q);
+    apiConnector(q,req,res,next);
+}
+
 exports.firstFeedConnector = function(req,res,next){
     //query=encodeURIComponent(query);
     //the query string for the Ja API
