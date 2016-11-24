@@ -59,7 +59,6 @@ $("#create-group").on('click',function() {
     $(".added-member").each(function(index){
         members.push($(this).val());
     });
-    alert(members);
     var input = $("<input>")
         .attr("type", "hidden")
         .attr("name", "members").val(JSON.stringify(members));
