@@ -22,9 +22,9 @@ router.get('/',
     apiTools.firstFeedConnector,
     apiTools.secondFeedConnector,
     apiTools.thirdFeedConnector,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    // notificationTools.getNotificationsByUser,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
     getIndex
 );
 

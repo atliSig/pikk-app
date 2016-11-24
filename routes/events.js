@@ -53,7 +53,6 @@ router.get('/createevent', authTools.isLoggedIn,showCreateEvent);
 router.post('/createevent', authTools.isLoggedIn, createEvent);
 router.use('/:eventid', authTools.isLoggedIn, eventTools.choosePlace, showEventPage);
 router.get('/',authTools.isLoggedIn, displayEventPage);
->>>>>>> individual pikk
 
 //-------handlers------//
 
@@ -63,7 +62,6 @@ function getChoose(req,res,next){
     res.render('choose', {
         title           : 'Choose',
         results         : req.search_result,
-
         user            : user,
         groups          : req.user_groups,
         events          : req.user_events,
