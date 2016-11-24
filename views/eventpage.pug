@@ -41,7 +41,7 @@ block content
                             .form-group
                                 .card#insert-wrapper
                                     .card-block#insert-area
-                                form#start-pikk-form(method="post", action="/e/choose")
+                                form#start-pikk-form(method="post", action="/e/"+event.id+'/choose')
                                     button.btn.btn-primary.pull-right(type='submit' id="start-pikk-button") Pikk by Tags
                                     //button.btn.btn-seconaary(type='button' id='location-button') Near Me
                 .col-md-4
@@ -50,7 +50,7 @@ block content
                             p.card-text
                                 | Or search for your favorite place
                             .form-group
-                                form(method="get", action="/e/choose")
+                                form(method="get", action="/e/"+event.id+'/choose')
                                     fieldset
                                         .form-group
                                             input.form-control(type=text, name="query", id="query", placeholder='What are you hungry for?' required="required")

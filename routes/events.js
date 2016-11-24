@@ -23,12 +23,11 @@ module.exports = router;
 
 //THIS ROUTE MUST BE AT TOP
 //----------ROUTING FOR CHOOSE------------//
-router.use('/choose',
-    // authTools.isLoggedIn,
+router.use('/:eventid/choose',
+    authTools.isLoggedIn,
     apiTools.queryByTags,
     apiTools.doSearch,
     //pikkTools.filterByDistance,
-
     // groupTools.getGroupsByUser,
     // eventTools.getEventsByUser,
     notificationTools.getNotificationsByUser,
@@ -133,7 +132,7 @@ function createEvent(req, res, next){
 function showEventPage(req, res, next){
     var user = req.session.user;
     var eventid = req.params.eventid;
-    req.session.user.current_id = eventid;
+    req.session.user.current_event_id = eventid;
     console.log(req.session.current_id);
     Event.findOne({
         where:{
