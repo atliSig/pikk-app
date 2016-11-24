@@ -15,6 +15,7 @@ apiConnector = function(query,req,res,next){
             str += chunk;
         });
         response.on('end', function () {
+            console.log(str);
             req.search_result = JSON.parse(str).yellow.items;
             console.log(req.search_result);
             next();
@@ -131,7 +132,7 @@ function buildQueryByTagArray(arr){
 exports.queryByIds =function(req,res,next){
     console.log(req.decidedMembers);
     q='nameid:(';
-    if(req.decidedMembers){
+    if(req.decidedMembers && req.decidedMembers.length >=1 ){
         var decidedMembers = req.decidedMembers;
         decidedMembers.forEach(function(member){
             q+=encodeURIComponent(member.selectedPlace)+'+OR+'

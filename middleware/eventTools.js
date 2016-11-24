@@ -58,10 +58,10 @@ exports.choosePlace = function(req,res,next) {
         }
     }).then(
         function (evmember) {
-            if(evmember.selectedPlace){
+            if(evmember.selectedPlace!=null){
                 req.hasSelected = true;
                 next();
-            }else{
+            }else if(req.body.picked_place != null){
                 evmember.update({
                         selectedPlace: req.body.picked_place
                     }
@@ -70,6 +70,10 @@ exports.choosePlace = function(req,res,next) {
                     req.hasSelected = true;
                     next();
                 });
+            }
+            else{
+                req.hasSelected = false;
+                next();
             }
         },
         function (err) {
@@ -88,7 +92,7 @@ exports.getDecidedMembers = function(req, res, next){
             req.decidedMembers = members;
             next();
         },function (err) {
-            next(err);
+            next();
         }
     );
 };
@@ -101,7 +105,7 @@ exports.getUnDecidedMembers = function(req, res, next){
             req.unDecidedMembers = members;
             next();
         }, function(err){
-            next(err);
+            next();
         }
     );
 
@@ -113,37 +117,41 @@ exports.checkIfEventReady = function (req, res, next) {
         .findAll({
             where:{
                 $and:[{
-                    eventId: req.params.eventid,
-                    // eventId: req.params.eventid,
-                    selectedPlace: null
+                    eventId: req.params.eventid
                 }]
             }
         })
         .then(function(evmember){
-            console.log('is event reddy?' +evmember);
-            if(evmember.length == 0){
-                Event
-                    .findOne({
-                        where: {
-                            id: req.params.eventid
-                        }
-                    })
-                    .then(function(event)
-                    {
-                        event
-                            .update({
-                                isReady: true
-                            })
-                            .then(function () {
-                                req.eventReady= true;
-                                next();
-                            });
+            isReady = false;
+            count = 0
+            evmember.forEach(function (memb) {
+                console.log(memb.dataValues.selectedPlace);
+                if(memb.dataValues.selectedPlace === null)
+                    count++;
 
-                    });
-            }
-            else{
-                req.eventReady=false;
-                next();
-            }
+            });
+            if(count ==0 && evmember.length != 0)
+                isReady = true;
+            console.log('is event reddy?' +evmember);
+            console.log(isReady);
+
+
+            Event
+                .findOne({
+                    where: {
+                        id: req.params.eventid
+                    }
+                })
+                .then(function(event)
+                {
+                    event
+                        .update({
+                            isReady: isReady
+                        })
+                        .then(function () {
+                            req.eventReady= isReady;
+                            next();
+                        });
+                });
         });
 };

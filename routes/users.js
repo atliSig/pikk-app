@@ -49,7 +49,7 @@ function get_user_profile(req, res, next){
             else next();
         }, function(err){
             if(err){
-                next(err);
+                next();
             }
         });
 }

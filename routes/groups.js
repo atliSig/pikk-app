@@ -177,7 +177,7 @@ function showCreateGroup(req, res, next){
             notifications   : req.notifications
         });
     },function(err){
-        next(err);
+        next();
     });
 
 }
