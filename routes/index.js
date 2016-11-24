@@ -77,6 +77,7 @@ function getPlace(req,res,next) {
         groups          : req.user_groups,
         events          : req.user_events
     });
+
 }
 
 //------------ROUTING FOR HEADOUT------------//
