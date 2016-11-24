@@ -38,9 +38,10 @@ router.post('/createevent',
     createEvent);
 
 router.get('/:eventid',
-    eventTools.choosePlace,
-    eventTools.getDecidedMembers,
-    eventTools.checkIfEventReady,
+    eventTools.choosePlace, //gefur req.picked_place - BOOL
+    eventTools.getDecidedMembers, //gefur req.decidedMembers - []user
+    eventTools.checkIfEventReady, //gefur req.eventReady - BOOL
+    apiTools.queryByIds, //gefur results fra APA
     showEventPage);
 
 router.get('/',
@@ -48,6 +49,7 @@ router.get('/',
 
 function getChoose(req,res,next){
     var user = req.session.user;
+    //results inniheldur selectada stadi
     res.render('choose', { user:user, title:'Choose', event_id: req.params.eventid, results: req.search_result, groups: req.user_groups, events: req.user_events});
 }
 

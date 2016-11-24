@@ -130,9 +130,9 @@ function buildQueryByTagArray(arr){
 
 exports.queryByIds =function(req,res,next){
     q='nameid:(';
-    var ids = req.session.pickIds;
-    ids.forEach(function(id){
-        q+=encodeURIComponent(id)+'+OR+'
+    var decidedMembers = req.decidedMembers;
+    decidedMembers.forEach(function(member){
+        q+=encodeURIComponent(member.selectedPlace)+'+OR+'
     });
     q+=')';
     console.log(q);

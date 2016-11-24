@@ -73,7 +73,7 @@ exports.choosePlace = function(req,res,next) {
             }
         },
         function (err) {
-            //Error parsing?
+            req.hasSelected=false;
             console.log('I hae not don notinh');
             next();
         });
