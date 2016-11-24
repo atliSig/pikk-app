@@ -12,6 +12,7 @@ var userTools = require('../middleware/userTools');
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
+var Notification = db.Notification;
 
 module.exports = router;
 
@@ -164,7 +165,8 @@ function createGroup(req, res, next){
     var members = [];
     var bodyMembers = req.body.members;
     bodyMembers.splice(0,1);
-    bodyMembers=JSON.parse(bodyMembers[0]);
+    bodyMembers = JSON.parse(bodyMembers);
+
     ///----Check for members in the form----////
     bodyMembers.forEach(function(member){
 
@@ -174,6 +176,7 @@ function createGroup(req, res, next){
     });
     console.log(members);
 
+    console.log(members);
     var groupname = body.groupname;
     var description = body.description;
 
@@ -207,6 +210,7 @@ function createGroup(req, res, next){
                                             email: {$in: members}}
                                     })
                                     .then(function(newMembers) {
+                                        console.log(newMembers);
                                         var url = '/g/'+group.id;
                                         var content = user.google.displayName +' added you to the group '
                                             + group.name;

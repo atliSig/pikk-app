@@ -8,6 +8,7 @@ var user = require('../models/users');
 var group = require('../models/groups');
 var event = require('../models/events');
 var notification = require('../models/notifications');
+var restaurant = require('../models/restaurant');
 
 var User = user.User(sequelize, Sequelize);
 var Group = group.Group(sequelize, Sequelize);
@@ -15,6 +16,7 @@ var GroupMember = group.GroupMember(sequelize, Sequelize);
 var Event = event.Event(sequelize, Sequelize);
 var EventMember = event.EventMember(sequelize, Sequelize);
 var Notification = notification.Notification(sequelize, Sequelize);
+var Restaurant = restaurant.Restaurant(sequelize, Sequelize);
 
 
 //--- Initializes important database model associations ---//
@@ -42,6 +44,8 @@ function init() {
     Group.hasMany(Event, {
         foreignKey: 'groupId'
     });
+
+    Event.hasOne(Restaurant)
 
     Event.belongsToMany(User, {
         through: EventMember,
@@ -111,5 +115,6 @@ module.exports = {
     Group: Group,
     Event: Event,
     Notification: Notification,
+    Restaurant: Restaurant,
     init:init
 };
