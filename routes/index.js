@@ -28,8 +28,18 @@ router.get('/',
     getIndex
 );
 
-function getIndex(req,res,next){
+router.post('/',
+    function(req, res, next){
+    console.log('dfdfjdsSDLK');
+        next();
+    },
+    authTools.isLoggedIn,
+    notificationTools.deleteIfOwner
+);
 
+function getIndex(req,res,next){
+    console.log('34567890Ö098765434567890Ö-Ö09876543456790Ö--Ö098765434567890ÖÖ0987654')
+    console.log(req.notifications);
     res.render('index', {
         results         : req.feed_result,
         user            : req.session.user,

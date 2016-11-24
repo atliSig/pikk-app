@@ -12,23 +12,27 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                     .dropdown-menu.dropdown-menu-right
                         a.dropdown-item(href='/u') My profile
                         a.dropdown-item(href='/u/settings') Settings
-                        a.dropdown-item(href='#') Third
                         .dropdown-divider
                         a.dropdown-item(href='/logout') Logout
                 li.nav-item.dropdown.float-lg-right.sub-icon.button-secondary
-                    .nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                        .icon-wrapper.fa-wrapper
-                            i.fa.fa-bell.pikk-icon(aria-hidden='true')
-                    .dropdown-menu.dropdown-menu-right
-
+                    a.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                         if notifications
-                            a.dropdown-item(href='#') Clear notifications
-                            if notifications.length > 0
-                                .dropdown-divider
+                            if notifications.length>0
+                                .icon-wrapper.fa-wrapper.notification-alert
+                                    i.fa.fa-bell.pikk-icon.notification-alert-icon(aria-hidden='true')
+                            else
+                                .icon-wrapper.fa-wrapper
+                                    i.fa.fa-bell.pikk-icon(aria-hidden='true')
+                    .dropdown-menu.dropdown-menu-right
+                        if notifications
+                            if notifications.length>0
                                 for notification in notifications
-                                    a.dropdown-item(href=notification.url)=notification.content
-                        else
-                            p.dropdown-item(href='#') No new notifications
+                                    form(method="post", action="/")
+                                        input(type="hidden", name='notifyurl',value=notification.url)
+                                        input(type="hidden", name='notifyid', value=notification.id)
+                                        button.dropdown-item(type="submit")=notification.content
+                            else
+                                a.dropdown-item(href='#') No new notifications
             button.navbar-toggler.hidden-lg-up(type='button', data-toggle='collapse', data-target='#navbarResponsive',
             aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
     #navbarResponsive.collapse.navbar-toggleable-md

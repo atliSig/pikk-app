@@ -158,7 +158,8 @@ function displayGroupPage(req, res, next){
         user            : req.session.user,
         groups          : req.user_groups,
         events          : req.user_events,
-        invited_user_id : req.query.invited
+        invited_user_id : req.query.invited,
+        notifications   : req.notifications
     });
 }
 

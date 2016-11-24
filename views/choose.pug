@@ -6,7 +6,6 @@ block content
             h2 Engar niðurstöður
             br
             i.fa.fa-frown-o.fa-3x
-
     if results.length < 2
         .col-lg-8.offset-lg-2
             each res in results
@@ -33,7 +32,9 @@ block content
         .card-columns
             each res in results
                 .card.animate-bottom
-                    if res.coordinates
+                    if(res.brand_banner_path)
+                        img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                    else if res.coordinates
                         if(res.brand_banner_path)
                             img(src=res.brand_banner_path).card-im-top.img-fluid
                         else if(res.coordinates.ja360_image_url)
