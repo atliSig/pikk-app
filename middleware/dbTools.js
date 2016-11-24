@@ -59,6 +59,9 @@ function init() {
     });
 
     sequelize.sync();
+
+    testFunc();
+
     // User.getFriends(1, function(members){
     //     console.log(members);
     // });
@@ -87,26 +90,42 @@ function getFriends(userid, cb, err){
 }
 
 
-function fx(userid, cb, err){
-    var id = 1;
-    sequelize.query('SELECT * ' +
-        'FROM members ' +
-        'WHERE id IN ( ' +
-        '   SELECT "memberId" '+
-        '   FROM "groupMembers" '+
-        '   WHERE "groupId" IN( '+
-        '      SELECT "groupId" ' +
-        '      FROM "groupMembers" '+
-        '      WHERE "memberId" = ?' +
-        '   )' +
-        '   EXCEPT' +
-        '   SELECT ?'+
-        ')', {
-        model: User,
-        replacements: [userid, userid],
-        type: sequelize.QueryTypes.SELECT
-    })
-        .then(cb, err);
+function testFunc(userid, cb, err){
+    var memberId=7;
+    var eventId=1;
+    EventMember.findOne({
+        where:{
+            $and: [{memberId: memberId},{eventId: eventId}]
+    }}).then(
+        function(evmember){
+            evmember.update({
+                selectedPlace: 1234
+            }
+        );
+    },
+        function(err){
+            console.log(err);
+        }
+);
+    // var id = 1;$or: [{'email': email},{'google.id':addmember}]
+    // sequelize.query('SELECT * ' +
+    //     'FROM members ' +
+    //     'WHERE id IN ( ' +
+    //     '   SELECT "memberId" '+
+    //     '   FROM "groupMembers" '+
+    //     '   WHERE "groupId" IN( '+
+    //     '      SELECT "groupId" ' +
+    //     '      FROM "groupMembers" '+
+    //     '      WHERE "memberId" = ?' +
+    //     '   )' +
+    //     '   EXCEPT' +
+    //     '   SELECT ?'+
+    //     ')', {
+    //     model: User,
+    //     replacements: [userid, userid],
+    //     type: sequelize.QueryTypes.SELECT
+    // })
+    //     .then(cb, err);
 }
 
 
@@ -116,5 +135,6 @@ module.exports = {
     Event: Event,
     Notification: Notification,
     Restaurant: Restaurant,
+    EventMember: EventMember,
     init:init
 };

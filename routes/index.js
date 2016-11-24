@@ -27,6 +27,7 @@ router.get('/',
 );
 
 function getIndex(req,res,next){
+    req.session.hello='heloo';
     res.render('index', { user: req.session.user,results: req.feed_result, groups: req.user_groups, events: req.user_events});
 }
 

@@ -12,6 +12,7 @@ var db = require('./dbTools');
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
+var EventMember = db.EventMember;
 
 exports.getEventsByUser = function(req,res,next){
     if(req.session.user){
@@ -47,4 +48,30 @@ exports.getEventsByGroup = function(req,res,next){
             )
         }
     )
+};
+
+//Chooses a place for a event member only if he has never chosen before
+exports.choosePlace = function(req,res,next) {
+    EventMember.findOne({
+            where: {
+                $and: [{memberId: req.session.user.id}, {eventId: req.params.eventid}]
+            }
+        }).then(
+            function (evmember) {
+                if(evmember.selectedPlace){
+                    next();
+                }else{
+                    evmember.update({
+                            selectedPlace: 1337
+                        }
+                    ).then(function (update) {
+                        console.log('yo');
+                        next();
+                    });
+                }
+            },
+            function (err) {
+                //Error parsing?
+                next();
+            });
 };

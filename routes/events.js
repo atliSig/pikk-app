@@ -10,7 +10,6 @@ var apiTools= require('../middleware/apiTools');
 var pikkTools= require('../middleware/pikkTools');
 var groupTools= require('../middleware/groupTools');
 var eventTools= require('../middleware/eventTools');
-
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
@@ -35,9 +34,9 @@ function getChoose(req,res,next){
     res.render('choose', { user:user, title:'Choose', results: req.search_result, groups: req.user_groups, events: req.user_events});
 }
 
-router.get('/createevent', authTools.isLoggedIn, showCreateEvent);
+router.get('/createevent', authTools.isLoggedIn,showCreateEvent);
 router.post('/createevent', authTools.isLoggedIn, createEvent);
-router.get('/:eventid', authTools.isLoggedIn, showEventPage);
+router.get('/:eventid', authTools.isLoggedIn, eventTools.choosePlace, showEventPage);
 router.get('/',authTools.isLoggedIn, displayEventPage);
 
 //-------handlers------//
@@ -109,7 +108,8 @@ function createEvent(req, res, next){
 function showEventPage(req, res, next){
     var user = req.session.user;
     var eventid = req.params.eventid;
-
+    req.session.user.current_id = eventid;
+    console.log(req.session.current_id);
     Event.findOne({
         where:{
             id: eventid

@@ -68,6 +68,10 @@ var EventMember = function(sequelize, DataTypes){
             type: DataTypes.BOOLEAN,
             allowNull: true,
             defaultValue: false
+        },
+        selectedPlace: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     });
 

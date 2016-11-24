@@ -29,14 +29,24 @@ var events = require('./routes/events')
 
 var app = express();
 
-
 app.use(cookieParser());
 //session is required for passport
+// app.use(session({
+//   secret: 'pikk',
+//   resave: true,
+//   saveUninitialized: true,
+// }));
+var cookie = { domain: '',
+  httpOnly: false,
+  secure: false };
+
 app.use(session({
   secret: 'pikk',
-  resave: true,
+  resave: false,
   saveUninitialized: true,
+  cookie: cookie
 }));
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
