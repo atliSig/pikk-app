@@ -196,3 +196,16 @@ exports.thirdFeedConnector = function(req,res,next){
 };
 
 
+exports.pickAPlace = function(req, res, next){
+    var members = req.decidedMembers;
+    var max = Math.floor(members.length);
+    var index = Math.floor(Math.random() * max);
+
+    console.log(index);
+    if(req.isReady){
+        console.log(members[index].dataValues.selectedPlace);
+        var idd = members[index].dataValues.selectedPlace;
+        apiConnector("nameid:"+encodeURI(idd));
+    }
+    next();
+}

@@ -20,7 +20,8 @@ block content
                         else
                             p.is_closed Lokað
                     .col-lg-6
-                        img.img-banner(src= jaObject.coordinates.ja360_image_url, alt="banner for company")
+                        if jaObject.coordinates
+                            img.img-banner(src= jaObject.coordinates.ja360_image_url, alt="banner for company")
         //.row
             a.btn.btn-primary(role="button", href="http://google.com", target="blank") Skoða kort
         br
@@ -28,7 +29,8 @@ block content
             .card
                 .card-block
                     .map-wrapper
-                        #map(lat=jaObject.coordinates.lat, lon=jaObject.coordinates.lon, name = jaObject.first_name)
+                        if jaObject.coordinates
+                            #map(lat=jaObject.coordinates.lat, lon=jaObject.coordinates.lon, name = jaObject.first_name)
 
         .card-columns
             - persons = [{name: 'Matthías Karl Karlsson', phone: '8480160'},{name: 'Atli Thor Sigurgeirsson', phone:'8218722'}, {name: 'James White', phone:'?'},{name: 'Ágúst Pálsson', phone: '8696020'}, {name:'Pétur Helgi Einarsson', phone:'8666315'}]
@@ -39,18 +41,6 @@ block content
                             p.card-text= person.name
                             p.text-muted= person.phone
 block scripts
-    script(src="javascript/maps.js")
-    script.
-        function initMap() {
-            var name = "#{jaObject.first_name}";
-            var lat = parseFloat("#{jaObject.coordinates.lat}");
-            var lon = parseFloat("#{jaObject.coordinates.lon}");
-            var position = {
-                lat: lat,
-                lng: lon
-            };
-            var map = new google.maps.Map(document.getElementById('map'), { center: position, zoom: 15 });
-            map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
-            var marker = new google.maps.Marker({position: position, map:map, title: name});
-        }
-    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Iw7mFjgBj_uHySWkAhMLNcQisIuRmBc&callback=initMap", async, defer)
+        script(src="javascript/maps.js")
+
+        //script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Iw7mFjgBj_uHySWkAhMLNcQisIuRmBc&callback=initMap", async, defer)

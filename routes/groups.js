@@ -55,7 +55,7 @@ function addMember(req, res, next){
                 required: true
             })
                 .then(function(member){
-                    console.log
+
                     if(member == null)
                     {
                         errors.push('User not found');
@@ -66,7 +66,17 @@ function addMember(req, res, next){
                         group
                             .addMember(member)
                             .then(function () {
-                                res.redirect('/g/' + groupid);
+                                var url = '/g/'+groupid;
+                                var content = user.google.name +' just added you to the group '+group.name+'!';
+                                var memberId = member.id;
+                                Notification.create({
+                                    url: url,
+                                    content: content,
+                                    memberId: memberId
+                                }).then(function(){
+                                    res.redirect('/g/' + groupid);
+                                });
+
                             }, function (err) {
                                 errors.push(err);
                                 errors.push()
