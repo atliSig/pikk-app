@@ -63,7 +63,7 @@ block content
                                                     .form-group
                                                         button.btn.btn-primary.pull-right(type="submit") Pikk by Search
 
-    else if !eventReady
+    if !eventReady
         .row
             .col-lg-6
                 if unDecidedMembers != 0
@@ -153,13 +153,11 @@ block content
                         h4.card-title=selectedPlace.name
 
     .row
-        .card
-            .card-block
-                .map-wrapper
-                    if selectedPlace && selectedPlace.coordinates
-                        #map(name=selectedPlace.name, lat=selectedPlace.coordinates.lat, lon= selectedPlace.coordinates.lon)
-                    else
-                        #map
+        if selectedPlace && selectedPlace.coordinates
+            .card
+                .card-block
+                    .map-wrapper
+                            #map(name=selectedPlace.name, lat=selectedPlace.coordinates.lat, lon= selectedPlace.coordinates.lon)
 
     button.btn.btn-outline-primary.btn-space(type=button)#hide-it
 
