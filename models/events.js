@@ -82,4 +82,4 @@ var EventMember = function(sequelize, DataTypes){
 module.exports = {
     Event: Event,
     EventMember: EventMember
-}
+};

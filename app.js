@@ -32,7 +32,7 @@ var index  = require('./routes/index');
 var users = require('./routes/users');
 var groups = require('./routes/groups');
 var auth = require('./routes/auth');
-var events = require('./routes/events')
+var events = require('./routes/events');
 
 var app = express();
 

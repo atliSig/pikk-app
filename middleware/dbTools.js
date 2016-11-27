@@ -47,7 +47,7 @@ function init() {
         foreignKey: 'groupId'
     });
 
-    Event.hasOne(Restaurant)
+    Event.hasOne(Restaurant);
 
     Event.belongsToMany(User, {
         through: EventMember,
@@ -61,12 +61,6 @@ function init() {
     });
 
     sequelize.sync();
-
-    //testFunc();
-
-    // User.getFriends(1, function(members){
-    //     console.log(members);
-    // });
 }
 
 //Gets friends of a user through groups.

@@ -36,7 +36,7 @@ $('.friend-list').on('click', '.current-friend', function(){
     member.append(icon);
     $(this).remove();
     $('#insert-area').append(member);
-})
+});
 
 //To remove item of list
 $('#insert-area').on('click','.added-member',function(){

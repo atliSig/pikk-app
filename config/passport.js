@@ -44,7 +44,6 @@ module.exports = function(passport){
                     function (user) {
                         if (user) {
                             //If the user exists, log in
-                            //console.log(profile);
                             done(null, user);
                         } else {
                             //Else we create a new user

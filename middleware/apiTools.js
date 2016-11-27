@@ -15,9 +15,7 @@ apiConnector = function(query,req,res,next){
             str += chunk;
         });
         response.on('end', function () {
-            console.log(str);
             req.search_result = JSON.parse(str).yellow.items;
-            console.log(req.search_result);
             next();
         });
     });
@@ -45,70 +43,39 @@ exports.showPlace = function(req,res,next){
 //This is used for the main pikk.
 //Takes keywords from user and builds a query for them
 exports.queryByTags = function(req, res, next){
-    /*var types = [
-        //Category 1
-        ['kjúklingur','chicken'],
-        ['steik','fillet','nautakjöt','kjöt','lambakjöt','beef','lamb'],
-        ['sjávarréttir','fiskur','sea food','fish', 'seafood'],
-        ['pítsa','flatbaka','pizza'],
-        ['hamborgari','burger','fries'],
-        ['sushi','healthy'],
-        ['salat','healthy'],
-        ['kebab','arabískt','arabian'],
-        //Category 2
-        ['tælenskt','thai'],
-        ['asískt','núðlur','asian','noodles'],
-        ['indverskt','indian','asian'],
-        ['mexíkóskt','burrito','tortilla','nachos','mexican'],
-        ['ítalskt','pasta','italian'],
-        ['íslenskt','icelandic'],
-        //Category 3
-        ['hádegismatur','breakfast','brunch'],
-        ['vegan', 'vegeterian','healthy'],
-        ['hollt','salat','healthy'],
-        ['bakarí','safi','bakery'],
-        ['bístró','bistro'],
-        ['kaffi', 'te','safi','coffee','tee','tea','juice'],
-        ['áfengi','bjór','vín','kokteill','alcohol','beer','wine','coctail']
-    ];*/
-    var types = [
-        //Category 1
-        ['kjúklingur','chicken'],
-        ['steik','beef'],
-        ['sjávarréttir','seafood'],
-        ['pítsa','pizza'],
-        ['hamborgari','burger'],
-        ['sushi','healthy'],
-        ['salat','healthy'],
-        ['kebab','arabískt'],
-        //Category 2
-        ['tælenskt','thai'],
-        ['asískt','asian'],
-        ['indverskt','indian'],
-        ['mexíkóskt','mexican'],
-        ['ítalskt','italian'],
-        ['íslenskt','icelandic'],
-        //Category 3
-        ['hádegismatur','brunch'],
-        ['vegan','healthy'],
-        ['hollt','healthy'],
-        ['bakarí','bakery'],
-        ['bístró','bistro'],
-        ['kaffi','juice'],
-        ['áfengi','alcohol']
-    ];
     if(!req.body.userinput){
         next();
     }
     else {
+        var types = [
+            //Category 1
+            ['kjúklingur','chicken'],
+            ['steik','beef'],
+            ['sjávarréttir','seafood'],
+            ['pítsa','pizza'],
+            ['hamborgari','burger'],
+            ['sushi','healthy'],
+            ['salat','healthy'],
+            ['kebab','arabískt'],
+            //Category 2
+            ['tælenskt','thai'],
+            ['asískt','asian'],
+            ['indverskt','indian'],
+            ['mexíkóskt','mexican'],
+            ['ítalskt','italian'],
+            ['íslenskt','icelandic'],
+            //Category 3
+            ['hádegismatur','brunch'],
+            ['vegan','healthy'],
+            ['hollt','healthy'],
+            ['bakarí','bakery'],
+            ['bístró','bistro'],
+            ['kaffi','juice'],
+            ['áfengi','alcohol']
+        ];
         var userInput = JSON.parse(req.body.userinput);
         var userData = userInput.selection;
-        req.current_location = userInput.location;
-        //Testing distance
-        req.maximum_distance = 10000;
-        //We build a query on the form
-        //((tag1 or tag2) or (tag3 or tag4) or...)AND(tag: veitingastadur)
-        var q = '('
+        var q = '(';
         //The query is (tag:param1+OR+tag:param2+OR+tag:param3)+AND+(tag:veitingastadur)
         userData.forEach(function (index) {
             q += buildQueryByTagArray(types[index]);
@@ -130,7 +97,6 @@ function buildQueryByTagArray(arr){
 }
 
 exports.queryByIds =function(req,res,next){
-    console.log(req.decidedMembers);
     q='nameid:(';
     if(req.decidedMembers && req.decidedMembers.length >=1 ){
         var decidedMembers = req.decidedMembers;
@@ -138,15 +104,18 @@ exports.queryByIds =function(req,res,next){
             q+=encodeURIComponent(member.selectedPlace)+'+OR+'
         });
         q+=')';
-        console.log(q);
         apiConnector(q,req,res,next);
     }
     else{
         next();
     }
 
-}
+};
 
+//The FeedConnector functions are kept in seperate functions
+// since the query URL can only be so long
+
+//Queries API for first keyword for index
 exports.firstFeedConnector = function(req,res,next){
     //query=encodeURIComponent(query);
     //the query string for the Ja API
@@ -163,6 +132,7 @@ exports.firstFeedConnector = function(req,res,next){
     });
 };
 
+//Queries API for second keyword for index
 exports.secondFeedConnector = function(req,res,next){
     //query=encodeURIComponent(query);
     //the query string for the Ja API
@@ -179,6 +149,7 @@ exports.secondFeedConnector = function(req,res,next){
     });
 };
 
+//Queries API for third keyword for index
 exports.thirdFeedConnector = function(req,res,next){
     //query=encodeURIComponent(query);
     //the query string for the Ja API
@@ -195,17 +166,19 @@ exports.thirdFeedConnector = function(req,res,next){
     });
 };
 
-
+//Chooses a random place from the selected list of places
+//from the event.
 exports.pickAPlace = function(req, res, next){
     var members = req.decidedMembers;
     var max = Math.floor(members.length);
     var index = Math.floor(Math.random() * max);
-
-    console.log(index);
+    //If req.isReady then all members have decided
     if(req.isReady){
-        console.log(members[index].dataValues.selectedPlace);
-        var idd = members[index].dataValues.selectedPlace;
-        apiConnector("nameid:"+encodeURI(idd));
+        apiConnector(
+            "nameid:"+
+            encodeURI(members[index].dataValues.selectedPlace)
+        );
+    } else {
+        next();
     }
-    next();
-}
+};

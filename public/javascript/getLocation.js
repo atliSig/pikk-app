@@ -2,6 +2,7 @@
  * Created by atli on 19.11.2016.
  */
 
+//This is currently not used
 
 if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(success,error,options);
@@ -19,7 +20,7 @@ function success(position){
 }
 
 function error(){
-    console.log('whoops');
+    console.log('Could not fetch coordinates');
 }
 
 /*$("#get-location").on("click",function(){

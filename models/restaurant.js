@@ -39,4 +39,4 @@ var Restaurant = function(sequelize, DataTypes){
 
 module.exports = {
     Restaurant: Restaurant
-}
+};

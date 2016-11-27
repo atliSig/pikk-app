@@ -1,9 +1,6 @@
 /**
  * Created by atli on 23.11.2016.
  */
-/**
- * Created by atli on 23.11.2016.
- */
 
 var express = require('express');
 var router = express.Router();
@@ -66,7 +63,6 @@ exports.choosePlace = function(req,res,next) {
                         selectedPlace: req.body.picked_place
                     }
                 ).then(function (update) {
-                    console.log(req.body.picked_place);
                     req.hasSelected = true;
                     next();
                 });
@@ -78,7 +74,6 @@ exports.choosePlace = function(req,res,next) {
         },
         function (err) {
             req.hasSelected=false;
-            console.log('I hae not don notinh');
             next();
         });
 };
@@ -88,7 +83,6 @@ exports.getDecidedMembers = function(req, res, next){
     var eventid = req.params.eventid;
     EventMember.getDecidedMembers(
         eventid, function(members){
-            console.log('DECIDED MEMBERS: '+members);
             req.decidedMembers = members;
             next();
         },function (err) {
@@ -101,7 +95,6 @@ exports.getUnDecidedMembers = function(req, res, next){
     var eventid = req.params.eventid;
     EventMember.getUnDecidedMembers(
         eventid, function(members){
-            console.log('UNDECIDED MEMBERS: '+members);
             req.unDecidedMembers = members;
             next();
         }, function(err){
@@ -123,19 +116,14 @@ exports.checkIfEventReady = function (req, res, next) {
         })
         .then(function(evmember){
             isReady = false;
-            count = 0
+            count = 0;
             evmember.forEach(function (memb) {
-                console.log(memb.dataValues.selectedPlace);
                 if(memb.dataValues.selectedPlace === null)
                     count++;
 
             });
             if(count ==0 && evmember.length != 0)
                 isReady = true;
-            console.log('is event reddy?' +evmember);
-            console.log(isReady);
-
-
             Event
                 .findOne({
                     where: {

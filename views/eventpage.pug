@@ -74,7 +74,7 @@ block content
                                 each res in decidedMembers
                                     .col-lg-4
                                         .card.text-center
-                                            img.card-img-top.img-fluid(src=res.img_url, alt='Card image cap')
+                                            img.card-img-top.img-fluid(src=res.img_url)
                                             .card-block.text-center
                                                 p.text-center=res.first_name
                 else
@@ -90,7 +90,7 @@ block content
                                 each res in unDecidedMembers
                                     .col-lg-4
                                         .card.text-center
-                                            img.card-img-top.img-fluid(src=res.img_url, alt='Card image cap')
+                                            img.card-img-top.img-fluid(src=res.img_url)
                                             .card-block.text-center
                                                 p.text-center=res.first_name
         if results
@@ -136,7 +136,21 @@ block content
 
 
     else
-
+        .row
+            .col-lg-12
+                .card
+                    .card-header You have picked a place!
+                    if(selectedPlace[0].brand_banner_path)
+                        img(src=selectedPlace[0].brand_banner_path).card-im-top.img-fluid.place-banner-img
+                    else if selectedPlace[0].coordinates
+                        if(selectedPlace[0].brand_banner_path)
+                            img(src=selectedPlace[0].brand_banner_path).card-im-top.img-fluid
+                        else if(selectedPlace[0].coordinates.ja360_image_url)
+                            img(src= selectedPlace[0].coordinates.ja360_image_url).card-img-top.img-fluid
+                            if(selectedPlace[0].logo_url)
+                                img(src="http://media.ja.is/" + selectedPlace[0].logo_url).img-logo
+                    .card-block
+                        h4.card-title=selectedPlace[0].name
     button.btn.btn-outline-primary.btn-space(type=button)#hide-it
 
 block scripts

@@ -64,7 +64,7 @@ $(document).ready(function() {
         userInput.location={
             latitude:'64.147410',
             longitude:'-21.936253'
-        }
+        };
         var selection=[];
         $(".added-tag").each(function(index){
             selection.push($(this).val());

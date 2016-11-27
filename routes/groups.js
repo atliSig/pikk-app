@@ -209,9 +209,6 @@ function createGroup(req, res, next){
             members.push(member);
         }
     });
-    console.log(members);
-
-    console.log(members);
     var groupname = body.groupname;
     var description = body.description;
 

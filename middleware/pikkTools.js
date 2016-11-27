@@ -86,15 +86,12 @@ function filterByRating(results, rating){
     results.forEach(function(item){
         if(item.rating_mean>rating) {
             hasRating.push(item);
-        }else{
-            console.log('whoops');
         }
     });
     return hasRating;
 }
 
 exports.filterByDistance=function(req,res,next){
-    console.log('oyoy');
     var close_result=[];
     var results = req.search_result;
     var curr_loc= req.current_location;
@@ -103,15 +100,10 @@ exports.filterByDistance=function(req,res,next){
     results.forEach(function(item){
         //dist is in meters
         if(item.has_coordinates) {
-            console.log(item.name);
-            console.log(item.coordinates.lat+","+item.coordinates.lon);
-            console.log(curr_loc);
             var dist = geolib.getDistance(
                 {latitude: item.coordinates.lat, longitude: item.coordinates.lon},
                 {latitude: curr_loc.latitude, longitude: curr_loc.longitude}
             );
-            console.log('dist: '+dist);
-            console.log('max_dist: '+max_dist);
             if(dist<max_dist){
                 close_result.push(item);
             }

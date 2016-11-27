@@ -1,22 +1,20 @@
 var express = require('express');
-var pikkJson = require('../config/pikk.json');
 var apiTools = require('../middleware/apiTools');
 var validateTools = require('../middleware/validateTools');
-var pikkTools= require('../middleware/pikkTools');
-var authTools= require('../middleware/authTools');
-var notificationTools= require('../middleware/notificationTools');
+var pikkTools = require('../middleware/pikkTools');
+var authTools = require('../middleware/authTools');
+var notificationTools = require('../middleware/notificationTools');
 var querystring = require('querystring');
 var session = require('session');
 var groupTools = require('../middleware/groupTools');
 var eventTools = require('../middleware/eventTools');
 var dbTools = require('../middleware/dbTools');
 var passport = require('passport');
-var app = require('express')();
 var router = express.Router();
-
 var groups = require('./groups');
 
 //------------ROUTING FOR INDEX------------//
+
 router.get('/',
     pikkTools.getIndexFeed,
     apiTools.firstFeedConnector,
@@ -33,33 +31,33 @@ router.post('/',
     notificationTools.deleteIfOwner
 );
 
-function getIndex(req,res,next){
+function getIndex(req, res, next) {
 
     res.render('index', {
-        results         : req.feed_result,
-        user            : req.session.user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        notifications   : req.notifications
+        results: req.feed_result,
+        user: req.session.user,
+        groups: req.user_groups,
+        events: req.user_events,
+        notifications: req.notifications
     });
 }
 
 //------------ROUTING FOR SEARCH------------//
 router.get('/search',
     // authTools.isLoggedIn,
-    apiTools.doSearch,
     // groupTools.getGroupsByUser,
     // eventTools.getEventsByUser,
+    apiTools.doSearch,
     getSearch
 );
 
-function getSearch(req,res,next){
-    res.render('resultlist',{
-        results         : req.search_result,
-        user            : req.session.user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        notifications   : req.notifications
+function getSearch(req, res, next) {
+    res.render('resultlist', {
+        results: req.search_result,
+        user: req.session.user,
+        groups: req.user_groups,
+        events: req.user_events,
+        notifications: req.notifications
     });
 }
 
@@ -72,15 +70,15 @@ router.get('/place/:placeId',
     getPlace
 );
 
-function getPlace(req,res,next) {
+function getPlace(req, res, next) {
     var rating_string = (req.search_result[0].cluster_rating_mean).toString();
     var user = req.session.user;
     res.render('place', {
-        user            :user,
-        rating_string   : rating_string,
-        place           : req.search_result[0],
-        groups          : req.user_groups,
-        events          : req.user_events
+        user: user,
+        rating_string: rating_string,
+        place: req.search_result[0],
+        groups: req.user_groups,
+        events: req.user_events
     });
 
 }
@@ -94,15 +92,15 @@ router.use('/headout',
     getHeadout
 );
 
-function getHeadout(req,res,next){
+function getHeadout(req, res, next) {
     var key = process.env.AUTHKEY || '';
     res.render('headout', {
-        title           : 'Pikk',
-        jaObject        : req.search_result[0],
-        user            : req.session.user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        notifications   : req.notifications
+        title: 'Pikk',
+        jaObject: req.search_result[0],
+        user: req.session.user,
+        groups: req.user_groups,
+        events: req.user_events,
+        notifications: req.notifications
     });
 }
 
@@ -115,15 +113,15 @@ router.get('/start',
     getStart
 );
 
-function getStart(req, res, next){
+function getStart(req, res, next) {
     res.render('start', {
-        title           : 'Pikk',
-        form            : req.form,
+        title: 'Pikk',
+        form: req.form,
 
-        user            : req.session.user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        notifications   : req.notifications
+        user: req.session.user,
+        groups: req.user_groups,
+        events: req.user_events,
+        notifications: req.notifications
     });
 }
 
@@ -135,23 +133,23 @@ router.get('/map/*',
     showMap
 );
 
-function showMap(req, res, next){
+function showMap(req, res, next) {
     var query = querystring.stringify(req.query);
     query = querystring.unescape(query);
     query = (querystring.parse(query));
     res.render('map', {
-        query           : query,
+        query: query,
 
-        user            : req.session.user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        notifications   : req.notifications
+        user: req.session.user,
+        groups: req.user_groups,
+        events: req.user_events,
+        notifications: req.notifications
     });
 }
 
 //------------ROUTING FOR LOGOUT------------//
 
-router.get('/logout', function(req, res) {
+router.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
         res.redirect('/');
     });

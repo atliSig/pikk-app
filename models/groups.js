@@ -33,4 +33,4 @@ var GroupMember = function(sequelize, DataTypes){
 module.exports = {
     Group: Group,
     GroupMember: GroupMember
-}
+};
