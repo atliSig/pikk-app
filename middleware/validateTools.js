@@ -7,11 +7,6 @@
 exports.pikkForm = function(req,res,next){
     //data contains pikk params from a single user
     var data;
-    /*for(var key in data){
-        if(data[key]<0||data[key]>6){
-            res.redirect('/');
-        }
-    }*/
     req.pikkParam = data;
     next();
 };

@@ -20,6 +20,8 @@ exports.getGroupsByUser = function(req,res,next){
             .then(function(groups) {
                 req.user_groups = groups;
                 next();
+            }, function () {
+                next();
             });
     }else{
         next();

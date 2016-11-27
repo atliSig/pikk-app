@@ -21,6 +21,8 @@ exports.getEventsByUser = function(req,res,next){
             .then(function(events) {
                 req.user_events = events;
                 next();
+            }, function(){
+                next();
             });
     }else{
         next();
@@ -43,6 +45,8 @@ exports.getEventsByGroup = function(req,res,next){
                     })
                 }
             )
+        }, function () {
+            next();
         }
     )
 };
@@ -139,7 +143,14 @@ exports.checkIfEventReady = function (req, res, next) {
                         .then(function () {
                             req.eventReady= isReady;
                             next();
-                        });
+                        },function () {
+                            next();
+                            }
+                        );
+                }, function () {
+                    next();
                 });
+        }, function(){
+            next();
         });
 };

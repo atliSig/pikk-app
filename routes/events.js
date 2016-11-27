@@ -94,49 +94,54 @@ function createEvent(req, res, next){
             where: {id: groupid},
             include: [{model:User, as:'member'}]
         }
-    ).then(function(group){
-        //Create the event
-        Event.create({
-            title: title,
-            description: description,
-            deadline: deadline,
-            toe: toe,
-            groupId: groupid
-        })
-            .then(function (event) {
-                var groupmembers = group.member;
+    )
+        .then(function(group){
+            //Create the event
+            Event.create({
+                title: title,
+                description: description,
+                deadline: deadline,
+                toe: toe,
+                groupId: groupid
+            })
+                .then(function (event) {
+                    var groupmembers = group.member;
 
-                //add all groupmembers to the event
-                event
-                    .addMember(groupmembers)
-                    .then(function(members){
+                    //add all groupmembers to the event
+                    event
+                        .addMember(groupmembers)
+                        .then(function(members){
 
-                        var notificationArray = [];
-                        var url = '/e/'+event.id;
-                        var content = user.first_name + ' invited you to the event '+title
-                            +' with your group '+currentgroup.name +'!';
+                            var notificationArray = [];
+                            var url = '/e/'+event.id;
+                            var content = user.first_name + ' invited you to the event '+title
+                                +' with your group '+currentgroup.name +'!';
 
-                        groupmembers.forEach(function (member) {
-                            if(member.dataValues.id != user.id)
-                                notificationArray.push({
-                                    url     : url,
-                                    memberId: member.dataValues.id,
-                                    content : content
-                                });
-                        });
-                        // Notify all members
-                        Notification
-                            .bulkCreate(notificationArray)
-                            .then(function(notification){
-                                res.redirect(url);
+                            groupmembers.forEach(function (member) {
+                                if(member.dataValues.id != user.id)
+                                    notificationArray.push({
+                                        url     : url,
+                                        memberId: member.dataValues.id,
+                                        content : content
+                                    });
                             });
-                    });
-            },function(err){
-                return next('no thing'+err);
-            });
-    }, function(err){
-        return next('no group'+err);
-    });
+                            // Notify all members
+                            Notification
+                                .bulkCreate(notificationArray)
+                                .then(function(notification){
+                                    res.redirect(url);
+                                },function () {
+                                    next();
+                                });
+                        }, function () {
+                            next();
+                        });
+                },function(){
+                    next();
+                });
+        }, function(){
+            next();
+        });
 }
 
 function showEventPage(req, res, next){
@@ -154,6 +159,9 @@ function showEventPage(req, res, next){
         }]
     })
         .then(function(event){
+                var selectedPlace;
+                if(req.search_result && req.search_result.length != 0)
+                    selectedPlace = req.search_result[0];
                 res.render('eventpage', {
                     //We can reference the req.search_result two times
                     //since we will only invoke once per run and we will
@@ -169,8 +177,10 @@ function showEventPage(req, res, next){
                     results         : req.search_result,
                     decidedMembers  : req.decidedMembers,
                     hasSelected     : req.hasSelected,
-                    selectedPlace   : req.search_result
+                    selectedPlace   : selectedPlace
                 });
+            }, function () {
+                next();
             }
         );
 }
@@ -183,11 +193,13 @@ function displayEventPage(req,res,next){
         })
         .then(function(events) {
             res.render('eventlist',{
-                title: 'My groups',
+                title: 'My Events',
                 user            : user,
                 events          : events,
                 groups          : req.user_groups,
                 notifications   : req.notifications
             });
+        }, function () {
+            next();
         });
 }

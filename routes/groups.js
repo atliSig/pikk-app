@@ -67,31 +67,58 @@ function addMember(req, res, next){
                             .addMember(member)
                             .then(function () {
                                 var url = '/g/'+groupid;
-                                var content = user.google.name +' just added you to the group '+group.name+'!';
+                                var content = user.google.displayName +' just added you to the group '+group.name+'!';
                                 var memberId = member.id;
                                 Notification.create({
                                     url: url,
                                     content: content,
                                     memberId: memberId
-                                }).then(function(){
-                                    res.redirect('/g/' + groupid);
-                                });
+                                })
+                                    .then(function(){
+                                            res.redirect('/g/' + groupid);
+                                        },
+                                        function(){
+                                            res.render('groupprofile', {
+                                                errors: errors,
+                                                user: user,
+                                                events: req.user_events,
+                                                groups: req.user_groups,
+                                                notifications: req.notifications
+                                            });
+                                        });
 
                             }, function (err) {
-                                errors.push(err);
-                                errors.push()
+                                errors.push('Could not add a member');
+                                res.render('groupprofile', {
+                                    errors: errors,
+                                    user: user,
+                                    events: req.user_events,
+                                    groups: req.user_groups,
+                                    notifications: req.notifications
+                                });
                             });
                     }
 
                 }, function(err){
                     errors.push('User not found');
                     req.errors = errors;
-                    next();
+                    res.render('groupprofile', {
+                        errors: errors,
+                        user: user,
+                        events: req.user_events,
+                        groups: req.user_groups,
+                        notifications: req.notifications
+                    });
+
                 });
         }, function(err){
             errors.push(err);
             res.render('groupprofile', {
-                errors: errors, user: user
+                errors: errors,
+                user: user,
+                events: req.user_events,
+                groups: req.user_groups,
+                notifications: req.notifications
             });
         });
 }
@@ -148,19 +175,6 @@ function showGroupPage(req, res, next) {
 
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
-    // var user = req.session.user;
-    // Group
-    //     .findAll({
-    //         include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
-    //     })
-    //     .then(function(groups) {
-    //         res.render('grouplist',{
-    //             title: 'My groups',
-    //             user: user,
-    //             groups: groups,
-    //             invited_user_id: req.query.invited
-    //         });
-    //     });
 
     res.render('grouplist',{
         title: 'My groups',
@@ -186,7 +200,9 @@ function showCreateGroup(req, res, next){
             groups          : req.user_groups,
             notifications   : req.notifications
         });
-    },function(err){
+    },
+        function(err){
+            //if error occurs
         next();
     });
 
@@ -243,7 +259,7 @@ function createGroup(req, res, next){
                                     })
                                     .then(function(newMembers) {
                                         var url = '/g/'+group.id;
-                                        var content = user.google.name +' added you to the group '
+                                        var content = user.google.displayName +' added you to the group '
                                             + group.name;
                                         var notificationArray = [];
 
@@ -266,10 +282,50 @@ function createGroup(req, res, next){
                                                         res.redirect('/g/' + group.id);
                                                     });
 
+                                            }, function () {
+                                                res.render('creategroup', {
+                                                    errors: errors,
+                                                    user: user,
+                                                    events: req.user_events,
+                                                    groups: req.user_groups,
+                                                    notifications: req.notifications
+                                                });
                                             });
+                                    },function () {
+                                        res.render('creategroup', {
+                                            errors: errors,
+                                            user: user,
+                                            events: req.user_events,
+                                            groups: req.user_groups,
+                                            notifications: req.notifications
+                                        });
                                     });
+                            }, function () {
+                                res.render('creategroup', {
+                                    errors: errors,
+                                    user: user,
+                                    events: req.user_events,
+                                    groups: req.user_groups,
+                                    notifications: req.notifications
+                                });
                             });
+                    }, function () {
+                        res.render('creategroup', {
+                            errors: errors,
+                            user: user,
+                            events: req.user_events,
+                            groups: req.user_groups,
+                            notifications: req.notifications
+                        });
                     });
+            }, function () {
+                res.render('creategroup', {
+                    errors: errors,
+                    user: user,
+                    events: req.user_events,
+                    groups: req.user_groups,
+                    notifications: req.notifications
+                });
             });
     }
     //else display errors

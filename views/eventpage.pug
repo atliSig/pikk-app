@@ -63,7 +63,7 @@ block content
                                                     .form-group
                                                         button.btn.btn-primary.pull-right(type="submit") Pikk by Search
 
-    if !eventReady
+    else if !eventReady
         .row
             .col-lg-6
                 if unDecidedMembers != 0
@@ -139,19 +139,56 @@ block content
         .row
             .col-lg-12
                 .card
-                    .card-header You have picked a place!
-                    if(selectedPlace[0].brand_banner_path)
-                        img(src=selectedPlace[0].brand_banner_path).card-im-top.img-fluid.place-banner-img
-                    else if selectedPlace[0].coordinates
-                        if(selectedPlace[0].brand_banner_path)
-                            img(src=selectedPlace[0].brand_banner_path).card-im-top.img-fluid
-                        else if(selectedPlace[0].coordinates.ja360_image_url)
-                            img(src= selectedPlace[0].coordinates.ja360_image_url).card-img-top.img-fluid
-                            if(selectedPlace[0].logo_url)
-                                img(src="http://media.ja.is/" + selectedPlace[0].logo_url).img-logo
+                    .card-header Your group have picked a place!
+                    if(selectedPlace.brand_banner_path)
+                        img(src=selectedPlace.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                    else if selectedPlace.coordinates
+                        if(selectedPlace.brand_banner_path)
+                            img(src=selectedPlace.brand_banner_path).card-im-top.img-fluid
+                        else if(selectedPlace.coordinates.ja360_image_url)
+                            img(src= selectedPlace.coordinates.ja360_image_url).card-img-top.img-fluid
+                            if(selectedPlace.logo_url)
+                                img(src="http://media.ja.is/" + selectedPlace.logo_url).img-logo
                     .card-block
-                        h4.card-title=selectedPlace[0].name
+                        h4.card-title=selectedPlace.name
+
+    .row
+        .card
+            .card-block
+                .map-wrapper
+                    if selectedPlace && selectedPlace.coordinates
+                        #map(name=selectedPlace.name, lat=selectedPlace.coordinates.lat, lon= selectedPlace.coordinates.lon)
+                    else
+                        #map
+
     button.btn.btn-outline-primary.btn-space(type=button)#hide-it
 
 block scripts
     script(src="../javascript/selection.js")
+
+    if hasSelected && selectedPlace && selectedPlace.coordinates && selectedPlace.name
+        script(src="/javascript/maps.js")
+        script.
+            function initMap() {
+                var info = document.getElementById("map");
+                var lat = parseFloat(info.getAttribute("lat"));
+                var lon = parseFloat(info.getAttribute("lon"));
+                var name = info.getAttribute("name");
+
+                var position = {
+                    lat: lat,
+                    lng: lon
+                };
+                var map = new google.maps.Map(document.getElementById('map'),
+                        {center: position, zoom: 15});
+                map.setOptions({
+                    draggable: false,
+                    zoomControl: false,
+                    scrollwheel: false,
+                    disableDoubleClickZoom: true
+                });
+                var marker = new google.maps.Marker({position: position, map: map, title: name});
+
+
+            }
+        script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Iw7mFjgBj_uHySWkAhMLNcQisIuRmBc&callback=initMap", async, defer)

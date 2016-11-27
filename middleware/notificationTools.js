@@ -19,6 +19,8 @@ exports.getNotificationsByUser = function(req,res,next){
             .then(function(notifications) {
                 req.notifications = notifications;
                 next();
+            }, function () {
+                next();
             });
     }else{
         next();
@@ -33,5 +35,7 @@ exports.deleteIfOwner = function(req,res,next){
         where: {$and:[{memberId: user.id}, {id: notificationId}]}
     }).then(function(notification){
         res.redirect(url);
+    }, function(){
+        next();
     });
 };

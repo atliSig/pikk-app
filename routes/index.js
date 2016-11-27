@@ -83,26 +83,7 @@ function getPlace(req, res, next) {
 
 }
 
-//------------ROUTING FOR HEADOUT------------//
-//WIP
-router.use('/headout',
-    // authTools.isLoggedIn,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    getHeadout
-);
 
-function getHeadout(req, res, next) {
-    var key = process.env.AUTHKEY || '';
-    res.render('headout', {
-        title: 'Pikk',
-        jaObject: req.search_result[0],
-        user: req.session.user,
-        groups: req.user_groups,
-        events: req.user_events,
-        notifications: req.notifications
-    });
-}
 
 //------------ROUTING FOR START------------//
 router.get('/start',
