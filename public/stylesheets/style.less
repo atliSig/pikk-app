@@ -319,6 +319,32 @@ button.dropdown-item:hover {
   width:100%;
 }
 
+.preview-body{
+  background: linear-gradient(44deg, #ed1e79, #fbb03b);
+  background-size: 400% 400%;
+
+  -webkit-animation: AnimationName 30s ease infinite;
+  -moz-animation: AnimationName 30s ease infinite;
+  animation: AnimationName 30s ease infinite;
+
+  @-webkit-keyframes AnimationName {
+    0%{background-position:0% 97%}
+    50%{background-position:100% 4%}
+    100%{background-position:0% 97%}
+  }
+  @-moz-keyframes AnimationName {
+    0%{background-position:0% 97%}
+    50%{background-position:100% 4%}
+    100%{background-position:0% 97%}
+  }
+  @keyframes AnimationName {
+    0%{background-position:0% 97%}
+    50%{background-position:100% 4%}
+    100%{background-position:0% 97%}
+  }
+  height:100%;
+}
+
 
 
 .navbar-toggler{
@@ -376,6 +402,12 @@ button.dropdown-item:hover {
 .banner-button{
   color: #fff;
   border-color: #fff;
+}
+
+.banner-button:hover{
+  background-color:white;
+  color:#ed1e79;
+  border: 1px solid white;
 }
 
 .footer{

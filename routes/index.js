@@ -13,6 +13,12 @@ var passport = require('passport');
 var router = express.Router();
 var groups = require('./groups');
 
+
+router.get('/promopage',function(req,res,next){
+   res.render('promopage');
+});
+
+
 //------------ROUTING FOR INDEX------------//
 router.get('/',
     pikkTools.getIndexFeed,

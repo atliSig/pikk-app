@@ -1,0 +1,27 @@
+//
+   Created by atli on 2.2.2017.
+
+html(lang="en")
+    head
+        title= title || 'Pikk'
+        meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+        link(href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Montserrat" rel="stylesheet")
+        link(rel='icon', type='image/png', href='/images/pikk-icon.gif')
+        link(rel='stylesheet', type='text/css', href='/font-awesome/css/font-awesome.min.css')
+        link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+
+        //link(rel='stylesheet', type='text/css', href='//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css')
+        link(rel='stylesheet', type='text/css', href='/slick/slick.css')
+
+        link(rel='stylesheet', type='text/css', href='/slick/slick-theme.css')
+
+        //link(rel='styleasheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css', integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi", crossorigin="anonymous")
+        link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+        link(href="/stylesheets/style.css", rel='stylesheet')
+
+        block links
+
+body
+    .container-fluid.preview-body
+        .fakediv
+        img(src='/images/pikk-preview.png' style='height:400px;width:420px; position:absolute; top:175px; left:550px;')
