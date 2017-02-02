@@ -37,7 +37,8 @@ function getIndex(req, res, next) {
         user: req.session.user,
         groups: req.user_groups,
         events: req.user_events,
-        notifications: req.notifications
+        notifications: req.notifications,
+        isIndex:true
     });
 }
 

@@ -22,18 +22,19 @@ html(lang="en")
         block links
 
 body
-    script(src='https://use.typekit.net/omp6prj.js')
-        script.
-            try {
-                Typekit.load({async: true});
-            } catch (e) {
-            }
     .wrapper
         include includes/navbar.pug
-        .container-fluid.cover-screen(style='margin-top:58px')
-            .row
-                .col-lg-6.offset-lg-1
-                    img(src='/images/banner.png' style='width:100%; padding-top:100px;')
+        if !isIndex
+            .push-down(style='margin-bottom: 90px')
+        if isIndex
+            .container-fluid.cover-screen(style='margin-top:58px')
+                .row(style='padding:100px 0px 100px 0px')
+                    .col-lg-5.offset-lg-1
+                        img(src='/images/banner.png' style='width:100%;')
+                    .col-lg-3.offset-lg-2
+                        button.btn.btn-outline-primary.btn-block.banner-button yo faradada
+                        button.btn.btn-outline-primary.btn-block.banner-button yo faradada
+                        button.btn.btn-outline-primary.btn-block.banner-button yo faradada
         .container-fluid.main-wrapper
             .row.layout-row
                 .col-lg-8.offset-lg-2
