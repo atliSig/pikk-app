@@ -6,7 +6,7 @@ html(lang="en")
         title= title || 'Pikk'
         meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
         link(href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Montserrat" rel="stylesheet")
-        link(rel='icon', type='image/png', href='/images/pikk-favi.png')
+        link(rel='icon', type='image/png', href='/images/pikk-icon.gif')
         link(rel='stylesheet', type='text/css', href='/font-awesome/css/font-awesome.min.css')
         link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
 
@@ -22,8 +22,18 @@ html(lang="en")
         block links
 
 body
-    .wrapper(style='margin-top: 90px')
+    script(src='https://use.typekit.net/omp6prj.js')
+        script.
+            try {
+                Typekit.load({async: true});
+            } catch (e) {
+            }
+    .wrapper
         include includes/navbar.pug
+        .container-fluid.cover-screen(style='margin-top:58px')
+            .row
+                .col-lg-6.offset-lg-1
+                    img(src='/images/banner.png' style='width:100%; padding-top:100px;')
         .container-fluid.main-wrapper
             .row.layout-row
                 .col-lg-8.offset-lg-2
