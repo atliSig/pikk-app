@@ -156,7 +156,8 @@ function showEventPage(req, res, next){
         include: [{
             model: User,
             as: 'member'
-        }]
+        }
+        ]
     })
         .then(function(event){
                 var selectedPlace;
@@ -189,7 +190,12 @@ function displayEventPage(req,res,next){
     var user = req.session.user;
     Event
         .findAll({
-            include:[{model: User, as: 'member', where: {'google.id': user.google.id}}]
+            include:[{
+                model: User,
+                as: 'member',
+                where: {
+                    'google.id': user.google.id
+                }}]
         })
         .then(function(events) {
             res.render('eventlist',{

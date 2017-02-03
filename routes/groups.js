@@ -176,6 +176,7 @@ function showGroupPage(req, res, next) {
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
 
+    console.log(req.user_events);
     res.render('grouplist',{
         title: 'My groups',
 

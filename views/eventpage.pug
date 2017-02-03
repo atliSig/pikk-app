@@ -8,6 +8,8 @@ block content
                     h3= event.title
                     p= event.description
 
+                    a(href='/g/' + event.groupId) Back to group
+
     if !hasSelected
         .row
             .col-lg-12

@@ -41,7 +41,6 @@ exports.getEventsByGroup = function(req,res,next){
             group.getEvents().then(
                 function(events){
                     res.render('pickGroup',{
-
                     })
                 }
             )
