@@ -9,7 +9,7 @@ block content
                         p Choose a group to invite your friend to from the list of your current groups below
                     else
                         p Here You can see all the groups that you currently belong to
-                        a.btn.btn-primary.pull-right(href="/g/creategroup") Create new group
+                        a.btn.btn-primary.pull-right.pikk-button(href="/g/creategroup") Create new group
     .row
         .col-lg-12
             .card
@@ -26,7 +26,7 @@ block content
                                                 p.text-muted=group.description
                                                 form(method='post', action="/g/" + group.id + '/addMember')
                                                     input(type='hidden' name='addmember', id='addmember', value=invited_user_id)
-                                                    button.btn.btn-primary.pull-right Invite to group
+                                                    button.btn.btn-primary.pull-right.pikk-button Invite to group
                             else
                                 .card-columns
                                     each group in groups
@@ -38,7 +38,7 @@ block content
                                                     p.text-muted=group.description
                                                     form(method='post', action="/g/" + group.id + '/addMember')
                                                         input(type='hidden' name='addmember', id='addmember', value=invited_user_id)
-                                                        button.btn.btn-primary.pull-right Invite to group
+                                                        button.btn.btn-primary.pull-right.pikk-button Invite to group
                         else
                             h2 No groups to display
                     else
@@ -51,7 +51,7 @@ block content
                                                     h5=group.name
                                                 .card-text
                                                     p.text-muted=group.description
-                                                a(href="/g/"+group.id).btn.btn-primary.pull-right View group
+                                                a(href="/g/"+group.id).btn.btn-primary.pull-right.pikk-button View group
                             else
                                 .card-columns
                                     each group in groups
@@ -61,6 +61,6 @@ block content
                                                     h5=group.name
                                                 .card-text
                                                     p.text-muted=group.description
-                                                a(href="/g/" + group.id).btn.btn-primary.pull-right View group
+                                                a(href="/g/" + group.id).btn.btn-primary.pull-right.pikk-button View group
                         else
                             h2 No groups to display

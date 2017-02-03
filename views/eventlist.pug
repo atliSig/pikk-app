@@ -12,7 +12,7 @@ block content
                                     h5=event.title
                                 .card-text
                                     p.text-muted=event.description
-                                a(href="/e/"+event.id).btn.btn-primary View Event
+                                a(href="/e/"+event.id).btn.btn-primary.pikk-button View Event
                 else
                     .card-columns
                         each event in events
@@ -22,6 +22,6 @@ block content
                                         h5=event.title
                                     .card-text
                                         p.text-muted=event.description
-                                    a(href="/e/" + event.id).btn.btn-primary View Event
+                                    a(href="/e/" + event.id).btn.btn-primary.pikk-button View Event
             else
                 h2 No groups to display

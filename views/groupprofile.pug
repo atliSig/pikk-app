@@ -29,7 +29,7 @@ block content
                                                         label(for="email") By email
                                                         input.form-control(type=text, name="email", id="email", placeholder='enter email' required="required")
                                                     .form-group
-                                                        button.btn.btn-primary.pull-right(type="submit") Add Member
+                                                        button.btn.btn-primary.pull-right.pikk-button(type="submit") Add Member
                         .col-md-6
                             .card
                                 .card-header='Create a new event for ' + group.name
@@ -52,7 +52,7 @@ block content
                                                         label(for="toe") Time of Event
                                                         input.form-control(type="date-local", name="toe", required='required',id="toe").pick-date
                                             .form-group
-                                                button.btn.btn-primary.pull-right(type=submit) Create
+                                                button.btn.btn-primary.pull-right.pikk-button(type=submit) Create
 
 
     .row
@@ -71,14 +71,14 @@ block content
                     if events.length!=0
                         each event in events
                             li.list-group-item
-                                a(href="/e/" + event.id)= event.title
+                                a.friend-link(href="/e/" + event.id)= event.title
                                 p= event.description
                     else
                         li.list-group-item You have no upcoming events
                             span.pull-right
                                 i.fa.fa-frown-o.fa-lg
 
-    button.btn.btn-outline-primary.btn-space#hide-it
+    button.btn.btn-outline-primary.btn-space.pikk-button-outline#hide-it
         i.fa.fa-close.side-icon
 
 block scripts

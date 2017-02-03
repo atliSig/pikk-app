@@ -1,8 +1,54 @@
 extends layout
 
 block indexcontent
+
     .card
-        .card-header Up for some burgers?
+        .card-block
+            .row
+                each res, index in results.first
+                    .col-lg-3
+                        .card.index-card
+                            .img-wrapper
+                                if(res.brand_banner_path)
+                                    img(src=res.brand_banner_path).card-img-top.img-fluid.place-banner-img
+                                else if res.coordinates
+                                    if(res.brand_banner_path)
+                                        img(src=res.brand_banner_path).card-img-top.img-fluids
+                                    else if(res.coordinates.ja360_image_url)
+                                        img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                                        if(res.logo_url && !res.brand_banner_path && res.coordinates.ja360_image_url)
+                                            img(src="http://media.ja.is/" + res.logo_url).img-logo
+                                else
+                                    img(src="/images/bannandi.png").card-img-top.img-fluid
+                            .card-block
+                                p.card-text= res.name
+                                if res.address_nominative
+                                    p.card-text= res.address_nominative
+                                else
+                                    p.card-text Burgerwille 1337
+                            ul.list-group.list-group-flush
+                                li.list-group-item.choose_item
+                                    a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Choose
+                                    if res.hours
+                                        button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
+                                            if res.is_open
+                                                i.open-icon.fa.fa-circle.text-success
+                                                | Open
+                                            else
+                                                i.open-icon.fa.fa-circle.text-danger
+                                                | Closed
+
+                                    else
+                                        button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
+                                            if res.is_open
+                                                i.open-icon.fa.fa-circle.text-success
+                                                | Open
+                                            else
+                                                i.open-icon.fa.fa-circle.text-danger
+                                                | Closed
+
+    //.card
+        .card-header Some of our options
             span.pull-right
                 i.fa.fa-tag.fa-lg
         .card-block
@@ -10,7 +56,7 @@ block indexcontent
                 for res in results.first
                     .card.index-card
                         if(res.brand_banner_path)
-                            img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                            img(src=res.brand_banner_path).card-img-top.img-fluid.place-banner-img
                         else if res.coordinates
                             if(res.brand_banner_path)
                                 img(src=res.brand_banner_path).card-img-top.img-fluids
@@ -21,7 +67,7 @@ block indexcontent
                         else
                             img(src="/images/bannandi.png").card-img-top.img-fluid
                         .card-block
-                            h5.card-title= res.name
+                            p.card-text= res.name
                             p.card-text= res.address_nominative
                         ul.list-group.list-group-flush
                             li.list-group-item.choose_item
@@ -43,7 +89,7 @@ block indexcontent
                                         else
                                             i.open-icon.fa.fa-circle.text-danger
                                             | Closed
-    if !user
+    //if !user
         .row
             .card(style='background-color:#f7f7f9; margin: 20px 0; padding: 20px 0')
                 .card-block
@@ -59,7 +105,7 @@ block indexcontent
                                             h2 Why not try Pikk?
                                 a.btn.btn-primary.btn-lg.btn-block.login-btn.btn-outline-primary(href='/auth/google') Click here to experience Pikk!
 
-    if events
+    //if events
         .card.card-inverse.card-primary.text-xs-center
             .card-block
                 blockquote.card-blockquote
@@ -77,7 +123,7 @@ block indexcontent
                             ul.list-group.list-group-flush
                                 li.list-group-item=event.description
 
-    .card
+    //.card
         .card-header You can't say no to a pizza
             span.pull-right
                 i.fa.fa-tag.fa-lg
@@ -120,7 +166,7 @@ block indexcontent
                                             i.open-icon.fa.fa-circle.text-danger
                                             | Closed
 
-    if groups
+    //if groups
         .card.card-inverse.card-primary.text-xs-center
             .card-block
                 blockquote.card-blockquote
@@ -138,7 +184,7 @@ block indexcontent
                             ul.list-group.list-group-flush
                                 li.list-group-item=group.description
 
-    .card
+    //.card
         .card-header What about some sushi?
             span.pull-right
                 i.fa.fa-tag.fa-lg

@@ -14,11 +14,11 @@ block content
                         i.fa.fa-at.pikk-card-icon
                     li.list-group-item
                         if(owner.google.id == user.google.id)
-                            a(href="/g/creategroup").btn.btn-primary Create a new group
+                            a(href="/g/creategroup").btn.btn-primary.pikk-button Create a new group
                         else
                             form(method="get", action="/g", id='invite-to-group')
                                 input(type='hidden', value=owner.google.id name='invited' id='invited')
-                                button.btn.btn-primary Invite to a group
+                                button.btn.btn-primary.pikk-button Invite to a group
     .row
         .col-lg-6.col-sm-12
             if(owner.google.id==user.google.id)

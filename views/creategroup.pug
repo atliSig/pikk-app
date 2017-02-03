@@ -24,7 +24,7 @@ block content
                                 .col-xs-10.col-sm-11
                                     input.form-control(type=email, name="members" id="members")
                                 .col-xs-2.col-sm-1
-                                    button.btn.btn-primary.pull-right(type="button", id='add-member')
+                                    button.btn.btn-primary.pull-right.pikk-button(type="button", id='add-member')
                                         i.fa.fa-check
                         .form-group#insert-wrapper
                             p Added members
@@ -32,7 +32,7 @@ block content
                                 .card-block#insert-area
 
                         .form-group
-                            button.btn.btn-primary.pull-right(type=submit id='create-group') Create
+                            button.btn.btn-primary.pull-right.pikk-button(type=submit id='create-group') Create
 
                         button.btn.btn-outline-warning.btn-space(type=button)#hide-it
                             i.fa.fa-close.side-icon
@@ -46,9 +46,9 @@ block content
                                     each friend in friends
                                         if friend.google.name
                                             if friend.google.name.length !=0
-                                                button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.google.name
+                                                button.btn.btn-outline-primary.btn-space.current-friend.pikk-button-outline(type=button, value=friend.email)=friend.google.name
                                         else
-                                            button.btn.btn-outline-primary.btn-space.current-friend(type=button, value=friend.email)=friend.first_name
+                                            button.btn.btn-outline-primary.btn-space.current-friend.pikk-button-outline(type=button, value=friend.email)=friend.first_name
 
 block scripts
     script(src="../javascript/addMembers.js")

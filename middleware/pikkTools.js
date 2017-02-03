@@ -115,7 +115,8 @@ exports.filterByDistance=function(req,res,next){
 };
 
 exports.getIndexFeed=function(req,res,next){
-    req.query=['burger','pizza','sushi'];
+    req.query=['restaurant'];
+    //req.query=['burger','pizza','sushi'];
     req.feed_result = {};
     next();
 };
