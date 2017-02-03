@@ -51,8 +51,8 @@ function getIndex(req, res, next) {
 //------------ROUTING FOR SEARCH------------//
 router.get('/search',
     // authTools.isLoggedIn,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
     apiTools.doSearch,
     getSearch
 );
@@ -70,8 +70,8 @@ function getSearch(req, res, next) {
 //------------ROUTING FOR PLACE------------//
 router.get('/place/:placeId',
     // authTools.isLoggedIn,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
     apiTools.showPlace,
     getPlace
 );

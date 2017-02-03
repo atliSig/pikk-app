@@ -70,21 +70,21 @@ block content
                 ul.list-group.list-group-flush.scrollable-list
                     - var now = new Date()
                     - var now_year = now.getFullYear()
-                    - var now_month = now.getMonth()
+                    - var now_month = now.getMonth()+1
                     - var now_date = now.getDate()
                     if events.length!=0
                         each event in events
                             - var time_of_event = new Date(event.toe);
                             - var date = time_of_event.getDate()
-                            - var month = time_of_event.getMonth()
+                            - var month = time_of_event.getMonth()+1
                             - var year = time_of_event.getFullYear()
                             li.list-group-item
                                 a.friend-link(href="/e/" + event.id)= event.title
                                 p= date + '/' + month + '/' + year
                                 p= event.description
-                                if(Date(year, month, date) == Date(now_year, now_month, now_date))
+                                if(year == now_year && month == now_month && date == now_date)
                                     p This event is happening today!
-                                else if(Date(year, month, date) < Date(now_year, now_month, now_date))
+                                else if(now_year > year || (now_year == year && now_month > month) || (now_year == year && now_month == month && now_date > date))
                                     p This event is over
 
                     else
