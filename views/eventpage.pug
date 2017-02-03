@@ -25,32 +25,32 @@ block content
                                             | You can either choose 3 keywords from the list below:
 
                                         .form-group
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=0) Chicken
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=1) Steak
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=2) Seafood
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=3) Pizza
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=4) Hamburger
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=5) Sushi
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=6) Salad
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=7) Kebab
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=8) Thai
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=9) Asian
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=10) Indian
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=11) Mexican
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=12) Italian
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=13) Icelandic
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=14) Lunch
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=15) Vegan
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=16) Healthy
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=17) Pastries
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=18) Bistro style
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=19) Coffee
-                                            button.btn.btn-outline-primary.btn-space.choice-button(value=20, disabled=false) Alchohol
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=0) Chicken
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=1) Steak
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=2) Seafood
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=3) Pizza
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=4) Hamburger
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=5) Sushi
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=6) Salad
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=7) Kebab
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=8) Thai
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=9) Asian
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=10) Indian
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=11) Mexican
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=12) Italian
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=13) Icelandic
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=14) Lunch
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=15) Vegan
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=16) Healthy
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=17) Pastries
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=18) Bistro style
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=19) Coffee
+                                            button.btn.btn-outline-primary.btn-space.choice-button.pikk-button-outline(value=20, disabled=false) Alchohol
                                         .form-group
                                             .card#insert-wrapper
                                                 .card-block#insert-area
                                             form#start-pikk-form(method="post", action="/e/" + event.id + '/choose')
-                                                button.btn.btn-primary.pull-right(type='submit' id="start-pikk-button") Pikk by Tags
+                                                button.btn.btn-primary.pull-right.pikk-button(type='submit' id="start-pikk-button") Pikk by Tags
                                                 //button.btn.btn-seconaary(type='button' id='location-button') Near Me
                             .col-md-4
                                 .card
@@ -63,7 +63,7 @@ block content
                                                     .form-group
                                                         input.form-control(type=text, name="query", id="query", placeholder='What are you hungry for?' required="required")
                                                     .form-group
-                                                        button.btn.btn-primary.pull-right(type="submit") Pikk by Search
+                                                        button.btn.btn-primary.pull-right.pikk-button(type="submit") Pikk by Search
 
     if !eventReady
         .row
