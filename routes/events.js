@@ -42,6 +42,8 @@ router.use('/:eventid',
     eventTools.checkIfEventReady,
     apiTools.pickAPlace,
     apiTools.queryByIds,
+    pikkTools.getIndexFeed,
+    apiTools.firstFeedConnector,
     showEventPage);
 
 router.get('/',
@@ -178,7 +180,8 @@ function showEventPage(req, res, next){
                     results         : req.search_result,
                     decidedMembers  : req.decidedMembers,
                     hasSelected     : req.hasSelected,
-                    selectedPlace   : selectedPlace
+                    selectedPlace   : selectedPlace,
+                    feed_results: req.feed_result
                 });
             }, function () {
                 next();

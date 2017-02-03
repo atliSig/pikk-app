@@ -7,47 +7,56 @@ block content
             br
             i.fa.fa-frown-o.fa-3x
     if results.length < 2
-        .col-lg-8.offset-lg-2
+        .row
             each res in results
-                each res in results
+                .col-lg-3
                     .card.animate-bottom
-                        if res.coordinates
-                            if(res.brand_banner_path)
-                                img(src=res.brand_banner_path).card-im-top.img-fluid
-                            else if(res.coordinates.ja360_image_url)
-                                img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
-                                if(res.logo_url)
-                                    img(src="http://media.ja.is/" + res.logo_url).img-logo
+                        .img-wrapper
+                            if res.coordinates
+                                if(res.brand_banner_path)
+                                    img(src=res.brand_banner_path).card-im-top.img-fluid
+                                else if(res.coordinates.ja360_image_url)
+                                    img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                                    if(res.logo_url)
+                                        img(src="http://media.ja.is/" + res.logo_url).img-logo
                         .card-block
                             h4.card-title= res.name
-                            p.card-text= res.address_nominative
+                            if res.address_nominative
+                                p.card-text= res.address_nominative
+                            else
+                                p.card-text Burgerwille 1337
+                        ul.list-group.list-group-flush
+                            li.list-group-item.choose_item
+                                form(method='post', action='/e/' + event_id)
+                                    input.form-control(type='hidden' value=res.common_id, name='picked_place')
+                                    .row
+                                        .col-md-12
+                                            button(type='submit').pull-right.btn.btn-secondary.pikk-button.btn-success Pikk!
+    else
+        .row
+            each res in results
+                .col-lg-3
+                    .card.animate-bottom
+                        .img-wrapper
+                            if(res.brand_banner_path)
+                                img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                            else if res.coordinates
+                                if(res.brand_banner_path)
+                                    img(src=res.brand_banner_path).card-im-top.img-fluid
+                                else if(res.coordinates.ja360_image_url)
+                                    img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                                    if(res.logo_url)
+                                        img(src="http://media.ja.is/" + res.logo_url).img-logo
+                        .card-block
+                            h4.card-title= res.name
+                            if res.address_nominative
+                                p.card-text= res.address_nominative
+                            else
+                                p.card-text Burgerwille 1337
                         ul.list-group.list-group-flush
                             li.list-group-item.choose_item
                                 .row
                                     .col-md-12
-                                        form(method='post', action='/e/' + event_id)
+                                        form(method='post', action='/e/'+event_id)
                                             input.form-control(type='hidden' value=res.common_id, name='picked_place')
-                                            button(type='submit').btn.btn-secondary.btn-lg.btn-block.btn-success Pick!
-    else
-        .card-columns
-            each res in results
-                .card.animate-bottom
-                    if(res.brand_banner_path)
-                        img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
-                    else if res.coordinates
-                        if(res.brand_banner_path)
-                            img(src=res.brand_banner_path).card-im-top.img-fluid
-                        else if(res.coordinates.ja360_image_url)
-                            img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
-                            if(res.logo_url)
-                                img(src="http://media.ja.is/" + res.logo_url).img-logo
-                    .card-block
-                        h4.card-title= res.name
-                        p.card-text= res.address_nominative
-                    ul.list-group.list-group-flush
-                        li.list-group-item.choose_item
-                            .row
-                                .col-md-12
-                                    form(method='post', action='/e/'+event_id)
-                                        input.form-control(type='hidden' value=res.common_id, name='picked_place')
-                                        button(type='submit').btn.btn-secondary.btn-lg.btn-block.btn-success Pick!
+                                            button(type='submit').pull-right.btn.btn-secondary.pikk-button.btn-success Pikk!

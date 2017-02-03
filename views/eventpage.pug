@@ -5,16 +5,51 @@ block content
         .col-lg-12
             .card
                 .card-block
-                    h3= event.title
-                    p= event.description
+                    .row
+                        .col-lg-6
+                            h3= event.title
+                            p= event.description
 
-                    a(href='/g/' + event.groupId) Back to group
+                            a.friend-link(href='/g/' + event.groupId) Back to group
+
+    if !eventReady
+        .row
+            .col-lg-6
+                if decidedMembers != 0
+                    .card
+                        .card-block
+                            h4.card-title The have pikked
+                            p.card-text The following members of your group have made their Pikk.
+                        ul.list-group.list-group-flush
+                            each res in decidedMembers
+                                li.list-group-item
+                                    .row
+                                        .col-lg-8
+                                            a.friend-link(href='/u/' + res.google.id)= res.first_name
+                                        .col-lg-4
+                                            img(style='height:24px; width: 24px; float:right;' src=res.img_url)
+                else
+                    .card
+                        .card-block
+                            p Nobody has picked a place
+            .col-lg-6
+                .card
+                    .card-block
+                        h4.card-title They have not pikked
+                        p.card-text The following members of your group have not made their Pikk. Why don't you give them a nudge?
+                    ul.list-group.list-group-flush
+                        each res in unDecidedMembers
+                            li.list-group-item
+                                .row
+                                    .col-lg-8
+                                        a.friend-link(href='/u/' + res.google.id)= res.first_name
+                                    .col-lg-4
+                                        img(style='height:24px; width: 24px; float:right;' src=res.img_url)
 
     if !hasSelected
         .row
             .col-lg-12
                 .card
-                    .card-header Pick a Place
                     .card-block
                         h4.card-title You have yet to make your Pikk!
                         .row
@@ -64,37 +99,55 @@ block content
                                                         input.form-control(type=text, name="query", id="query", placeholder='What are you hungry for?' required="required")
                                                     .form-group
                                                         button.btn.btn-primary.pull-right.pikk-button(type="submit") Pikk by Search
-
-    if !eventReady
         .row
-            .col-lg-6
-                if unDecidedMembers != 0
-                    .card
-                        .card-header They have already picked
-                        .card-block.scrollable-list
-                            .row
-                                each res in decidedMembers
-                                    .col-lg-4
-                                        .card.text-center
-                                            img.card-img-top.img-fluid(src=res.img_url)
-                                            .card-block.text-center
-                                                p.text-center=res.first_name
-                else
-                    .card
-                        .card-block
-                            p Nobody has picked a place
-            .col-lg-6
+            .col-lg-12
                 .card
-                    .card-header They have note picked
-                    .card-block.scrollable-list
-                        if unDecidedMembers!=0
-                            .row
-                                each res in unDecidedMembers
-                                    .col-lg-4
-                                        .card.text-center
-                                            img.card-img-top.img-fluid(src=res.img_url)
-                                            .card-block.text-center
-                                                p.text-center=res.first_name
+                    .card-block
+                        h4.card-title You can also choose one of theese
+                        .row
+                            each res, index in feed_results.first
+                                .col-lg-3
+                                    .card.index-card
+                                        .img-wrapper
+                                            if(res.brand_banner_path)
+                                                img(src=res.brand_banner_path).card-img-top.img-fluid.place-banner-img
+                                            else if res.coordinates
+                                                if(res.brand_banner_path)
+                                                    img(src=res.brand_banner_path).card-img-top.img-fluids
+                                                else if(res.coordinates.ja360_image_url)
+                                                    img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                                                    if(res.logo_url && !res.brand_banner_path && res.coordinates.ja360_image_url)
+                                                        img(src="http://media.ja.is/" + res.logo_url).img-logo
+                                            else
+                                                img(src="/images/bannandi.png").card-img-top.img-fluid
+                                        .card-block
+                                            p.card-text= res.name
+                                            if res.address_nominative
+                                                p.card-text= res.address_nominative
+                                            else
+                                                p.card-text Burgerwille 1337
+                                        ul.list-group.list-group-flush
+                                            li.list-group-item.choose_item
+                                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Choose
+                                                if res.hours
+                                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
+                                                        if res.is_open
+                                                            i.open-icon.fa.fa-circle.text-success
+                                                            | Open
+                                                        else
+                                                            i.open-icon.fa.fa-circle.text-danger
+                                                            | Closed
+
+                                                else
+                                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
+                                                        if res.is_open
+                                                            i.open-icon.fa.fa-circle.text-success
+                                                            | Open
+                                                        else
+                                                            i.open-icon.fa.fa-circle.text-danger
+                                                            | Closed
+
+
         if results
             .row
                 .col-lg-12
@@ -155,13 +208,14 @@ block content
                         h4.card-title=selectedPlace.name
 
     .row
-        if selectedPlace && selectedPlace.coordinates
-            .card
-                .card-block
-                    .map-wrapper
-                            #map(name=selectedPlace.name, lat=selectedPlace.coordinates.lat, lon= selectedPlace.coordinates.lon)
+        .col-lg-12
+            if selectedPlace && selectedPlace.coordinates
+                .card
+                    .card-block
+                        .map-wrapper
+                                #map(name=selectedPlace.name, lat=selectedPlace.coordinates.lat, lon= selectedPlace.coordinates.lon)
 
-    button.btn.btn-outline-primary.btn-space(type=button)#hide-it
+    button.btn.btn-outline-primary.pikk-button-outline.btn-space(type=button)#hide-it
 
 block scripts
     script(src="../javascript/selection.js")
