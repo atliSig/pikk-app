@@ -53,6 +53,7 @@ router.get('/search',
     // authTools.isLoggedIn,
     groupTools.getGroupsByUser,
     eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
     apiTools.doSearch,
     getSearch
 );
@@ -72,6 +73,7 @@ router.get('/place/:placeId',
     // authTools.isLoggedIn,
     groupTools.getGroupsByUser,
     eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
     apiTools.showPlace,
     getPlace
 );
