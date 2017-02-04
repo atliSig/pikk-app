@@ -18,7 +18,7 @@ block content
                 if decidedMembers != 0
                     .card
                         .card-block
-                            h4.card-title The have pikked
+                            h4.card-title They have picked
                             p.card-text The following members of your group have made their Pikk.
                         ul.list-group.list-group-flush
                             each res in decidedMembers
@@ -35,7 +35,7 @@ block content
             .col-lg-6
                 .card
                     .card-block
-                        h4.card-title They have not pikked
+                        h4.card-title They have not picked
                         p.card-text The following members of your group have not made their Pikk. Why don't you give them a nudge?
                     ul.list-group.list-group-flush
                         each res in unDecidedMembers
@@ -194,7 +194,8 @@ block content
         .row
             .col-lg-12
                 .card
-                    .card-header Your group have picked a place!
+                    if eventReady
+                        .card-header Your group have picked a place!
                     if(selectedPlace.brand_banner_path)
                         img(src=selectedPlace.brand_banner_path).card-im-top.img-fluid.place-banner-img
                     else if selectedPlace.coordinates
