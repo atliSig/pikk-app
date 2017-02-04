@@ -116,8 +116,9 @@ function getStart(req, res, next) {
 //------------ROUTING FOR MAP------------//
 router.get('/map/*',
     // authTools.isLoggedIn,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
+    groupTools.getGroupsByUser,
+    eventTools.getEventsByUser,
+    notificationTools.getNotificationsByUser,
     showMap
 );
 

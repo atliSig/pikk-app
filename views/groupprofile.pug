@@ -32,7 +32,8 @@ block content
                                                         button.btn.btn-primary.pull-right.pikk-button(type="submit") Add Member
                         .col-md-6
                             .card
-                                .card-header='Create a new event for ' + group.name
+                                .card-block
+                                    h4.card-text='Create a new event for ' + group.name
                                 .card-block
                                     form(method="POST", action="/e/createevent")
                                         fieldset.form-group
@@ -58,7 +59,10 @@ block content
     .row
         .col-lg-6.col-sm-12
             .card
-                .card-header Members
+                //.card-header Members
+                .card-block
+                    h4.card-text Members
+
                 ul.list-group.list-group-flush.scrollable-list
                     each member in members
                         li.list-group-item
@@ -66,7 +70,8 @@ block content
                             p=member.email
         .col-lg-6.col-sm-12
             .card
-                .card-header Events
+                .card-block
+                    h4.card-text Events
                 ul.list-group.list-group-flush.scrollable-list
                     - var now = new Date()
                     - var now_year = now.getFullYear()
