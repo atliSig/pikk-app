@@ -150,52 +150,49 @@ block content
 
         if results
             .row
-                .col-lg-12
-                    .card-columns
-                        each res in results
-                            .card
+                each res in results
+                    .col-lg-6
+                        .card
+                            if(res.brand_banner_path)
+                                img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
+                            else if res.coordinates
                                 if(res.brand_banner_path)
-                                    img(src=res.brand_banner_path).card-im-top.img-fluid.place-banner-img
-                                else if res.coordinates
-                                    if(res.brand_banner_path)
-                                        img(src=res.brand_banner_path).card-im-top.img-fluid
-                                    else if(res.coordinates.ja360_image_url)
-                                        img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
-                                        if(res.logo_url)
-                                            img(src="http://media.ja.is/" + res.logo_url).img-logo
-                                .card-block
-                                    h4.card-title= res.name
-                                    p.card-text= res.address_nominative
-                                ul.list-group.list-group-flush
-                                    li.list-group-item.choose_item
-                                        .row
-                                            .col-md-12
-                                                a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Velja
-                                                if res.hours
-                                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
-                                                        if res.is_open
-                                                            i.open-icon.fa.fa-circle.text-success
-                                                            | Opið
-                                                        else
-                                                            i.open-icon.fa.fa-circle.text-danger
-                                                            | Lokað
+                                    img(src=res.brand_banner_path).card-im-top.img-fluid
+                                else if(res.coordinates.ja360_image_url)
+                                    img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
+                                    if(res.logo_url)
+                                        img(src="http://media.ja.is/" + res.logo_url).img-logo
+                            .card-block
+                                h4.card-title= res.name
+                                p.card-text= res.address_nominative
+                            ul.list-group.list-group-flush
+                                li.list-group-item.choose_item
+                                    .row
+                                        .col-md-12
+                                            a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Velja
+                                            if res.hours
+                                                button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
+                                                    if res.is_open
+                                                        i.open-icon.fa.fa-circle.text-success
+                                                        | Opið
+                                                    else
+                                                        i.open-icon.fa.fa-circle.text-danger
+                                                        | Lokað
 
-                                                else
-                                                    button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='No info')
-                                                        if res.is_open
-                                                            i.open-icon.fa.fa-circle.text-success
-                                                            | Opið
-                                                        else
-                                                            i.open-icon.fa.fa-circle.text-danger
-                                                            | Lokað
+                                            else
+                                                button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='No info')
+                                                    if res.is_open
+                                                        i.open-icon.fa.fa-circle.text-success
+                                                        | Opið
+                                                    else
+                                                        i.open-icon.fa.fa-circle.text-danger
+                                                        | Lokað
 
 
     else
         .row
-            .col-lg-12
+            .col-lg-6
                 .card
-                    if eventReady
-                        .card-header Your group have picked a place!
                     if(selectedPlace.brand_banner_path)
                         img(src=selectedPlace.brand_banner_path).card-im-top.img-fluid.place-banner-img
                     else if selectedPlace.coordinates
@@ -207,14 +204,13 @@ block content
                                 img(src="http://media.ja.is/" + selectedPlace.logo_url).img-logo
                     .card-block
                         h4.card-title=selectedPlace.name
-
-    .row
-        .col-lg-12
-            if selectedPlace && selectedPlace.coordinates
-                .card
-                    .card-block
-                        .map-wrapper
+            .col-lg-6
+                if selectedPlace && selectedPlace.coordinates
+                    .card
+                        .card-block
+                            .map-wrapper
                                 #map(name=selectedPlace.name, lat=selectedPlace.coordinates.lat, lon= selectedPlace.coordinates.lon)
+
 
     button.btn.btn-outline-primary.pikk-button-outline.btn-space(type=button)#hide-it
 

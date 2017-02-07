@@ -3,7 +3,16 @@ extends layout
 block content
     .row
         .col-lg-12
-            if events
+            .card
+                .card-block
+                    .row
+                        .col-lg-8
+                            h4 Why don't you create a new event?
+                        .col-lg-4
+                            a(href='e/createevent').btn.btn-primary.btn-block.pikk-button Create new event
+    .row
+        .col-lg-12
+            if events.length!==0
                 if events.length < 2
                     each event in events
                         .card
@@ -24,4 +33,6 @@ block content
                                         p.text-muted=event.description
                                     a(href="/e/" + event.id).btn.btn-primary.pikk-button View Event
             else
-                h2 No groups to display
+                .card
+                    .card-block
+                        h4.card-title No events to display
