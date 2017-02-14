@@ -128,7 +128,6 @@ function showMap(req, res, next) {
     query = (querystring.parse(query));
     res.render('map', {
         query: query,
-
         user: req.session.user,
         groups: req.user_groups,
         events: req.user_events,
