@@ -61,11 +61,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 //added for npm component reference from pug
 app.use(require('less-middleware')(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
-
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 //Initialize database associations
 db.init();
-
 
 //ADD ROUTE HANDLER HERE//
 app.use('/', index);
