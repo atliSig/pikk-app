@@ -74,6 +74,7 @@ app.use('/', index);
 app.use('/auth', auth);
 app.use('/u',
     authTools.isLoggedIn,
+
     groupTools.getGroupsByUser,
     eventTools.getEventsByUser,
     notificationTools.getNotificationsByUser,

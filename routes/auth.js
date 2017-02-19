@@ -7,15 +7,16 @@ var passport = require('passport');
 
 
 //--------ROUTING FOR GOOGLE AUTH--------//
-router.get('/google', passport.authenticate('google',{ scope: [' openid email profile']}));
+// router.get('/google', passport.authenticate('google',{ scope: [' openid email profile']}));
+router.get('/google', passport.authenticate('google',{ scope: ['openid email profile']}));
 
 router.get('/google/callback',
     passport.authenticate('google',{
         //just some route to see success
-        session:true,
+        session: true,
         failureRedirect : '/login'
     }),
-    function(req,res){
+    function(req,res,next){
         req.session.user = req.user;
         res.redirect('/');
 });

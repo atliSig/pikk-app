@@ -23,8 +23,6 @@ router.get('/promopage',function(req,res,next){
 router.get('/',
     pikkTools.getIndexFeed,
     apiTools.firstFeedConnector,
-    //apiTools.secondFeedConnector,
-    //apiTools.thirdFeedConnector,
     groupTools.getGroupsByUser,
     eventTools.getEventsByUser,
     notificationTools.getNotificationsByUser,
@@ -38,6 +36,7 @@ router.post('/',
 
 function getIndex(req, res, next) {
 
+    console.log(req.user);
     res.render('index', {
         results: req.feed_result,
         user: req.session.user,
@@ -91,28 +90,6 @@ function getPlace(req, res, next) {
 
 }
 
-
-//------------ROUTING FOR START------------//
-router.get('/start',
-    // authTools.isLoggedIn,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    pikkTools.createForm,
-    getStart
-);
-
-function getStart(req, res, next) {
-    res.render('start', {
-        title: 'Pikk',
-        form: req.form,
-
-        user: req.session.user,
-        groups: req.user_groups,
-        events: req.user_events,
-        notifications: req.notifications
-    });
-}
-
 //------------ROUTING FOR MAP------------//
 router.get('/map/*',
     // authTools.isLoggedIn,
@@ -137,8 +114,16 @@ function showMap(req, res, next) {
 
 //------------ROUTING FOR LOGOUT------------//
 router.get('/logout', function (req, res) {
+    req.logout();
+    var home = req.headers.host;
+    if(!home.startsWith('http://'))
+        home = 'http://'
+    var logg =
+    "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+home;
+
     req.session.destroy(function (err) {
-        res.redirect('/');
+        res.redirect(logg);
+        // res.redirect('/');
     });
 });
 

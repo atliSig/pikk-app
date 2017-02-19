@@ -17,14 +17,20 @@ module.exports = function(passport){
     //Serialize user for session, we currently use
     //session.destroy though
     passport.serializeUser(function(user,done){
+        console.log('Serializing user');
         done(null, user);
     });
 
     //Deserialize user for session
-    passport.deserializeUser(function(id,done){
-        User.findOne({where: {'google.id':id}}).then(function(user){
-            done(null,user);
-        },function(err){done(err);});
+    // passport.deserializeUser(function(id,done){
+    //     User.findOne({where: {'google.id':id}}).then(function(user){
+    //         done(null,user);
+    //     },function(err){done(err);});
+    // });
+
+    passport.deserializeUser(function(user, cb) {
+        var google_user = user['google'];
+        cb(null, user);
     });
 
     //Google Oauth2 strategy
