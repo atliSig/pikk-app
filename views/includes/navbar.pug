@@ -1,20 +1,72 @@
-nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
-    button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+nav.navbar.navbar-toggleable-md.navbar-light.bg-faded(style="background: #fff; border-bottom: 1px solid rgba(0,0,0,.125);")
+    button.navbar-toggler.navbar-toggler-right.pink-highlight(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
-    a.navbar-brand(href='#') Navbar
+    a.navbar-brand(href='#')
+        img.d-inline-block.align-top(src='/images/pikk-icon.gif', width='30', height='30', alt='')
     #navbarSupportedContent.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
-            li.nav-item.active
-                a.nav-link(href='#')
-                    | Home
-                    span.sr-only (current)
-            li.nav-item
-                a.nav-link(href='#') Link
-            li.nav-item
-                a.nav-link.disabled(href='#') Disabled
-        form.form-inline.my-2.my-lg-0
-            input.form-control.mr-sm-2(type='text', placeholder='Search')
-            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+            if(!user)
+                li.nav-item
+                    a.nav-link.pink-highlight(href="/auth/google")
+                        i.fa.fa-user.nav-icon(aria-hidden='true')
+                        | Login
+            else
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle.pink-highlight(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        i.fa.fa-group.nav-icon(aria-hidden='true')
+                        |Groups
+                    .dropdown-menu.scrollable-list
+                        if groups.length > 0
+                            a.dropdown-item.pink-highlight(href='/g') My groups
+                                    .dropdown-divider
+                                    for group in groups
+                                        a.dropdown-item(href='/g/' + group.id)=group.name
+                        else
+                            a.dropdown-item.pink-highlight(href='/g') Create a group
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle.pink-highlight(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        i.fa.fa-envelope.nav-icon(aria-hidden='true')
+                        | Events
+                    .dropdown-menu.scrollable-list
+                        a.dropdown-item.pink-highlight(href='/e') My Events
+                        a.dropdown-item.pink-highlight(href='/e/createevent') Create event
+                        if events
+                            if events.length > 0
+                                .dropdown-divider
+                                for event in events
+                                    a.dropdown-item(href='/e/' + event.id)=event.title
+        if(user)
+            ul.navbar-nav.my-2.my-lg-0
+                li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle.profile-dropper(data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        img.d-inline-block.align-top.profile-icon(src=user.img_url,width='30px', height='30px', alt='')
+                    .dropdown-menu.dropdown-menu-right
+                        a.dropdown-item.pink-highlight(href='/u') My profile
+                        .dropdown-divider
+                        a.dropdown-item.pink-highlight(href='/logout') Logout
+                li.nav-item.dropdown.float-lg-right.button-secondary
+                    a.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        if notifications
+                            if notifications.length > 0
+                                .icon-wrapper.fa-wrapper.notification-alert.bell-icon(style='height:30px; width:30px')
+                                    .fa.fa-bell.pikk-icon.notification-alert-icon(aria-hidden='true')
+                            else
+                                .icon-wrapper.fa-wrapper.bell-icon(style='height:30px; width:30px')
+                                    .fa.fa-bell.pikk-icon(aria-hidden='true')
+                    .dropdown-menu.dropdown-menu-right
+                        if notifications
+                            if notifications.length > 0
+                                for notification in notifications
+                                    form(method="post", action="/")
+                                        input(type="hidden", name='notifyurl',value=notification.url)
+                                        input(type="hidden", name='notifyid', value=notification.id)
+                                        button.dropdown-item(type="submit")=notification.content
+                            else
+                                a.dropdown-item(href='#' style='color:#ed1e79;') No new notifications
+        form.form-inline.my-2.my-lg-0(method='get' action='/search')
+            input.form-control.mr-sm-2(name='query', type='text', placeholder='Search')
+            button.btn.btn-outline-primary.pikk-button-outline.my-2.my-sm-0(type='submit')
+                i.fa.fa-search(aria-hidden='true')
 
 
 //nav.navbar.navbar-light.navbar-fixed-top(style="background: #fff; border-bottom: 1px solid rgba(0,0,0,.125);")
@@ -24,14 +76,10 @@ nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
                 a.nav-link(href='/')
                     .icon-wrapper
                         img.d-inline-block.align-top.pikk-icon(src='/images/pikk-icon.gif', width='32', height='32', alt='')
+
+
+
             if(user)
-                li.nav-item.dropdown.float-lg-right.sub-icon
-                    a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                        img.d-inline-block.align-top.profile-icon(src=user.img_url,width='28', height='28', alt='')
-                    .dropdown-menu.dropdown-menu-right
-                        a.dropdown-item(href='/u' style='color:#ed1e79;') My profile
-                        .dropdown-divider
-                        a.dropdown-item(href='/logout' style='color:#ed1e79;') Logout
                 li.nav-item.dropdown.float-lg-right.sub-icon.button-secondary
                     a.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                         if notifications

@@ -6,45 +6,6 @@ block indexcontent
         .card-block
             .row
                 each res, index in results.first
-                    .col-lg-3
-                        .card.index-card
-                            .img-wrapper
-                                if(res.brand_banner_path)
-                                    img(src=res.brand_banner_path).card-img-top.img-fluid.place-banner-img
-                                else if res.coordinates
-                                    if(res.brand_banner_path)
-                                        img(src=res.brand_banner_path).card-img-top.img-fluids
-                                    else if(res.coordinates.ja360_image_url)
-                                        img(src= res.coordinates.ja360_image_url).card-img-top.img-fluid
-                                        if(res.logo_url && !res.brand_banner_path && res.coordinates.ja360_image_url)
-                                            img(src="http://media.ja.is/" + res.logo_url).img-logo
-                                else
-                                    img(src="/images/bannandi.png").card-img-top.img-fluid
-                            .card-block
-                                p.card-text= res.name
-                                if res.address_nominative
-                                    p.card-text= res.address_nominative
-                                else
-                                    p.card-text Burgerwille 1337
-                            ul.list-group.list-group-flush
-                                li.list-group-item.choose_item
-                                    a(href='../place/' + res.phonebook_id_number).btn.btn-secondary Choose
-                                    if res.hours
-                                        button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content=res.hours)
-                                            if res.is_open
-                                                i.open-icon.fa.fa-circle.text-success
-                                                | Open
-                                            else
-                                                i.open-icon.fa.fa-circle.text-danger
-                                                | Closed
-
-                                    else
-                                        button.btn.btn-secondary.pull-right(data-toggle="popover", data-trigger="focus",data-content='no info')
-                                            if res.is_open
-                                                i.open-icon.fa.fa-circle.text-success
-                                                | Open
-                                            else
-                                                i.open-icon.fa.fa-circle.text-danger
-                                                | Closed
+                    include includes/place-card.pug
 block scripts
     script(src="/javascript/popover.js")

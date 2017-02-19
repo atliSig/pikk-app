@@ -6,6 +6,10 @@ html,body{
   height: 100%;
 }
 
+.pink-highlight{
+  color:#ed1e79 !important;
+}
+
 *{
   //font-family: 'Montserrat', sans-serif;
 }
@@ -145,9 +149,18 @@ main {
   }
 }
 
+.profile-dropper{
+  margin-right: -15px;
+}
+
 .fa-wrapper.bell-icon{
   background-color:#ed1e79;
   border:none;
+}
+
+.pikk-input{
+  border:1px solid #ed1e79;
+  color: #ed1e79;
 }
 
 .notification-alert-icon:before{
@@ -266,11 +279,24 @@ button.dropdown-item:hover {
 
 .pikk-button-outline:hover,
 .pikk-button-outline:active,
-.pikk-button-outline:focus
+.pikk-button-outline:focus,
 .pikk-button-outline:disabled{
   background-color: #ed1e79;
   color: #fff;
   border:1px solid #ed1e79;
+}
+
+.pikk-button-outline:hover i,
+.pikk-button-outline:active i,
+.pikk-button-outline:focus i,
+.pikk-button-outline:disabled i{
+  background-color: #ed1e79;
+  color: #fff;
+  border:1px solid #ed1e79;
+}
+
+.nav-icon{
+  margin-right:5px;
 }
 
 
@@ -500,30 +526,8 @@ button.dropdown-item:hover {
   height:60px;
 }
 
-.inner-addon {
-  position: relative;
-}
-
-.inner-addon .input-icon {
-  position: absolute;
-  padding: 10px;
-  pointer-events: none;
-}
-
-.right-addon .input-icon { right: 0px;}
-
-.right-addon .icon-input { padding-right: 30px; }
-
-.icon-input{
-  width: 100% !important;
-}
-
 .main-icon{
   margin-right:20px;
-}
-
-.sub-icon{
-  margin-left:5px !important;
 }
 
 .sub-icon>.dropdown-toggle{
@@ -551,6 +555,13 @@ ul{
   margin-bottom: 15px;
 }
 
+.bumped-right{
+  margin-left:5px;
+}
+
+.bump-down{
+  margin-bottom:10px;
+}
 
 .group-list{
   margin-top: 15px;
