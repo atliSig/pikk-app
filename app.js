@@ -10,6 +10,7 @@ var passport = require('passport');
 var session = require('express-session');
 var db = require('./middleware/dbTools');
 db.init();
+require('./config/apiPassport')(passport);
 require('./config/passport')(passport);
 require('dotenv').config();
 
@@ -28,6 +29,7 @@ var pikkTools = require('./middleware/pikkTools');
 
 
 //REQUIRE ROUTES HERE//
+var api = require('./routes/api');
 var index  = require('./routes/index');
 var users = require('./routes/users');
 var groups = require('./routes/groups');
@@ -70,6 +72,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 db.init();
 
 //ADD ROUTE HANDLER HERE//
+app.use('/api',api);
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/u',

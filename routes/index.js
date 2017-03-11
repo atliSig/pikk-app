@@ -35,16 +35,19 @@ router.post('/',
 );
 
 function getIndex(req, res, next) {
-
     console.log(req.user);
-    res.render('index', {
-        results: req.feed_result,
-        user: req.session.user,
-        groups: req.user_groups,
-        events: req.user_events,
-        notifications: req.notifications,
-        isIndex:true
-    });
+    if (req.params.format) {
+        res.json("hallo");
+    }else{
+        res.render('index', {
+            results: req.feed_result,
+            user: req.session.user,
+            groups: req.user_groups,
+            events: req.user_events,
+            notifications: req.notifications,
+            isIndex:true
+        });
+    }
 }
 
 //------------ROUTING FOR SEARCH------------//
@@ -117,7 +120,7 @@ router.get('/logout', function (req, res) {
     req.logout();
     var home = req.headers.host;
     if(!home.startsWith('http://'))
-        home = 'http://'
+        home = 'http://'+home;
     var logg =
     "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+home;
 

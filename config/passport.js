@@ -1,8 +1,8 @@
 /**
  * Created by atli on 16.11.2016.
  */
-var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy= require('passport-google-oauth').OAuth2Strategy;
+
 require('dotenv').config();
 
 

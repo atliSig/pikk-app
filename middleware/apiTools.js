@@ -9,6 +9,7 @@ apiConnector = function(query,req,res,next){
     //query=encodeURIComponent(query);
     //the query string for the Ja API
     var q = "https://api.ja.is/search?q="+query+"&access_code="+process.env.SEARCH_KEY;
+    console.log(q);
     var str='';
     https.get(q,function(response) {
         response.on('data', function (chunk) {
@@ -16,6 +17,7 @@ apiConnector = function(query,req,res,next){
         });
         response.on('end', function () {
             req.search_result = JSON.parse(str).yellow.items;
+            console.log(req.search_result);
             next();
         });
     });

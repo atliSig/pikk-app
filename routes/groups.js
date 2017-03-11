@@ -20,6 +20,9 @@ module.exports = router;
 router.get('/',
     displayGroupPage);
 
+router.get('/groups',
+    sendGroupPage);
+
 router.get('/creategroup',
     showCreateGroup);
 
@@ -32,6 +35,7 @@ router.post('/creategroup',
 router.post('/:groupid/addMember',
     addMember,
     showGroupPage);
+
 
 
 //\\\\\\\\\\functions//////////\\
@@ -345,4 +349,20 @@ function createGroup(req, res, next){
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+}
+
+///REST FUNCTIONS
+
+//Displays groups which the user is a member of.
+function sendGroupPage(req, res, next){
+
+    console.log(req.user_events);
+    res.send({
+        title: 'My groups',
+        user            : req.session.user,
+        groups          : req.user_groups,
+        events          : req.user_events,
+        invited_user_id : req.query.invited,
+        notifications   : req.notifications
+    });
 }
