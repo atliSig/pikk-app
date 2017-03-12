@@ -14,11 +14,6 @@ var router = express.Router();
 var groups = require('./groups');
 
 
-router.get('/promopage',function(req,res,next){
-   res.render('promopage');
-});
-
-
 //------------ROUTING FOR INDEX------------//
 router.get('/',
     pikkTools.getIndexFeed,
@@ -39,7 +34,7 @@ function getIndex(req, res, next) {
     if (req.params.format) {
 
     }else{
-        res.render('index', {
+        res.send({
             results: req.feed_result,
             user: req.session.user,
             groups: req.user_groups,
@@ -122,7 +117,7 @@ router.get('/logout', function (req, res) {
     if(!home.startsWith('http://'))
         home = 'http://'+home;
     var logg =
-    "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+home;
+        "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+home;
 
     req.session.destroy(function (err) {
         res.redirect(logg);

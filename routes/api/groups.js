@@ -158,8 +158,8 @@ function showGroupPage(req, res, next) {
                         .getEvents()
                         .then(function(events){
 
-                            req.session.currentGroup=group;
-                            res.send({
+                            req.session.currentGroup = group;
+                            return res.send({
                                 group: group,
                                 errors: errors,
                                 user: user,
@@ -171,7 +171,9 @@ function showGroupPage(req, res, next) {
                         });
                 }
                 else{
-                    res.redirect('/');
+                    // res.redirect('/');
+                    // next();
+                    return res.send("kraba");
                 }
             }
         );

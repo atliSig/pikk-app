@@ -29,12 +29,12 @@ var pikkTools = require('./middleware/pikkTools');
 
 
 //REQUIRE ROUTES HERE//
-var api = require('./routes/api/api');
-var index  = require('./routes/index');
-var users = require('./routes/users');
-var groups = require('./routes/groups');
-var auth = require('./routes/auth');
-var events = require('./routes/events');
+var api     = require('./routes/api/api');
+var index   = require('./routes/index');
+var users   = require('./routes/users');
+var groups  = require('./routes/groups');
+var auth    = require('./routes/auth');
+var events  = require('./routes/events');
 
 var app = express();
 
@@ -129,7 +129,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.render("error",{
     message: err.message,
     error: {},
     user: req.session.user

@@ -23,7 +23,7 @@ router.get('/',
 
 function get_own_page(req, res, next){
     var user = req.session.user;
-    res.redirect('/u/'+user.google.id);
+    res.redirect('/api/u/'+user.google.id);
 }
 
 function get_user_profile(req, res, next){
@@ -36,7 +36,7 @@ function get_user_profile(req, res, next){
     })
         .then(function(owner){
             if(owner){
-                res.send({
+                res.end({
                     title           : owner.first_name,
                     owner           : owner,
 

@@ -31,8 +31,7 @@ var groups  = require('./groups');
 var auth    = require('./../auth');
 var events  = require('./events');
 function addDummyUser(req, res, next){
-    if(req.session.user) next();
-    req.session.user = require('./config/dummyUser.json');
+    req.session.user = require('../../config/dummyUser.json');
     next();
 }
 
@@ -64,9 +63,18 @@ router.use('/e',
     events);
 
 router.use(function(req, res, next) {
-    var err = new Error('API service Not Found');
+    var err = new Error('API Service Not Found');
     err.status = 404;
     next(err);
+});
+
+router.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.send({
+        message: err.message,
+        error: {},
+        user: req.session.user
+    });
 });
 
 
