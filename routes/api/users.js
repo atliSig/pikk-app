@@ -36,7 +36,7 @@ function get_user_profile(req, res, next){
     })
         .then(function(owner){
             if(owner){
-                res.end({
+                res.send({
                     title           : owner.first_name,
                     owner           : owner,
 

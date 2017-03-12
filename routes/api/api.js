@@ -25,7 +25,7 @@ var pikkTools = require('../../middleware/pikkTools');
 
 
 //Require routes here
-var index   = require('./../index');
+var index   = require('./index');
 var users   = require('./users');
 var groups  = require('./groups');
 var auth    = require('./../auth');
@@ -34,9 +34,9 @@ function addDummyUser(req, res, next){
     req.session.user = require('../../config/dummyUser.json');
     next();
 }
-
-// routes for android client
 // router.use('/', index);
+// routes for android client
+router.use('/', index);
 // router.use('/auth', auth);
 router.use('/u',
     // authTools.isLoggedIn,

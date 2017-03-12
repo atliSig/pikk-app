@@ -1,14 +1,14 @@
 var express = require('express');
-var apiTools = require('../middleware/apiTools');
-var validateTools = require('../middleware/validateTools');
-var pikkTools = require('../middleware/pikkTools');
-var authTools = require('../middleware/authTools');
-var notificationTools = require('../middleware/notificationTools');
+var apiTools = require('../../middleware/apiTools');
+var validateTools = require('../../middleware/validateTools');
+var pikkTools = require('../../middleware/pikkTools');
+var authTools = require('../../middleware/authTools');
+var notificationTools = require('../../middleware/notificationTools');
 var querystring = require('querystring');
 var session = require('session');
-var groupTools = require('../middleware/groupTools');
-var eventTools = require('../middleware/eventTools');
-var dbTools = require('../middleware/dbTools');
+var groupTools = require('../../middleware/groupTools');
+var eventTools = require('../../middleware/eventTools');
+var dbTools = require('../../middleware/dbTools');
 var passport = require('passport');
 var router = express.Router();
 var groups = require('./groups');
@@ -78,7 +78,7 @@ router.get('/place/:placeId',
 function getPlace(req, res, next) {
     var rating_string = (req.search_result[0].cluster_rating_mean).toString();
     var user = req.session.user;
-    res.render('place', {
+    res.send({
         user: user,
         rating_string: rating_string,
         place: req.search_result[0],
@@ -101,7 +101,7 @@ function showMap(req, res, next) {
     var query = querystring.stringify(req.query);
     query = querystring.unescape(query);
     query = (querystring.parse(query));
-    res.render('map', {
+    res.send({
         query: query,
         user: req.session.user,
         groups: req.user_groups,
