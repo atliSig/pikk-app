@@ -1,10 +1,10 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var compression = require('compression');
+var express = require('express')
+    path = require('path')
+    favicon = require('serve-favicon')
+    logger = require('morgan')
+    cookieParser = require('cookie-parser')
+    bodyParser = require('body-parser')
+    compression = require('compression');
 
 var passport = require('passport');
 var session = require('express-session');
@@ -29,7 +29,7 @@ var pikkTools = require('./middleware/pikkTools');
 
 
 //REQUIRE ROUTES HERE//
-var api = require('./routes/api');
+var api = require('./routes/api/api');
 var index  = require('./routes/index');
 var users = require('./routes/users');
 var groups = require('./routes/groups');
@@ -71,8 +71,13 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 //Initialize database associations
 db.init();
 
+function addDummyUser(req, res, next){
+  req.session.user = require('./config/dummyUser.json');
+  next();
+}
+
 //ADD ROUTE HANDLER HERE//
-app.use('/api',api);
+app.use('/api', addDummyUser, api);
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/u',

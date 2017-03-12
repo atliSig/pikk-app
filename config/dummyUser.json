@@ -1,0 +1,13 @@
+{ "id": 5,
+  "email": "peturhelgi@gmail.com",
+  "first_name": "Pétur Helgi",
+  "last_name": "Einarsson",
+  "google":
+  { "id": "100822127206416694590",
+    "token": "ya29.Ci-gA0KA7_1KsEa4fSQPeiZGiNOEzrDuc0KrtiAR4mrGdRBoi8CGyRA-K76QOg0p8Q",
+    "displayName": "Pétur Helgi Einarsson",
+    "email": "peturhelgi@gmail.com" },
+  "img_url": "https://lh6.googleusercontent.com/-gqsZ_pAymxQ/AAAAAAAAAAI/AAAAAAAAKNY/tEB4Goe2l-c/photo.jpg?sz=250",
+  "createdAt": "2016-11-24T10:07:11.705Z",
+  "updatedAt": "2016-11-24T10:07:11.705Z"
+}
