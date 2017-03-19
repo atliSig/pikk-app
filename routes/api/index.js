@@ -18,9 +18,9 @@ var groups = require('./groups');
 router.get('/',
     pikkTools.getIndexFeed,
     apiTools.firstFeedConnector,
-    groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
+    // groupTools.getGroupsByUser,
+    // eventTools.getEventsByUser,
+    // notificationTools.getNotificationsByUser,
     getIndex
 );
 
@@ -30,60 +30,60 @@ router.post('/',
 );
 
 function getIndex(req, res, next) {
-    console.log(req.user);
+    // console.log(req.user);
     if (req.params.format) {
 
     }else{
         res.send({
             results: req.feed_result,
-            user: req.session.user,
-            groups: req.user_groups,
-            events: req.user_events,
-            notifications: req.notifications,
+            // user: req.session.user,
+            // groups: req.user_groups,
+            // events: req.user_events,
+            // notifications: req.notifications,
             isIndex:true
         });
     }
 }
 
 //------------ROUTING FOR SEARCH------------//
-router.get('/search',
-    // authTools.isLoggedIn,
-    groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
-    apiTools.doSearch,
-    getSearch
-);
+// router.get('/search',
+//     // authTools.isLoggedIn,
+//     groupTools.getGroupsByUser,
+//     eventTools.getEventsByUser,
+//     notificationTools.getNotificationsByUser,
+//     apiTools.doSearch,
+//     getSearch
+// );
 
-function getSearch(req, res, next) {
-    res.render('resultlist', {
-        results: req.search_result,
-        user: req.session.user,
-        groups: req.user_groups,
-        events: req.user_events,
-        notifications: req.notifications
-    });
-}
+// function getSearch(req, res, next) {
+//     res.render('resultlist', {
+//         results: req.search_result,
+//         user: req.session.user,
+//         groups: req.user_groups,
+//         events: req.user_events,
+//         notifications: req.notifications
+//     });
+// }
 
 //------------ROUTING FOR PLACE------------//
 router.get('/place/:placeId',
     // authTools.isLoggedIn,
-    groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
+    // groupTools.getGroupsByUser,
+    // eventTools.getEventsByUser,
+    // notificationTools.getNotificationsByUser,
     apiTools.showPlace,
     getPlace
 );
 
 function getPlace(req, res, next) {
     var rating_string = (req.search_result[0].cluster_rating_mean).toString();
-    var user = req.session.user;
+    // var user = req.session.user;
     res.send({
-        user: user,
+        // user: user,
         rating_string: rating_string,
         place: req.search_result[0],
-        groups: req.user_groups,
-        events: req.user_events
+        // groups: req.user_groups,
+        // events: req.user_events
     });
 
 }
@@ -91,9 +91,9 @@ function getPlace(req, res, next) {
 //------------ROUTING FOR MAP------------//
 router.get('/map/*',
     // authTools.isLoggedIn,
-    groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
+    // groupTools.getGroupsByUser,
+    // eventTools.getEventsByUser,
+    // notificationTools.getNotificationsByUser,
     showMap
 );
 
@@ -103,10 +103,10 @@ function showMap(req, res, next) {
     query = (querystring.parse(query));
     res.send({
         query: query,
-        user: req.session.user,
-        groups: req.user_groups,
-        events: req.user_events,
-        notifications: req.notifications
+        // user: req.session.user,
+        // groups: req.user_groups,
+        // events: req.user_events,
+        // notifications: req.notifications
     });
 }
 

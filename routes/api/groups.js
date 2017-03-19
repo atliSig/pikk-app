@@ -23,8 +23,8 @@ router.get('/',
 // router.get('/groups',
 //     sendGroupPage);
 
-router.get('/creategroup',
-    showCreateGroup);
+// router.get('/creategroup',
+//     showCreateGroup);
 
 router.get('/:groupid',
     showGroupPage);
@@ -79,7 +79,7 @@ function addMember(req, res, next){
                                     memberId: memberId
                                 })
                                     .then(function(){
-                                            res.redirect('/g/' + groupid);
+                                            res.redirect('/api/g/' + groupid);
                                         },
                                         function(){
                                             res.send({
@@ -161,19 +161,19 @@ function showGroupPage(req, res, next) {
                             req.session.currentGroup = group;
                             return res.send({
                                 group: group,
-                                errors: errors,
-                                user: user,
+                                // errors: errors,
+                                // user: user,
                                 members: members,
                                 events: events,
-                                groups: req.user_groups,
-                                notifications: req.notifications
+                                // groups: req.user_groups,
+                                // notifications: req.notifications
                             });
                         });
                 }
                 else{
                     // res.redirect('/');
                     // next();
-                    return res.send("kraba");
+                    return res.send("You are not in this group");
                 }
             }
         );
@@ -182,13 +182,12 @@ function showGroupPage(req, res, next) {
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
     res.send({
-        title: 'My groups',
-
-        user            : req.session.user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        invited_user_id : req.query.invited,
-        notifications   : req.notifications
+        // title: 'My groups',
+        // user            : req.session.user,
+        groups          : req.user_groups
+        // events          : req.user_events,
+        // invited_user_id : req.query.invited,
+        // notifications   : req.notifications
     });
 }
 
@@ -197,13 +196,13 @@ function showCreateGroup(req, res, next){
     var user = req.session.user;
     User.getFriends(user.id, function(friends){
             res.send({
-                title: 'Create Group',
+                // title: 'Create Group',
                 friends: friends,
 
-                user            : user,
-                events          : req.user_events,
-                groups          : req.user_groups,
-                notifications   : req.notifications
+                // user            : user,
+                // events          : req.user_events,
+                // groups          : req.user_groups,
+                // notifications   : req.notifications
             });
         },
         function(err){

@@ -23,7 +23,7 @@ module.exports = router;
 
 //----------ROUTING FOR CHOOSE------------//
 router.use('/:eventid/choose',
-    authTools.isLoggedIn,
+    // authTools.isLoggedIn,
     apiTools.queryByTags,
     apiTools.doSearch,
     getChoose
@@ -40,33 +40,36 @@ router.use('/:eventid',
     eventTools.getUnDecidedMembers,
     eventTools.getDecidedMembers,
     eventTools.checkIfEventReady,
-    apiTools.pickAPlace,
-    apiTools.queryByIds,
-    pikkTools.getIndexFeed,
-    apiTools.firstFeedConnector,
+    // apiTools.pickAPlace,
+    // apiTools.queryByIds,
+    // pikkTools.getIndexFeed,
+    // apiTools.firstFeedConnector,
     showEventPage);
 
 router.get('/',
     displayEventPage);
 
 
-router.get('/createevent', authTools.isLoggedIn,showCreateEvent);
-router.post('/createevent', authTools.isLoggedIn, createEvent);
-router.get('/',authTools.isLoggedIn, displayEventPage);
+router.get('/createevent',
+    // authTools.isLoggedIn,
+    showCreateEvent);
+router.post('/createevent',
+    authTools.isLoggedIn,
+    createEvent);
+router.get('/',
+    // authTools.isLoggedIn,
+    displayEventPage);
 
 
 //-------handlers------//
 
 function getChoose(req,res,next){
-    var user = req.session.user;
+    // var user = req.session.user;
     res.send({
-        title           : 'Choose',
+        // title           : 'Choose',
         results         : req.search_result,
-
         event_id        : req.params.eventid,
-
-
-        user            : user,
+        // user            : user,
         groups          : req.user_groups,
         events          : req.user_events,
         notifications   : req.notifications
@@ -76,10 +79,10 @@ function getChoose(req,res,next){
 function showCreateEvent(req, res, next) {
     var user = req.session.user;
     res.send({
-        user            : user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        notifications   : req.notifications
+        // user            : user,
+        // groups          : req.user_groups,
+        // events          : req.user_events,
+        // notifications   : req.notifications
     });
 }
 
@@ -115,7 +118,7 @@ function createEvent(req, res, next){
                         .then(function(members){
 
                             var notificationArray = [];
-                            var url = '/e/'+event.id;
+                            var url = '/api/e/'+event.id;
                             var content = user.first_name + ' invited you to the event '+title
                                 +' with your group '+currentgroup.name +'!';
 
@@ -171,17 +174,17 @@ function showEventPage(req, res, next){
                     //never have both results and selectedPlace at the
                     //same time.
                     event           : event,
-                    user            : user,
-                    groups          : req.user_groups,
-                    events          : req.user_events,
-                    notifications   : req.notifications,
+                    // user            : user,
+                    // groups          : req.user_groups,
+                    // events          : req.user_events,
+                    // notifications   : req.notifications,
                     eventReady      : req.eventReady,
                     unDecidedMembers: req.unDecidedMembers,
                     results         : req.search_result,
                     decidedMembers  : req.decidedMembers,
                     hasSelected     : req.hasSelected,
                     selectedPlace   : selectedPlace,
-                    feed_results: req.feed_result
+                    feed_results    : req.feed_result
                 });
             }, function () {
                 next();
@@ -202,11 +205,11 @@ function displayEventPage(req,res,next){
         })
         .then(function(events) {
             res.send({
-                title: 'My Events',
-                user            : user,
+                // title: 'My Events',
+                // user            : user,
                 events          : events,
-                groups          : req.user_groups,
-                notifications   : req.notifications
+                // groups          : req.user_groups,
+                // notifications   : req.notifications
             });
         }, function () {
             next();

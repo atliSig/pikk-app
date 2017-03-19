@@ -41,25 +41,25 @@ router.use('/', index);
 router.use('/u',
     // authTools.isLoggedIn,
     addDummyUser,
-    groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
+    // groupTools.getGroupsByUser,
+    // eventTools.getEventsByUser,
+    // notificationTools.getNotificationsByUser,
     users);
 
 router.use('/g',
     // authTools.isLoggedIn,
     addDummyUser,
     groupTools.getGroupsByUser,
-    eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
+    // eventTools.getEventsByUser,
+    // notificationTools.getNotificationsByUser,
     groups);
 
 router.use('/e',
     // authTools.isLoggedIn,
     addDummyUser,
-    groupTools.getGroupsByUser,
+    // groupTools.getGroupsByUser,
     eventTools.getEventsByUser,
-    notificationTools.getNotificationsByUser,
+    // notificationTools.getNotificationsByUser,
     events);
 
 router.use(function(req, res, next) {
