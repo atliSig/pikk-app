@@ -24,7 +24,9 @@ function getNotificationsByUserId(req, res, next){
             order: ['createdAt']
         })
         .then(function(notifications) {
-            res.send(notifications);
+            res.send({
+                notifications:notifications
+            });
         }, function () {
             next();
         });
