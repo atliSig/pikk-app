@@ -83,6 +83,8 @@ exports.choosePlace = function(req,res,next) {
 
 exports.getDecidedMembers = function(req, res, next){
     var eventid = req.params.eventid;
+    console.log('something');
+    console.log(req.params.id);
     EventMember.getDecidedMembers(
         eventid, function(members){
             req.decidedMembers = members;
@@ -95,6 +97,8 @@ exports.getDecidedMembers = function(req, res, next){
 
 exports.getUnDecidedMembers = function(req, res, next){
     var eventid = req.params.eventid;
+    console.log('something');
+    console.log(req.params.id);
     EventMember.getUnDecidedMembers(
         eventid, function(members){
             req.unDecidedMembers = members;

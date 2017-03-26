@@ -30,6 +30,7 @@ var users   = require('./users');
 var groups  = require('./groups');
 var auth    = require('./../auth');
 var events  = require('./events');
+var notifications = require('./notifications');
 function addDummyUser(req, res, next){
     req.session.user = require('../../config/dummyUser.json');
     next();
@@ -61,6 +62,11 @@ router.use('/e',
     eventTools.getEventsByUser,
     // notificationTools.getNotificationsByUser,
     events);
+
+router.use('/n',
+    addDummyUser,
+    notifications
+    );
 
 router.use(function(req, res, next) {
     var err = new Error('API Service Not Found');

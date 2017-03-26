@@ -57,7 +57,6 @@ router.post('/createevent',
     authTools.isLoggedIn,
     createEvent);
 router.get('/',
-    // authTools.isLoggedIn,
     displayEventPage);
 
 
@@ -208,6 +207,8 @@ function displayEventPage(req,res,next){
                 // title: 'My Events',
                 // user            : user,
                 events          : events,
+                unDecidedMembers: req.unDecidedMembers,
+                decidedMembers  : req.decidedMembers
                 // groups          : req.user_groups,
                 // notifications   : req.notifications
             });
