@@ -215,32 +215,36 @@ function showCreateGroup(req, res, next){
 //Create group handler
 function createGroup(req, res, next){
     var user = req.session.user;
-    var body = req.body;
+    console.log(req.body);
+    var groupName = req.body.groupname;
+    console.log(groupName);
+    var members = req.body.members;
+    var description = req.body.description;
+
+    for(var m in members){
+        console.log(members[m]);
+    }
+    console.log(members);
+    var membersToAdd = [];
     var errors = [];
-    var members = [];
-    var bodyMembers = req.body.members;
-    bodyMembers.splice(0,1);
-    bodyMembers = JSON.parse(bodyMembers);
 
     ///----Check for members in the form----////
-    bodyMembers.forEach(function(member){
+    members.forEach(function(member){
 
         if (member.length > 0 && member !== user.email && member!=='[]'){
-            members.push(member);
+            membersToAdd.push(member);
         }
     });
-    var groupname = body.groupname;
-    var description = body.description;
 
     if(members.length === 0) {
         errors.push('Group must have at least one other member');
     }
-
+    var c = 0;
     //Create group if no errors
     if(errors.length === 0) {
         //Create the group
         Group.create({
-            name: groupname,
+            name: groupName,
             description: description
         })
             .then(function (group) {
@@ -255,7 +259,7 @@ function createGroup(req, res, next){
                                 isAdmin: true
                             })
                             .then(function () {
-                                //find the users that the admin wanted in the group
+                                //find the users the admin wanted in the group
                                 User
                                     .findAll({
                                         where: {
@@ -283,65 +287,42 @@ function createGroup(req, res, next){
                                                 Notification
                                                     .bulkCreate(notificationArray)
                                                     .then(function () {
-                                                        res.redirect('/g/' + group.id);
+                                                        res.redirect('/api/g/' + group.id);
                                                     });
 
                                             }, function () {
                                                 res.send({
-                                                    errors: errors,
-                                                    user: user,
-                                                    events: req.user_events,
-                                                    groups: req.user_groups,
-                                                    notifications: req.notifications
+                                                    errors: errors
                                                 });
                                             });
                                     },function () {
                                         res.send({
-                                            errors: errors,
-                                            user: user,
-                                            events: req.user_events,
-                                            groups: req.user_groups,
-                                            notifications: req.notifications
+                                            errors: errors
                                         });
                                     });
                             }, function () {
                                 res.send({
-                                    errors: errors,
-                                    user: user,
-                                    events: req.user_events,
-                                    groups: req.user_groups,
-                                    notifications: req.notifications
+                                    errors: errors
                                 });
                             });
                     }, function () {
                         res.send({
-                            errors: errors,
-                            user: user,
-                            events: req.user_events,
-                            groups: req.user_groups,
-                            notifications: req.notifications
+                            errors: errors
                         });
                     });
             }, function () {
                 res.send({
-                    errors: errors,
-                    user: user,
-                    events: req.user_events,
-                    groups: req.user_groups,
-                    notifications: req.notifications
+                    errors: errors
                 });
             });
     }
-    //else display errors
+    //else send errors
     else{
-        var groupname = req.body.groupname;
         res.send({
             errors:errors,
             user:user,
-            groupname: groupname,
-            groups: req.user_groups,
-            events: req.user_events,
-            notifications: req.notifications});
+            groupname: groupName
+        });
     }
 }
 

@@ -63,10 +63,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //added for npm component reference from pug
 app.use(require('less-middleware')(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
-app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
 
 //Initialize database associations
 db.init();
@@ -78,6 +75,10 @@ function addDummyUser(req, res, next){
 
 //ADD ROUTE HANDLER HERE//
 app.use('/api', addDummyUser, api);
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/u',
