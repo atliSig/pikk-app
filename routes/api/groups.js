@@ -45,6 +45,7 @@ function addMember(req, res, next){
     if(req.body.addmember){
         addmember =  req.body.addmember;
     }
+    else addmember = "-1";
     var user = req.session.user;
     var groupid = req.params.groupid;
     var email = req.body.email;
@@ -197,34 +198,21 @@ function showCreateGroup(req, res, next){
     User.getFriends(user.id, function(friends){
             res.send({
                 // title: 'Create Group',
-                friends: friends,
-
-                // user            : user,
-                // events          : req.user_events,
-                // groups          : req.user_groups,
-                // notifications   : req.notifications
+                friends: friends
             });
         },
         function(err){
             //if error occurs
             next();
         });
-
 }
 
 //Create group handler
 function createGroup(req, res, next){
     var user = req.session.user;
-    console.log(req.body);
     var groupName = req.body.groupname;
-    console.log(groupName);
     var members = req.body.members;
     var description = req.body.description;
-
-    for(var m in members){
-        console.log(members[m]);
-    }
-    console.log(members);
     var membersToAdd = [];
     var errors = [];
 
