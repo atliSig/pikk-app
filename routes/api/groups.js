@@ -84,22 +84,14 @@ function addMember(req, res, next){
                                         },
                                         function(){
                                             res.send({
-                                                errors: errors,
-                                                user: user,
-                                                events: req.user_events,
-                                                groups: req.user_groups,
-                                                notifications: req.notifications
+                                                errors: errors
                                             });
                                         });
 
                             }, function (err) {
                                 errors.push('Could not add a member');
                                 res.send({
-                                    errors: errors,
-                                    user: user,
-                                    events: req.user_events,
-                                    groups: req.user_groups,
-                                    notifications: req.notifications
+                                    errors: errors
                                 });
                             });
                     }
@@ -108,22 +100,14 @@ function addMember(req, res, next){
                     errors.push('User not found');
                     req.errors = errors;
                     res.send({
-                        errors: errors,
-                        user: user,
-                        events: req.user_events,
-                        groups: req.user_groups,
-                        notifications: req.notifications
+                        errors: errors
                     });
 
                 });
         }, function(err){
             errors.push(err);
             res.send( {
-                errors: errors,
-                user: user,
-                events: req.user_events,
-                groups: req.user_groups,
-                notifications: req.notifications
+                errors: errors
             });
         });
 }

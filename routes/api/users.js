@@ -13,37 +13,24 @@ var Event = db.Event;
 
 router.get('/:userid',
     // authTools.isLoggedIn,
-    get_user_profile);
-router.get('/',
-    // authTools.isLoggedIn,
-    get_own_page);
+    get_user);
+// router.get('/',
+//     // authTools.isLoggedIn,
+//     get_user);
 
 //------HANDLERS-------//
 
-
-function get_own_page(req, res, next){
-    var user = req.session.user;
-    res.redirect('/api/u/'+user.google.id);
-}
-
-function get_user_profile(req, res, next){
-    var page_owner = req.params.userid;
-
+function get_user(req, res, next){
+    var id = req.params.userid;
     User.findOne({
         where:{
-            'google.id': page_owner
+            'id': id
         }
     })
-        .then(function(owner){
-            if(owner){
+        .then(function(member){
+            if(member){
                 res.send({
-                    title           : owner.first_name,
-                    owner           : owner,
-
-                    user            : req.session.user,
-                    groups          : req.user_groups,
-                    events          : req.user_events,
-                    notifications   : req.notifications
+                    member: member
                 });
             }
             else next();
