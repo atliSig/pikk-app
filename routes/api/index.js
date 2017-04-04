@@ -130,7 +130,7 @@ router.get('/tags',function(req,res){
             name: 'Chicken',
             tag2: 'chicken',
             desc: 'Chicken is amazing and healthy!',
-            imgurl:  'drasl'
+            imgurl:  'https://edge.alluremedia.com.au/m/l/2013/04/Chicken2.jpg'
         },
         {
             id: 2,
@@ -138,7 +138,7 @@ router.get('/tags',function(req,res){
             name: 'Steak',
             tag2: 'beef',
             desc: 'Where\'s the beef?',
-            imgurl: 'drasl'
+            imgurl: 'http://www.omahasteaks.com/gifs/990x594/fi004.jpg'
         },
         {
             id: 3,
@@ -146,7 +146,7 @@ router.get('/tags',function(req,res){
             name: 'Pizza',
             tag2: 'pizza',
             desc: 'No one can say no to a pizza?',
-            imgurl: 'drasl'
+            imgurl: 'http://www.mysticpizza.com/admin/resources/pizza-pepperoni-w857h456.jpg'
         },
         {
             id: 4,
@@ -154,7 +154,7 @@ router.get('/tags',function(req,res){
             name: "Hamburger",
             tag2: 'burger',
             desc: 'A hamburger is a good foody?',
-            imgurl: 'drasl'
+            imgurl: 'http://images.r.cruisecritic.com/features/2016/04/best-burgers-hero.jpg'
         },
         {
             id: 5,
@@ -162,7 +162,7 @@ router.get('/tags',function(req,res){
             name: 'Seafood',
             tag2: 'seafood',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'https://static.squarespace.com/static/5229dcade4b054f0e185b5f4/t/522dedf0e4b074119b2458ac/1378741744995/Seafood-dish-wallpaper_4074.jpg'
         },
         {
             id: 6,
@@ -170,15 +170,15 @@ router.get('/tags',function(req,res){
             name: 'Sushi',
             tag2: 'healthy',
             desc: '123',
-            imgurl: 'drasl'
+            imgurl: 'http://www.hesca.org/wp-content/uploads/2016/09/sushi-featured.jpg'
         },
         {
             id: 7,
             tag1: 'salat',
-            name: 'Salat',
+            name: 'Salad',
             tag2: 'healthy',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'http://assets.simplyrecipes.com/wp-content/uploads/2016/07/2016-08-12-BLT-Salad-3-600x400.jpg'
         },
         {
             id: 7,
@@ -186,7 +186,7 @@ router.get('/tags',function(req,res){
             name: 'Kebab',
             tag2: 'kebab',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'http://static.wixstatic.com/media/efa988_f77bf3153d4640928c2171ab5399df20.jpg_srz_980_648_85_22_0.50_1.20_0.00_jpg_srz'
         },
         {
             id: 8,
@@ -194,7 +194,7 @@ router.get('/tags',function(req,res){
             name: 'Thai',
             tag2: 'thai',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'http://static.asiawebdirect.com/m/bangkok/portals/bangkok-com/homepage/food-top10/pagePropertiesImage/thai-foods.jpg'
         },
         {
             id: 9,
@@ -202,7 +202,7 @@ router.get('/tags',function(req,res){
             name: 'Asian',
             tag2: 'asian',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'http://nebula.wsimg.com/82c2438bcec6ce077fdb9f5777483347?AccessKeyId=FB771320EF82836BDCA7&disposition=0&alloworigin=1'
         },
         {
             id: 10,
@@ -210,7 +210,7 @@ router.get('/tags',function(req,res){
             name: 'Indian',
             tag2: 'indian',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'http://i.telegraph.co.uk/multimedia/archive/03521/india-thali_3521793b.jpg'
         },
         {
             id: 11,
@@ -218,66 +218,58 @@ router.get('/tags',function(req,res){
             name: 'Mexican',
             tag2: 'mexican',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'http://vallartanayaritblog.com/wp-content/uploads/2016/06/a-mexican-food-20.jpg'
         },
         {
             id: 12,
-            tag1: 'tælenskt',
-            name: 'Thai',
-            tag2: 'thai',
-            desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
-        },
-        {
-            id: 13,
             tag1: 'ítalskt',
             name: 'Italian',
             tag2: 'italian',
-            desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
-        },
-        {
-            id: 14,
-            tag1: 'íslenskt',
-            name: 'Icelandic',
-            tag2: 'icelandic',
-            desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            desc: '',
+            imgurl: 'https://alianosdundee.com/file/2015/12/Italian-Pasta-in-East-Dundee-IL-Alianos-Italian-Food.jpg'
         },
         {
             id: 13,
+            tag1: 'íslenskt',
+            name: 'Icelandic',
+            tag2: 'icelandic',
+            desc: '',
+            imgurl: 'http://www.fotothing.com/photos/a02/a02d9ac804337e19e224e7a066085fa7.jpg'
+        },
+        {
+            id: 14,
             tag1: 'hádegismatur',
             name: 'Brunch',
             tag2: 'brunch',
-            desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
-        },
-        {
-            id: 14,
-            tag1: 'vegan',
-            name: 'Vegan',
-            tag2: 'healthy',
-            desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            desc: '',
+            imgurl: 'http://www.maennlichen.ch/files/content/sommer/erlebnisse/kulinarische-erlebnisse/bergbrunch/bergbrunch.jpg'
         },
         {
             id: 15,
+            tag1: 'vegan',
+            name: 'Vegan',
+            tag2: 'healthy',
+            desc: '',
+            imgurl: 'http://cdn.everything.io/vegankit/images/veggies.jpg'
+        },
+        {
+            id: 16,
             tag1: 'hollt',
             name: 'Hollt',
             tag2: 'healthy',
-            desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            desc: '',
+            imgurl: 'http://wire.kapitall.com/wp-content/image-import/healthy-food-stocks.jpeg'
         },
         {
-            id: 14,
+            id: 17,
             tag1: 'bakarí',
             name: 'Bakery',
             tag2: 'bakery',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'https://discoverpasco.com/wp-content/uploads/2017/01/bakery_case1.jpg'
         },
         {
-            id: 15,
+            id: 18,
             tag1: 'bístró',
             name: 'Bistro',
             tag2: 'bistro',
@@ -285,20 +277,20 @@ router.get('/tags',function(req,res){
             imgurl: 'drasl'
         },
         {
-            id: 16,
+            id: 19,
             tag1: 'kaffi',
             name: 'Coffee',
             tag2: 'juice',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'https://lisamulch.files.wordpress.com/2011/06/img_8930.jpg'
         },
         {
-            id: 17,
+            id: 20,
             tag1: 'áfengi',
             name: 'Alcohol',
             tag2: 'alcohol',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'https://www.eatrightontario.ca/EatRightOntario/media/Website-images-resized/Alcohol-v-2-resized.jpg'
         }
     ];
     res.send({
