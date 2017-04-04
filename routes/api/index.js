@@ -274,7 +274,7 @@ router.get('/tags',function(req,res){
             name: 'Bistro',
             tag2: 'bistro',
             desc: 'Under the sea. Under the sea!',
-            imgurl: 'drasl'
+            imgurl: 'http://www.finecooking.com/CMS/uploadedImages/Images/Cooking/Articles/Issues_61-70/fc70qd002-03_xlg.jpg'
         },
         {
             id: 19,
