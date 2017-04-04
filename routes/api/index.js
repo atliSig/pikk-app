@@ -14,33 +14,6 @@ var router = express.Router();
 var groups = require('./groups');
 
 
-var types = [
-    //Category 1
-    ['kjúklingur','chicken'],
-    ['steik','beef'],
-    ['sjávarréttir','seafood'],
-    ['pítsa','pizza'],
-    ['hamborgari','burger'],
-    ['sushi','healthy'],
-    ['salat','healthy'],
-    ['kebab','arabískt'],
-    //Category 2
-    ['tælenskt','thai'],
-    ['asískt','asian'],
-    ['indverskt','indian'],
-    ['mexíkóskt','mexican'],
-    ['ítalskt','italian'],
-    ['íslenskt','icelandic'],
-    //Category 3
-    ['hádegismatur','brunch'],
-    ['vegan','healthy'],
-    ['hollt','healthy'],
-    ['bakarí','bakery'],
-    ['bístró','bistro'],
-    ['kaffi','juice'],
-    ['áfengi','alcohol']
-];
-
 //------------ROUTING FOR INDEX------------//
 router.get('/',
     pikkTools.getIndexFeed,
@@ -146,6 +119,44 @@ router.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
         res.redirect(logg);
         // res.redirect('/');
+    });
+});
+
+router.get('/tags',function(req,res){
+    var tags = [
+        {
+            id: 1,
+            ice_name: 'kjúklingur',
+            en_name: 'chicken',
+            desc: 'Chicken is amazing and healthy!',
+            imgurl:  'drasl'
+        },
+        {
+            id:
+        }
+        ['steik', 'beef'],
+        ['sjávarréttir', 'seafood'],
+        ['pítsa', 'pizza'],
+        ['hamborgari', 'burger'],
+        ['sushi', 'healthy'],
+        ['salat', 'healthy'],
+        ['kebab', 'arabískt'],
+        ['tælenskt', 'thai'],
+        ['asískt', 'asian'],
+        ['indverskt', 'indian'],
+        ['mexíkóskt', 'mexican'],
+        ['ítalskt', 'italian'],
+        ['íslenskt', 'icelandic'],
+        ['hádegismatur', 'brunch'],
+        ['vegan', 'healthy'],
+        ['hollt', 'healthy'],
+        ['bakarí', 'bakery'],
+        ['bístró', 'bistro'],
+        ['kaffi', 'juice'],
+        ['áfengi', 'alcohol']
+    ];
+    res.send({
+        tags: tags
     });
 });
 
