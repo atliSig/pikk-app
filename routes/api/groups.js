@@ -42,10 +42,12 @@ router.post('/:groupid/addMember',
 function addMember(req, res, next){
     //addmember is a body variable from another route
     var addmember;
-    if(req.body.addmember){
-        addmember =  req.body.addmember;
+    if(req.body.email){
+        addmember =  req.body.email;
     }
     else addmember = "-1";
+
+    console.log("Addmember, " + addmember);
     var user = req.session.user;
     var groupid = req.params.groupid;
     var email = req.body.email;

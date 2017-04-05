@@ -67,11 +67,7 @@ function getChoose(req,res,next){
     res.send({
         // title           : 'Choose',
         results         : req.search_result,
-        event_id        : req.params.eventid,
-        // user            : user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        notifications   : req.notifications
+        event_id        : req.params.eventid
     });
 }
 
