@@ -291,6 +291,14 @@ router.get('/tags',function(req,res){
             tag2: 'alcohol',
             desc: 'Under the sea. Under the sea!',
             imgurl: 'https://www.eatrightontario.ca/EatRightOntario/media/Website-images-resized/Alcohol-v-2-resized.jpg'
+        },
+        {
+            id: 21,
+            tag1: 'skyndibitastaðir',
+            name: 'Fast Food',
+            tag2: 'fast food',
+            desc: 'Under the sea. Under the sea!',
+            imgurl: 'http://www.giveasyoulive.com/blog/wp-content/uploads/2014/10/fast-food-takeaway.jpg'
         }
     ];
     res.send({
