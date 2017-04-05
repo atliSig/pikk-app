@@ -57,7 +57,7 @@ exports.choosePlace = function(req,res,next) {
         }
     }).then(
         function (evmember) {
-            if(evmember.selectedPlace!=null){
+            if(evmember && evmember.selectedPlace!=null){
                 req.hasSelected = true;
                 next();
             }else if(req.body.picked_place != null){
