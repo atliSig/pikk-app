@@ -29,10 +29,10 @@ router.use('/:eventid/choose',
     getChoose
 );
 
-router.get('/createevent',
+router.get('/create',
     showCreateEvent);
 
-router.post('/createevent',
+router.post('/create',
     createEvent);
 
 router.use('/:eventid',
@@ -50,12 +50,12 @@ router.get('/',
     displayEventPage);
 
 
-router.get('/createevent',
+router.get('/create',
     // authTools.isLoggedIn,
     showCreateEvent);
-router.post('/createevent',
-    authTools.isLoggedIn,
-    createEvent);
+// router.post('/create',
+//     // authTools.isLoggedIn,
+//     createEvent);
 router.get('/',
     displayEventPage);
 
@@ -85,11 +85,20 @@ function createEvent(req, res, next){
     var user = req.session.user;
     var title = req.body.title;
     var description = req.body.description;
-    var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
-    var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
-    var currentgroup = req.session.currentGroup;
+    // var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
+    //var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
 
-    var groupid = req.session.currentGroup.id;
+    /*
+    * params.put("groupId", groupId);
+     params.put("description", description);
+     params.put("description", description);
+     params.put("toe", dateString);
+     sendPostRequest("g", params);
+    * */
+    var groupid = req.body.groupId;
+    var toe = req.body.toe;
+    var deadline = toe;
+
     Group.findOne({
             where: {id: groupid},
             include: [{model:User, as:'member'}]
@@ -113,9 +122,9 @@ function createEvent(req, res, next){
                         .then(function(members){
 
                             var notificationArray = [];
-                            var url = '/api/e/'+event.id;
+                            var url = '/e/'+event.id;
                             var content = user.first_name + ' invited you to the event '+title
-                                +' with your group '+currentgroup.name +'!';
+                                +' with your group '+group.name +'!';
 
                             groupmembers.forEach(function (member) {
                                 if(member.dataValues.id != user.id)
@@ -129,7 +138,7 @@ function createEvent(req, res, next){
                             Notification
                                 .bulkCreate(notificationArray)
                                 .then(function(notification){
-                                    res.redirect(url);
+                                    res.send({"eventId":event.id});
                                 },function () {
                                     next();
                                 });
