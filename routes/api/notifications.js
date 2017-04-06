@@ -7,6 +7,7 @@ var db = require('../../middleware/dbTools');
 var authTools = require('../../middleware/authTools');
 
 var Notification = db.Notification;
+var User = db.User;
 
 router.get('/:userid',
     getNotificationsByUserId);
@@ -18,17 +19,27 @@ router.get('/',function(req,res,next){
 
 function getNotificationsByUserId(req, res, next){
     var userid = req.params.userid;
-    Notification
-        .findAll({
-            where: {memberId: userid},
-            order: ['createdAt']
+
+    User
+        .findOne({
+            where:{'google.id':userid}
         })
-        .then(function(notifications) {
-            res.send({
-                notifications:notifications
-            });
-        }, function () {
-            next();
+        .then(function(member){
+            console.log(userid);
+            Notification
+                .findAll({
+                    where: {memberId: member.id},
+                    order: ['createdAt']
+                })
+                .then(function(notifications){
+                    res.send({
+                        notifications: notifications
+                    });
+                }, function(){
+                    next();
+                });
+        }, function(){
+            next()
         });
 }
 

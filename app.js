@@ -69,7 +69,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 db.init();
 
 function addDummyUser(req, res, next){
-  req.session.user = require('./config/dummyUser.json');
+  //req.session.user = require('./config/dummyUser.json');
   next();
 }
 

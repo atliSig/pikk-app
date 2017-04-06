@@ -23,21 +23,25 @@ var notificationTools = require('../../middleware/notificationTools');
 var pikkTools = require('../../middleware/pikkTools');
 
 
-
 //Require routes here
 var index   = require('./index');
 var users   = require('./users');
 var groups  = require('./groups');
-var auth    = require('./../auth');
+var auth    = require('./auth');
 var events  = require('./events');
 var notifications = require('./notifications');
 function addDummyUser(req, res, next){
-    req.session.user = require('../../config/dummyUser.json');
+    //req.session.user = require('../../config/dummyUser.json');
+    console.log(req.session.user);
     next();
 }
+
+
 // router.use('/', index);
 // routes for android client
+
 router.use('/', index);
+router.use('/auth', auth);
 // router.use('/auth', auth);
 router.use('/u',
     // authTools.isLoggedIn,
