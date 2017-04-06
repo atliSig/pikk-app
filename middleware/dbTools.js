@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DATABASE_URL, {logging: false});
+var sequelize = new Sequelize(process.env.DATABASE_URL, {logging: true});
 
 var user = require('../models/users');
 var group = require('../models/groups');
@@ -26,6 +26,7 @@ function init() {
     User.getFriends = getFriends;
     EventMember.getDecidedMembers = getDecidedMembers;
     EventMember.getUnDecidedMembers = getUnDecidedMembers;
+    User.getGroupsAndFriends = getGroupsAndFriends;
 
     User.hasMany(Notification, {
        foreignKey: 'memberId'
@@ -109,6 +110,27 @@ function getUnDecidedMembers(eventid, cb, err){
         replacements: [eventid],
         type: sequelize.QueryTypes.SELECT
     }).then(cb,err);
+}
+
+function getGroupsAndFriends(userid, cb, err) {
+    sequelize.query(
+    'SELECT "members"."first_name" AS "adminName", "groupMembers"."isAdmin", ' +
+    '   "groups"."id", "groups"."name", "groups"."description", "groups"."createdAt", "groups"."updatedAt" ' +
+    'FROM "groupMembers" '+
+    'INNER JOIN "groups" '+
+    '   ON "groupMembers"."groupId" = "groups"."id" '+
+    'INNER JOIN "members" '+
+    '   ON "groupMembers"."memberId" = "members"."id" '+
+    'WHERE "groupId" IN '+
+    '    (SELECT "groupId" FROM "groupMembers" '+
+    '     INNER JOIN "members" '+
+    '     ON "groupMembers"."memberId" = "members"."id" '+
+    '     where json_extract_path_text("members".google,\'id\')= ?) ' +
+    'AND "groupMembers"."isAdmin"=\'TRUE\' '+
+    'order by members.first_name', {
+        replacements :[userid],
+            type: sequelize.QueryTypes.SELECT
+    }).then(cb, err);
 }
 
 module.exports = {

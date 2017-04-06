@@ -168,14 +168,38 @@ function showGroupPage(req, res, next) {
 
 //Displays groups which the user is a member of.
 function displayGroupPage(req, res, next){
-    res.send({
-        // title: 'My groups',
-        // user            : req.session.user,
-        groups          : req.user_groups
-        // events          : req.user_events,
-        // invited_user_id : req.query.invited,
-        // notifications   : req.notifications
-    });
+
+    if(req.session.user){
+        var user = req.session.user;
+
+        User.getGroupsAndFriends(user.google.id,
+            function(groupMembers)
+            {
+                res.send({groups:groupMembers});
+            }, function(){ next();} );
+    }
+    else {
+        next();
+    }
+
+    // var user = req.session.user;
+    // Group
+    //     .findAll({
+    //         include:[{
+    //             model: User,
+    //             as: 'member',
+    //             where: {
+    //                 'google.id': user.google.id
+    //             }}]
+    //     }).then(function(groups){
+    //     res.send({
+    //         groups: groups
+    //     });
+    // },
+    // function () {
+    //     next();
+    // });
+
 }
 
 //Rendering the creategroup view

@@ -27,3 +27,17 @@ exports.getGroupsByUser = function(req,res,next){
         next();
     }
 };
+
+exports.getFullGroupsByUser = function(req, res, next){
+    if(req.session.user){
+        var user = req.session.user;
+        User.getGroupsAndFriends(user.google.id,
+            function(groupMembers)
+            {
+
+                }, function(){ next();} );
+    }
+    else {
+        next()
+    }
+};
