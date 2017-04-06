@@ -16,17 +16,15 @@ var notificationTools = require('../../middleware/notificationTools');
 var Group = db.Group;
 var User = db.User;
 var Event = db.Event;
+var EventMember = db.EventMember;
 var Notification = db.Notification;
 
 module.exports = router;
 
 
 //----------ROUTING FOR CHOOSE------------//
-router.use('/:eventid/choose',
-    // authTools.isLoggedIn,
-    apiTools.queryByTags,
-    apiTools.doSearch,
-    getChoose
+router.post('/:eventid/choose',
+    submitSelection
 );
 
 router.get('/create',
@@ -61,6 +59,54 @@ router.get('/',
 
 
 //-------handlers------//
+
+function submitSelection(req, res, next){
+    var user = req.session.user;
+    var placeId = req.body.placeId;
+    var eventId = req.body.eventId;
+    Member
+        .findOne({
+            where:{'google.id':user.id}
+        })
+        .then(function(member){
+            EventMember
+                .findOne({
+                    where: {
+                        $and: [
+                            {memberId: member.id},
+                            {eventId: eventId}
+                            ]
+                    }
+                })
+                .then(function (evmember) {
+                    var hasSelected = false;
+                    if(evmember!=null && evmember.selectedPlace!=null) {
+                        req.hasSelected = true;
+                        hasSelected = true;
+                        // next();
+                    }
+                    else if(evmember!= null && placeId != null) {
+                        evmember.update({
+                                selectedPlace: placeId
+                            }
+                        ).then(function (update) {
+                            req.hasSelected = true;
+                            hasSelected = true;
+                            // next();
+                        });
+                    }
+                    else {
+                        req.hasSelected = false;
+                        // next();
+                    }
+                    res.send({hasSelected: hasSelected});
+                },
+                function (err) {
+                    req.hasSelected=false;
+                    res.send({hasSelected: false})
+                });
+    });
+}
 
 function getChoose(req,res,next){
     // var user = req.session.user;
