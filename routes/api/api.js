@@ -33,6 +33,9 @@ var notifications = require('./notifications');
 function addAndroidUser(req, res, next){
     //req.session.user = require('./config/dummyUser.json');
     var userId = req.query.userId;
+    if ("undefined" === typeof userId){
+        userId = req.body.userId;
+    }
     console.log(userId);
     User
         .findOne({

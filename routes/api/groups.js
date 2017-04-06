@@ -82,7 +82,7 @@ function addMember(req, res, next){
                                     memberId: memberId
                                 })
                                     .then(function(){
-                                            res.redirect('/api/g/' + groupid);
+                                            res.send({'groupId':groupid});
                                         },
                                         function(){
                                             res.send({
@@ -261,7 +261,7 @@ function createGroup(req, res, next){
                                                 Notification
                                                     .bulkCreate(notificationArray)
                                                     .then(function () {
-                                                        res.redirect('/api/g/' + group.id);
+                                                        res.send({groupId: group.id});
                                                     });
 
                                             }, function () {
