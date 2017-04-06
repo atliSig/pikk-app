@@ -68,13 +68,10 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 //Initialize database associations
 db.init();
 
-function addDummyUser(req, res, next){
-  //req.session.user = require('./config/dummyUser.json');
-  next();
-}
+
 
 //ADD ROUTE HANDLER HERE//
-app.use('/api', addDummyUser, api);
+app.use('/api', api);
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));

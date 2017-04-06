@@ -30,10 +30,20 @@ var groups  = require('./groups');
 var auth    = require('./auth');
 var events  = require('./events');
 var notifications = require('./notifications');
-function addDummyUser(req, res, next){
-    //req.session.user = require('../../config/dummyUser.json');
-    console.log(req.session.user);
-    next();
+function addAndroidUser(req, res, next){
+    //req.session.user = require('./config/dummyUser.json');
+    var userId = req.query.userId;
+    console.log(userId);
+    User
+        .findOne({
+            where:{'google.id':userId}
+        })
+        .then(function(member){
+            req.session.user = member;
+            next();
+        }, function () {
+            next();
+        });
 }
 
 
@@ -45,7 +55,8 @@ router.use('/auth', auth);
 // router.use('/auth', auth);
 router.use('/u',
     // authTools.isLoggedIn,
-    addDummyUser,
+    // addDummyUser,
+    addAndroidUser,
     // groupTools.getGroupsByUser,
     // eventTools.getEventsByUser,
     // notificationTools.getNotificationsByUser,
@@ -53,7 +64,8 @@ router.use('/u',
 
 router.use('/g',
     // authTools.isLoggedIn,
-    addDummyUser,
+    // addDummyUser,
+    addAndroidUser,
     groupTools.getGroupsByUser,
     // eventTools.getEventsByUser,
     // notificationTools.getNotificationsByUser,
@@ -61,14 +73,16 @@ router.use('/g',
 
 router.use('/e',
     // authTools.isLoggedIn,
-    addDummyUser,
+    // addDummyUser,
     // groupTools.getGroupsByUser,
+    addAndroidUser,
     eventTools.getEventsByUser,
     // notificationTools.getNotificationsByUser,
     events);
 
 router.use('/n',
-    addDummyUser,
+    // addDummyUser,
+    //addAndroidUser,
     notifications
     );
 
