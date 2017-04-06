@@ -62,11 +62,13 @@ router.get('/',
 
 function submitSelection(req, res, next){
     var user = req.session.user;
+    var userid = req.body.userId;
     var placeId = req.body.placeId;
     var eventId = req.body.eventId;
-    Member
+
+    User
         .findOne({
-            where:{'google.id':user.id}
+            where:{'google.id':userid}
         })
         .then(function(member){
             EventMember
@@ -79,6 +81,9 @@ function submitSelection(req, res, next){
                     }
                 })
                 .then(function (evmember) {
+                        console.log(user.id);
+                        console.log(placeId);
+                        console.log(eventId);
                     var hasSelected = false;
                     if(evmember!=null && evmember.selectedPlace!=null) {
                         req.hasSelected = true;
