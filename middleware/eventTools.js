@@ -134,6 +134,10 @@ exports.checkIfEventReady = function (req, res, next) {
                 })
                 .then(function(event)
                 {
+                    if(event == null){
+                         next();
+                    }
+                    else{
                     event
                         .update({
                             isReady: isReady
@@ -145,6 +149,7 @@ exports.checkIfEventReady = function (req, res, next) {
                             next();
                             }
                         );
+                    }
                 }, function () {
                     next();
                 });

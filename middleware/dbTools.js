@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DATABASE_URL, {logging: true});
+var sequelize = new Sequelize(process.env.DATABASE_URL, {logging: false});
 
 var user = require('../models/users');
 var group = require('../models/groups');
