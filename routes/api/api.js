@@ -1,19 +1,14 @@
-// /**
-//  * Created by Atli on 10.3.2017.
-//  */
-// 'use strict';
-//
-// // demo Route (GET http://localhost:8080)
-// // ...
-//
-// // pass passport for configuration
+'use strict';
+
+/*
+* This modules handles all routes made by the Android client.
+* */
 var express = require('express');
 var db = require('../../middleware/dbTools');
 var User = db.User;
 var authEnv = require('../../config/auth');
 // bundle our routes
 var router = express.Router();
-
 
 
 var authTools = require('../../middleware/authTools');
@@ -30,13 +25,22 @@ var groups  = require('./groups');
 var auth    = require('./auth');
 var events  = require('./events');
 var notifications = require('./notifications');
+
+
+/**
+ * This middleware adds the requested user to the req.session.user object.
+ * This is not safe because we add it by google ID without any authentication.
+ * The reason we did this can bee seen in the (/api)/auth router.
+ * @param req
+ * @param res
+ * @param next
+ */
 function addAndroidUser(req, res, next){
-    //req.session.user = require('./config/dummyUser.json');
+
     var userId = req.query.userId;
     if ("undefined" === typeof userId){
         userId = req.body.userId;
     }
-    console.log(userId);
     User
         .findOne({
             where:{'google.id':userId}
@@ -49,43 +53,24 @@ function addAndroidUser(req, res, next){
         });
 }
 
-
-// router.use('/', index);
-// routes for android client
-
+// ---- Routes for Android client ----- //
 router.use('/', index);
 router.use('/auth', auth);
-// router.use('/auth', auth);
 router.use('/u',
-    // authTools.isLoggedIn,
-    // addDummyUser,
     addAndroidUser,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    // notificationTools.getNotificationsByUser,
     users);
 
 router.use('/g',
-    // authTools.isLoggedIn,
-    // addDummyUser,
     addAndroidUser,
     groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    // notificationTools.getNotificationsByUser,
     groups);
 
 router.use('/e',
-    // authTools.isLoggedIn,
-    // addDummyUser,
-    // groupTools.getGroupsByUser,
     addAndroidUser,
     eventTools.getEventsByUser,
-    // notificationTools.getNotificationsByUser,
     events);
 
 router.use('/n',
-    // addDummyUser,
-    //addAndroidUser,
     notifications
     );
 

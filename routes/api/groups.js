@@ -1,5 +1,8 @@
 'use strict';
 
+/*
+* This module handles all group related routes for the Android client.
+* */
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
@@ -15,16 +18,8 @@ var User = db.User;
 var Event = db.Event;
 var Notification = db.Notification;
 
-module.exports = router;
-
 router.get('/',
     displayGroupPage);
-
-// router.get('/groups',
-//     sendGroupPage);
-
-// router.get('/creategroup',
-//     showCreateGroup);
 
 router.get('/:groupid',
     showGroupPage);
@@ -36,24 +31,34 @@ router.post('/:groupid/addMember',
     addMember,
     showGroupPage);
 
+//------- Function handlers --------\\
 
-
-//\\\\\\\\\\functions//////////\\
+/**
+ * Adds a member to a specific group.
+ * @param req
+ * @param res
+ * @param next
+ */
 function addMember(req, res, next){
-    //addmember is a body variable from another route
     var addmember;
     if(req.body.email){
         addmember =  req.body.email;
     }
     else addmember = "-1";
 
-    console.log("Addmember, " + addmember);
     var user = req.session.user;
+
+    //This is unsafe, as the malicious user can add him/herself to another group by changing the request parameter
+    // to a groupid of interest.
     var groupid = req.params.groupid;
     var email = req.body.email;
 
     var errors = [];
-    Group.findOne({where:{id:groupid}})
+    Group.findOne({
+        where:{
+            id:groupid
+        }
+    })
         .then(function(group){
             User.findOne({
                 where:{
@@ -114,13 +119,17 @@ function addMember(req, res, next){
         });
 }
 
-//Shows the profile of a specific group
+/**
+ * Shows the profile of a specific group
+ * @param req
+ * @param res
+ * @param next
+ */
 function showGroupPage(req, res, next) {
 
     var user = req.session.user;
     var groupid = req.params.groupid;
     var inGroup = false;
-    var errors= req.errors;
     Group
         .findOne({
             where: {
@@ -148,25 +157,24 @@ function showGroupPage(req, res, next) {
                             req.session.currentGroup = group;
                             return res.send({
                                 group: group,
-                                // errors: errors,
-                                // user: user,
                                 members: members,
-                                events: events,
-                                // groups: req.user_groups,
-                                // notifications: req.notifications
+                                events: events
                             });
                         });
                 }
                 else{
-                    // res.redirect('/');
-                    // next();
                     return res.send("You are not in this group");
                 }
             }
         );
 }
 
-//Displays groups which the user is a member of.
+/**
+ * Displays all groups the user is a member of.
+ * @param req
+ * @param res
+ * @param next
+ */
 function displayGroupPage(req, res, next){
 
     if(req.session.user){
@@ -181,43 +189,15 @@ function displayGroupPage(req, res, next){
     else {
         next();
     }
-
-    // var user = req.session.user;
-    // Group
-    //     .findAll({
-    //         include:[{
-    //             model: User,
-    //             as: 'member',
-    //             where: {
-    //                 'google.id': user.google.id
-    //             }}]
-    //     }).then(function(groups){
-    //     res.send({
-    //         groups: groups
-    //     });
-    // },
-    // function () {
-    //     next();
-    // });
-
 }
 
-//Rendering the creategroup view
-function showCreateGroup(req, res, next){
-    var user = req.session.user;
-    User.getFriends(user.id, function(friends){
-            res.send({
-                // title: 'Create Group',
-                friends: friends
-            });
-        },
-        function(err){
-            //if error occurs
-            next();
-        });
-}
 
-//Create group handler
+/**
+ * Creates a group with a name, description and members specified by the user.
+ * @param req
+ * @param res
+ * @param next
+ */
 function createGroup(req, res, next){
     var user = req.session.user;
     var groupName = req.body.groupname;
@@ -324,21 +304,4 @@ function createGroup(req, res, next){
     }
 }
 
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
-///REST FUNCTIONS
-
-//Displays groups which the user is a member of.
-function sendGroupPage(req, res, next){
-    res.send({
-        title: 'My groups',
-        user            : req.session.user,
-        groups          : req.user_groups,
-        events          : req.user_events,
-        invited_user_id : req.query.invited,
-        notifications   : req.notifications
-    });
-}
+module.exports = router;

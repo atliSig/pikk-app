@@ -1,6 +1,4 @@
-/**
- * Created by atli on 23.11.2016.
- */
+'use strict';
 
 var express = require('express');
 var router = express.Router();
@@ -117,8 +115,7 @@ exports.checkIfEventReady = function (req, res, next) {
             }
         })
         .then(function(evmember){
-            isReady = false;
-            count = 0;
+            var isReady = false;
             evmember.forEach(function (memb) {
                 if(memb.dataValues.selectedPlace === null)
                     count++;

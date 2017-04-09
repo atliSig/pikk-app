@@ -3,12 +3,10 @@ var fecha = require('fecha');
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
-var groups = require('../models/groups');
 var db = require('../middleware/dbTools');
 var authTools = require('../middleware/authTools');
 var apiTools= require('../middleware/apiTools');
 var pikkTools= require('../middleware/pikkTools');
-var groupTools= require('../middleware/groupTools');
 var eventTools= require('../middleware/eventTools');
 
 var notificationTools = require('../middleware/notificationTools');

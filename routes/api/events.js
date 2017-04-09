@@ -1,4 +1,10 @@
 'use strict';
+
+/*
+* This module handles all requests regarding events,
+* only from the Android client
+* */
+
 var fecha = require('fecha');
 var express = require('express');
 var router = express.Router();
@@ -38,28 +44,20 @@ router.use('/:eventid',
     eventTools.getUnDecidedMembers,
     eventTools.getDecidedMembers,
     eventTools.checkIfEventReady,
-    // apiTools.pickAPlace,
-    // apiTools.queryByIds,
-    // pikkTools.getIndexFeed,
-    // apiTools.firstFeedConnector,
     showEventPage);
 
 router.get('/',
-    displayEventPage);
-
-
-router.get('/create',
-    // authTools.isLoggedIn,
-    showCreateEvent);
-// router.post('/create',
-//     // authTools.isLoggedIn,
-//     createEvent);
-router.get('/',
-    displayEventPage);
-
+    displayAllEvents);
 
 //-------handlers------//
 
+/**
+ * Submits the req.session.user's selection for an event to the server
+ * The selection's ID and the event's ID are in the request body
+ * @param req
+ * @param res
+ * @param next
+ */
 function submitSelection(req, res, next){
     var user = req.session.user;
     var userid = req.body.userId;
@@ -104,7 +102,7 @@ function submitSelection(req, res, next){
                         req.hasSelected = false;
                         // next();
                     }
-                    res.send({hasSelected: hasSelected});
+                    res.send({hasSelected:                                                                                                                                                                                                                                      hasSelected});
                 },
                 function (err) {
                     req.hasSelected=false;
@@ -113,39 +111,18 @@ function submitSelection(req, res, next){
     });
 }
 
-function getChoose(req,res,next){
-    // var user = req.session.user;
-    res.send({
-        // title           : 'Choose',
-        results         : req.search_result,
-        event_id        : req.params.eventid
-    });
-}
-
-function showCreateEvent(req, res, next) {
-    var user = req.session.user;
-    res.send({
-        // user            : user,
-        // groups          : req.user_groups,
-        // events          : req.user_events,
-        // notifications   : req.notifications
-    });
-}
-
+/**
+ * Creates an event with a title, description, deadline and time of eating (TOE) for a group.
+ * They are all in the request body.
+ * For now, the deadline is the same as TOE, since we may want to deprecate the deadline.
+ * @param req
+ * @param res
+ * @param next
+ */
 function createEvent(req, res, next){
     var user = req.session.user;
     var title = req.body.title;
     var description = req.body.description;
-    // var deadline = fecha.format(new Date(req.body.deadline),'YYYY-MM-DD HH:mm:ss')+' +02:00';
-    //var toe = fecha.format(new Date(req.body.toe),'YYYY-MM-DD HH:mm:ss')+' +02:00';
-
-    /*
-    * params.put("groupId", groupId);
-     params.put("description", description);
-     params.put("description", description);
-     params.put("toe", dateString);
-     sendPostRequest("g", params);
-    * */
     var groupid = req.body.groupId;
     var toe = req.body.toe;
     var deadline = toe;
@@ -204,6 +181,12 @@ function createEvent(req, res, next){
         });
 }
 
+/**
+ * Sends all the information we have for a specific event.
+ * @param req
+ * @param res
+ * @param next
+ */
 function showEventPage(req, res, next){
     var user = req.session.user;
     var eventid = req.params.eventid;
@@ -229,10 +212,6 @@ function showEventPage(req, res, next){
                     //never have both results and selectedPlace at the
                     //same time.
                     event           : event,
-                    // user            : user,
-                    // groups          : req.user_groups,
-                    // events          : req.user_events,
-                    // notifications   : req.notifications,
                     eventReady      : req.eventReady,
                     unDecidedMembers: req.unDecidedMembers,
                     results         : req.search_result,
@@ -247,7 +226,13 @@ function showEventPage(req, res, next){
         );
 }
 
-function displayEventPage(req,res,next){
+/**
+ * Gets all events the  current user is a part of.
+ * @param req
+ * @param res
+ * @param next
+ */
+function displayAllEvents(req,res,next){
     var user = req.session.user;
     Event
         .findAll({
@@ -260,13 +245,9 @@ function displayEventPage(req,res,next){
         })
         .then(function(events) {
             res.send({
-                // title: 'My Events',
-                // user            : user,
                 events          : events,
                 unDecidedMembers: req.unDecidedMembers,
                 decidedMembers  : req.decidedMembers
-                // groups          : req.user_groups,
-                // notifications   : req.notifications
             });
         }, function () {
             next();

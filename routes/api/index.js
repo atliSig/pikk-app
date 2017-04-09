@@ -33,95 +33,37 @@ function getIndex(req, res, next) {
     }else{
         res.send({
             results: req.feed_result,
-            // user: req.session.user,
-            // groups: req.user_groups,
-            // events: req.user_events,
-            // notifications: req.notifications,
             isIndex:true
         });
     }
 }
 
-//------------ROUTING FOR SEARCH------------//
-// router.get('/search',
-//     // authTools.isLoggedIn,
-//     groupTools.getGroupsByUser,
-//     eventTools.getEventsByUser,
-//     notificationTools.getNotificationsByUser,
-//     apiTools.doSearch,
-//     getSearch
-// );
-
-// function getSearch(req, res, next) {
-//     res.render('resultlist', {
-//         results: req.search_result,
-//         user: req.session.user,
-//         groups: req.user_groups,
-//         events: req.user_events,
-//         notifications: req.notifications
-//     });
-// }
 
 //------------ROUTING FOR PLACE------------//
 router.get('/place/:placeId',
-    // authTools.isLoggedIn,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    // notificationTools.getNotificationsByUser,
     apiTools.showPlace,
     getPlace
 );
 
+/**
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
 function getPlace(req, res, next) {
     var rating_string = (req.search_result[0].cluster_rating_mean).toString();
-    // var user = req.session.user;
+
     res.send({
-        // user: user,
         rating_string: rating_string,
-        place: req.search_result[0],
-        // groups: req.user_groups,
-        // events: req.user_events
+        place: req.search_result[0]
     });
 
 }
 
-//------------ROUTING FOR MAP------------//
-router.get('/map/*',
-    // authTools.isLoggedIn,
-    // groupTools.getGroupsByUser,
-    // eventTools.getEventsByUser,
-    // notificationTools.getNotificationsByUser,
-    showMap
-);
-
-function showMap(req, res, next) {
-    var query = querystring.stringify(req.query);
-    query = querystring.unescape(query);
-    query = (querystring.parse(query));
-    res.send({
-        query: query,
-        // user: req.session.user,
-        // groups: req.user_groups,
-        // events: req.user_events,
-        // notifications: req.notifications
-    });
-}
-
-//------------ROUTING FOR LOGOUT------------//
-router.get('/logout', function (req, res) {
-    req.logout();
-    var home = req.headers.host;
-    if(!home.startsWith('http://'))
-        home = 'http://'+home;
-    var logg =
-        "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+home;
-
-    req.session.destroy(function (err) {
-        res.redirect(logg);
-        // res.redirect('/');
-    });
-});
-
+/**
+ *
+ */
 router.get('/tags',function(req,res){
     var tags = [
         {

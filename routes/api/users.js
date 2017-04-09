@@ -1,5 +1,8 @@
 'use strict';
 
+/*
+* This module handles all the user related routes from the Android client.
+* */
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
@@ -8,18 +11,17 @@ var authTools = require('../../middleware/authTools');
 
 //Load user model
 var User = db.User;
-var Group = db.Group;
-var Event = db.Event;
-
 router.get('/:userid',
     // authTools.isLoggedIn,
     get_user);
-// router.get('/',
-//     // authTools.isLoggedIn,
-//     get_user);
 
 //------HANDLERS-------//
-
+/**
+ * Gets the requested user's profile.
+ * @param req
+ * @param res
+ * @param next
+ */
 function get_user(req, res, next){
     var id = req.params.userid;
     User.findOne({

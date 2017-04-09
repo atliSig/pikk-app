@@ -1,25 +1,28 @@
+'use strict';
+/*
+* This module handles the authentication for the Android client.
+* The methods used are not safe and should not be used in production.
+* The reason we did this is that we had trouble using the Google authentication and integrity verification.
+* */
 var express = require('express');
 var router = express.Router();
-var session = require('express-session');
-var db = require('../../middleware/dbTools');
-var User = db.User;
-var authEnv = require('../../config/auth');
-var GoogleAuth = require('google-auth-library');
-var CLIENT_ID = process.env.CLIENT_ID;
-var clientSecret = process.env.CLIENT_SECRET;
 
 var db = require('../../middleware/dbTools');
-var authTools = require('../../middleware/authTools');
 
 //Load user model
 var User = db.User;
 
+router.use('/login', logInExistingUser, createNewUser);
 
-var auth = new GoogleAuth;
-var client = new auth.OAuth2(CLIENT_ID, '', '');
-router.use('/login',logInExistingUser, createNewUser);
+//------- Functions Handlers --------\\
+
+/**
+ * Creates a new user if the requested user does not exist and logs her/him in.
+ * @param req
+ * @param res
+ * @param next
+ */
 function createNewUser(req, res, next){
-
 
     User.create({
         'google.id': req.googleId,
@@ -35,6 +38,12 @@ function createNewUser(req, res, next){
     });
 }
 
+/**
+ * Logs in the requested user by updating req.session.user.
+ * @param req
+ * @param res
+ * @param next
+ */
 function logInExistingUser(req, res, next) {
     var displayName = req.body.displayName;
     var givenName = req.body.givenName;
@@ -42,7 +51,6 @@ function logInExistingUser(req, res, next) {
     var email = req.body.email;
     var googleId = req.body.id;
     var img_url = req.body.img_url;
-
 
     req.displayName = displayName;
     req.givenName = givenName;
@@ -70,13 +78,3 @@ function logInExistingUser(req, res, next) {
 }
 // bundle our routes
 module.exports = router;
-
-
-/*
- String displayName,
- String givenName,
- String familyName,
- String email,
- String id,
- Uri imgUrl,
-* */

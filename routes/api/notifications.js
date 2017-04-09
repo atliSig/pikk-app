@@ -1,5 +1,8 @@
 'use strict';
 
+/*
+* This module handles notification related routes on the Android client.
+* */
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
@@ -16,7 +19,12 @@ router.get('/',function(req,res,next){
 });
 
 
-
+/**
+ * Gets and sends the notifications belonging to a user.
+ * @param req
+ * @param res
+ * @param next
+ */
 function getNotificationsByUserId(req, res, next){
     var userid = req.params.userid;
 
