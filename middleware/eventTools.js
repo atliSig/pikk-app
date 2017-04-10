@@ -116,6 +116,7 @@ exports.checkIfEventReady = function (req, res, next) {
         })
         .then(function(evmember){
             var isReady = false;
+            var count =0;
             evmember.forEach(function (memb) {
                 if(memb.dataValues.selectedPlace === null)
                     count++;

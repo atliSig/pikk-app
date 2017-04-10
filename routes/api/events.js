@@ -33,8 +33,7 @@ router.post('/:eventid/choose',
     submitSelection
 );
 
-router.get('/create',
-    showCreateEvent);
+
 
 router.post('/create',
     createEvent);
